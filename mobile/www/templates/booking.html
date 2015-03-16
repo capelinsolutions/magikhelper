@@ -1,0 +1,23 @@
+<ion-view title="Booking">
+    <ion-content padding="true" class="has-header has-footer">
+        <div class="list card">
+            <div class="item item-divider">Create your booking</div>
+            <div class="item item-body">
+                <form>
+                    <label class="item item-input">
+                        <span class="input-label"></span>
+                        <input type="date" placeholder="Date of Service">
+                    </label>
+                    <label class="item item-select">
+                        <span class="input-label">Select time window</span>
+                        <select></select>
+                    </label>
+                    <ion-item class="range range-positive">Approx # of hours
+                        <input type="range" value="2" min="1" max="5">
+                    </ion-item>
+                    <a href="#/info" class="button button-stable button-block">Book</a>
+                </form>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
