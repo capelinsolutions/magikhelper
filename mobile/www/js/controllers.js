@@ -10,9 +10,9 @@ angular.module('starter.controllers', [])
                 AuthenticationService.Login($scope.username, $scope.password, function (response) {
                     if (response.success) {
                         AuthenticationService.SetCredentials($scope.username, $scope.password);
-                        $location.path('/');
+                        $location.path('/availability');
                     } else {
-                        alert('errorrrr!!!');
+                        alert(response.message);
                         $scope.error = response.message;
                         $scope.dataLoading = false;
                     }

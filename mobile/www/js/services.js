@@ -13,10 +13,12 @@ angular.module('starter.services', [])
                     password: password
                 })
                     .success(function (response) {
+                        response.success = true;
                         callback(response);
                     })
                     .error(function (data, status, headers, config) {
-                        alert(data);
+                        response.success = false;
+                        //alert(status);
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
