@@ -1,19 +1,20 @@
 <ion-view title="Login">
     <ion-content padding="true" class="has-header">
-        <form ng-submit="login()">
+        <form ng-submit="login()" ng-controller="LoginCtrl">
             <ion-list>
                 <label class="item item-input">
                     <span class="input-label">Username</span>
-                    <input type="text" name="username" id="username" class="form-control" ng-model="username" required />
+                    <input type="text" name="username" id="username" class="form-control" ng-model="username" required/>
                 </label>
                 <label class="item item-input">
                     <span class="input-label">Password</span>
-                    <input type="password" name="password" id="password" class="form-control" ng-model="password" required />
+                    <input type="password" name="password" id="password" class="form-control" ng-model="password"
+                           required/>
                 </label>
             </ion-list>
             <div class="spacer" style="height: 40px;"></div>
             <button type="submit" class="button button-stable button-block">Log in</button>
-            <a href="#/signup" class="button button-positive button-clear button-block">Or create an account</a>
+            <a ui-sref="signup" class="button button-positive button-clear button-block">Or create an account</a>
         </form>
     </ion-content>
 </ion-view>

@@ -5,35 +5,52 @@ angular.module('starter.controllers', [])
             AuthenticationService.ClearCredentials();
 
             $scope.login = function () {
-
                 $scope.dataLoading = true;
-                AuthenticationService.Login($scope.username, $scope.password, function(response) {
-                    if(response.success) {
+                AuthenticationService.Login($scope.username, $scope.password, function (response) {
+                    if (response.success) {
                         AuthenticationService.SetCredentials($scope.username, $scope.password);
-                        $location.path('/');
+                        $location.path('/availability');
                     } else {
-                        alert('errorrrr!!!');
+                        alert(response.message);
                         $scope.error = response.message;
                         $scope.dataLoading = false;
                     }
                 });
             };
         }])
-.controller('DashCtrl', function($scope) {})
+    .controller('SignUpCtrl',['$scope','$location', 'SignUpService', function ($scope, $location,SignUpService) {
+        $scope.createUser = function () {
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  }
-})
+            if (SignUpService.isPasswordSame($scope.password, $scope.confirmPassword)) {
+                var object = {email: $scope.email, firstName: $scope.contactName, password: $scope.password};
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
+                SignUpService.Save(object , function (response){
+                    if (response.success) {
+                        $location.path('/menu');
+                    } else {
+                        alert(response.message);
+                    }
+                });
+            } else {
+                alert("Passwords don't match");
+            }
+        };
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-});
+    }])
+
+    .controller('ChatsCtrl', function ($scope, Chats) {
+        $scope.chats = Chats.all();
+        $scope.remove = function (chat) {
+            Chats.remove(chat);
+        }
+    })
+
+    .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
+        $scope.chat = Chats.get($stateParams.chatId);
+    })
+
+    .controller('AccountCtrl', function ($scope) {
+        $scope.settings = {
+            enableFriends: true
+        };
+    });

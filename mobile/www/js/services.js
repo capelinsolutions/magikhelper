@@ -46,5 +46,30 @@ angular.module('starter.services', [])
             };
 
             return service;
-        }]);
+        }])
+
+    .factory('SignUpService', ['$http', function ($http) {
+        var service = {};
+
+        service.isPasswordSame = function (password, confirmPassword) {
+            return password == confirmPassword;
+        };
+
+        service.Save = function (object, callback) {
+            $http.post('http://magikheper-ws.elasticbeanstalk.com/services/clients', object)
+                .success(function (response) {
+                    alert('22');
+                    response.success = true;
+                    callback(response);
+                })
+                .error(function (data, status, headers, config) {
+                    alert("failure message: " + JSON.stringify({data: data}));
+                    alert(status);
+                    response.success = false;
+                    //alert(status);
+                });
+
+        };
+        return service;
+    }]);
 

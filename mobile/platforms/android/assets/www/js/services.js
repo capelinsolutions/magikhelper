@@ -1,24 +1,27 @@
 angular.module('starter.services', [])
     .factory('AuthenticationService',
-    ['$http',  '$rootScope', '$timeout',
-        function ( $http,  $rootScope, $timeout) {
+    ['$http', '$rootScope', '$timeout',
+        function ($http, $rootScope, $timeout) {
             var service = {};
 
             service.Login = function (username, password, callback) {
 
                 /* Use this for real authentication
                  ----------------------------------------------*/
-                $http.post('http://magikheper-ws.elasticbeanstalk.com/services/security/login', { email: username, password: password })
+                $http.post('http://magikheper-ws.elasticbeanstalk.com/services/security/login', {
+                    email: username,
+                    password: password
+                })
                     .success(function (response) {
+                        response.success = true;
                         callback(response);
                     })
-                    . error(function(data, status, headers, config) {
-                        alert(data);
+                    .error(function (data, status, headers, config) {
+                        response.success = false;
+                        //alert(status);
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
-
-                ;
 
             };
 
@@ -43,5 +46,31 @@ angular.module('starter.services', [])
             };
 
             return service;
-        }]);
+        }])
+
+    .factory('SignUpService', ['$http', function($http) {
+        var service = {};
+
+        service.isPasswordSame = function (password, confirmPassword) {
+            return password == confirmPassword;
+        };
+
+        service.Save = function (object , callback) {
+            alert('00');
+            $http.post('http://magikheper-ws.elasticbeanstalk.com/services/clients', object)
+                .success(function (response) {
+                    alert('22');
+                    response.success = true;
+                    callback(response);
+                })
+                .error(function (data, status, headers, config) {
+                    alert( "failure message: " + JSON.stringify({data: data}));
+                    alert(status);
+                    response.success = false;
+                    //alert(status);
+                });
+
+        };
+        return service;
+    }]);
 
