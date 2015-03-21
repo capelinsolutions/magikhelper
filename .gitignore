@@ -1,0 +1,6 @@
+*.class
+/mobile/.idea
+/mobile/platforms
+*.settings
+*.project
+*.classpath
