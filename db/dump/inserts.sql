@@ -33,32 +33,84 @@ INSERT INTO `magikhelper`.`application_properties` (`property_id`,`type`,`name`,
 VALUES
 (8,'BOOKING_STATUS','Cancelled','Cancelled',3,now(),'System',now(),'System',1);
 
-INSERT INTO `magikhelper`.`services_rates`
-(`row_id`,`service_id`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
-VALUES
-(1,1,20,now(),now(),'SYSTEM','SYSTEM',1);
-
-INSERT INTO `magikhelper`.`services_rates`
-(`row_id`,`service_id`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
-VALUES
-(2,2,20,now(),now(),'SYSTEM','SYSTEM',1);
-
-INSERT INTO `magikhelper`.`services_rates`
-(`row_id`,`service_id`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
-VALUES
-(3,3,20,now(),now(),'SYSTEM','SYSTEM',1);
-
-INSERT INTO `magikhelper`.`services_rates`
-(`row_id`,`service_id`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
-VALUES
-(4,4,20,now(),now(),'SYSTEM','SYSTEM',1);
-
-INSERT INTO `magikhelper`.`services_rates`
-(`row_id`,`service_id`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
-VALUES
-(5,5,20,now(),now(),'SYSTEM','SYSTEM',1);
-
 /*Appilication Properties End here */
+
+/*Services start here*/
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(1,1,75254,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(2,2,75254,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(3,3,75254,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(4,4,75254,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(5,5,75254,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(6,1,75240,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(7,2,75240,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(8,3,75240,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(9,4,75240,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(10,5,75240,20,now(),now(),'SYSTEM','SYSTEM',1);
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(11,1,75001,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(12,2,75001,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(13,3,75001,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(14,4,75001,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+INSERT INTO `magikhelper`.`services`
+(`row_id`,`service_id`,`zipcode`,`rate`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+VALUES
+(15,5,75001,20,now(),now(),'SYSTEM','SYSTEM',1);
+
+/*Services End here */
 
 /*Sys Roles starts here */
 INSERT INTO `magikhelper`.`system_role`
