@@ -19,6 +19,4 @@ public interface ApplicationPropertiesDao extends GenericDao<ApplicationProperty
 
     public List<ApplicationProperty> getSortedProperties();
 
-    public List<ApplicationProperty> getServicesWithRates();
-
 }

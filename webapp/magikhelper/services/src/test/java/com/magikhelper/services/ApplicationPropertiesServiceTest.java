@@ -26,9 +26,4 @@ public class ApplicationPropertiesServiceTest extends BaseServiceTest {
         log.debug("Properties ==========> " + properties);
     }
     
-    @Test
-    public void testServicesWithRate() {
-        List<MagikHelperService> properties = applicationProperties.getServicesWithRates();
-        log.debug("Properties ==========> " + properties);
-    }
 }

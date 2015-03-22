@@ -7,6 +7,7 @@ public class MagikHelperService {
 	private Integer serviceId;
 	private String name;
 	private BigDecimal rate;
+	private Integer zipcode;
 	
 	public MagikHelperService() {
 	}
@@ -39,10 +40,18 @@ public class MagikHelperService {
 	public void setRate(BigDecimal rate) {
 		this.rate = rate;
 	}
+	public Integer getZipcode() {
+		return zipcode;
+	}
+	public void setZipcode(Integer zipcode) {
+		this.zipcode = zipcode;
+	}
+
 	@Override
 	public String toString() {
-		return "Service [serviceId=" + serviceId + ", name=" + name + ", rate="
-				+ rate + "]";
+		return "MagikHelperService [serviceId=" + serviceId + ", name=" + name + ", rate=" + rate + ", zipcode=" + zipcode + "]";
 	}
+
+	
 	
 }

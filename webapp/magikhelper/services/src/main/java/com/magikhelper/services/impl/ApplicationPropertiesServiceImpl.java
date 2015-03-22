@@ -1,13 +1,5 @@
 package com.magikhelper.services.impl;
 
-import com.magikhelper.dao.ApplicationPropertiesDao;
-import com.magikhelper.entities.ApplicationProperty;
-import com.magikhelper.entities.ServicesRate;
-import com.magikhelper.entities.enums.ApplicationPropertyType;
-import com.magikhelper.services.ApplicationPropertiesService;
-import com.magikhelper.vo.*;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -19,6 +11,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.magikhelper.dao.ApplicationPropertiesDao;
+import com.magikhelper.entities.ApplicationProperty;
+import com.magikhelper.entities.enums.ApplicationPropertyType;
+import com.magikhelper.services.ApplicationPropertiesService;
 
 @Service(value = "applicationPropertiesService")
 public class ApplicationPropertiesServiceImpl implements ApplicationPropertiesService {
@@ -103,21 +100,4 @@ public class ApplicationPropertiesServiceImpl implements ApplicationPropertiesSe
     public SortedMap<String, String> propertiesByType(ApplicationPropertyType type) {
         return propertiesCache.get(type);
     }
-
-	@Override
-	public List<MagikHelperService> getServicesWithRates() {
-		List<MagikHelperService> services = new ArrayList<MagikHelperService>();
-		List<ApplicationProperty> appServices= applicationPropertiesDao.getServicesWithRates();
-    	for (ApplicationProperty service : appServices) {
-    		MagikHelperService s = new MagikHelperService(service.getPropertyId(), service.getName());
-    		List<ServicesRate> servicesRate = service.getServicesRates();
-    		for (ServicesRate serviceRate : servicesRate) {
-				s.setRate(serviceRate.getRate());
-			}
-    		services.add(s);
-		}
-    	return services;
-	}
-    
-    
 }

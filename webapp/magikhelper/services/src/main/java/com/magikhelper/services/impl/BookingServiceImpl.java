@@ -153,7 +153,7 @@ public class BookingServiceImpl implements BookingService {
 			vo.setStatus(b.getStatus().getName());
 			vo.setStatusDesc(b.getStatusDesc());
 			vo.setServiceName(b.getService().getName());
-			vo.setRate(b.getService().getServicesRates().get(0).getRate());
+			vo.setRate(b.getService().getServices().get(0).getRate());
 			vo.setClientId(b.getUser().getRowId());
 			vo.setEmail(b.getUser().getEmail());
 			vo.setFirstName(b.getUser().getFirstName());

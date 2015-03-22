@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 @Table(name="application_properties")
 @NamedQueries({
-	@NamedQuery(name="serviceWithRates", query="select props from ApplicationProperty props left join fetch props.servicesRates where props.active = '1' and props.type = :type "),
 	@NamedQuery(name="ApplicationProperty.findAll", query="SELECT a FROM ApplicationProperty a")
 })
 public class ApplicationProperty extends BaseEntity implements Serializable {
@@ -27,7 +26,7 @@ public class ApplicationProperty extends BaseEntity implements Serializable {
 	private int sortOrder;
 	private ApplicationPropertyType type;
 	private String value;
-	private List<ServicesRate> servicesRates;
+	private List<Services> services;
 
 	public ApplicationProperty() {
 	}
@@ -82,14 +81,14 @@ public class ApplicationProperty extends BaseEntity implements Serializable {
 		this.value = value;
 	}
 
-	//bi-directional many-to-one association to ServicesRate
+	//bi-directional many-to-one association to Services
     @OneToMany(mappedBy = "service", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-	public List<ServicesRate> getServicesRates() {
-		return this.servicesRates;
+	public List<Services> getServices() {
+		return this.services;
 	}
 
-	public void setServicesRates(List<ServicesRate> servicesRates) {
-		this.servicesRates = servicesRates;
+	public void setServices(List<Services> services) {
+		this.services = services;
 	}
 
 

@@ -33,7 +33,7 @@ public class BookingDaoJpaImpl extends GenericDaoJpaImpl<Booking, Integer> imple
 		qryStr.append("select bookings from Booking bookings ");
 		qryStr.append("inner join fetch bookings.service services ");
 		qryStr.append("inner join fetch bookings.status status ");
-		qryStr.append("inner join fetch services.servicesRates rates ");
+		qryStr.append("inner join fetch services.services rates ");
 		qryStr.append("where bookings.user.active ='1' ");
 		
 		if (columnNames != null && columnNames.size()>0 && values != null && values.size()>0){
@@ -96,7 +96,7 @@ public class BookingDaoJpaImpl extends GenericDaoJpaImpl<Booking, Integer> imple
 		qryStr.append("    booking bookings, ");
 		qryStr.append("    application_properties services, ");
 		qryStr.append("    application_properties status, ");
-		qryStr.append("    services_rates rates ");
+		qryStr.append("    services rates ");
 		qryStr.append("WHERE ");
 		qryStr.append("    roles.role_id = user_roles.role_id ");
 		qryStr.append("        AND user_roles.user_id = users.row_id ");

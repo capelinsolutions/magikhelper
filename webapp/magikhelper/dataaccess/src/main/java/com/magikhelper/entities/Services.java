@@ -16,19 +16,20 @@ import javax.persistence.Table;
 
 
 /**
- * The persistent class for the services_rates database table.
+ * The persistent class for the services database table.
  * 
  */
 @Entity
-@Table(name="services_rates")
-@NamedQuery(name="ServicesRate.findAll", query="SELECT s FROM ServicesRate s")
-public class ServicesRate extends com.magikhelper.entities.BaseEntity implements Serializable {
+@Table(name="services")
+@NamedQuery(name="Services.findAll", query="SELECT s FROM Services s")
+public class Services extends com.magikhelper.entities.BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int rowId;
 	private BigDecimal rate;
+	private Integer zipcode;
 	private ApplicationProperty service;
 
-	public ServicesRate() {
+	public Services() {
 	}
 
 
@@ -50,6 +51,15 @@ public class ServicesRate extends com.magikhelper.entities.BaseEntity implements
 
 	public void setRate(BigDecimal rate) {
 		this.rate = rate;
+	}
+
+
+	public Integer getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(Integer zipcode) {
+		this.zipcode = zipcode;
 	}
 
 

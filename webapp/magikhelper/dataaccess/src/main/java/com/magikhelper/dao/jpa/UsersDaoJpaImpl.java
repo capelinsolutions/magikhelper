@@ -29,7 +29,7 @@ public class UsersDaoJpaImpl extends GenericDaoJpaImpl<User, Integer> implements
 	public List<Object[]> getVendorWithSkills(Integer vendorId) {
 		StringBuilder qryStr=new StringBuilder();
 		qryStr.append("SELECT ");
-		qryStr.append("	    users.row_id, email, first_name, last_name, rates, props.property_id, value ");
+		qryStr.append("	    users.row_id, email, first_name, last_name, rates, props.property_id, value");
 		qryStr.append("	FROM ");
 		qryStr.append("	    system_role roles, ");
 		qryStr.append("	    user_role user_roles, ");

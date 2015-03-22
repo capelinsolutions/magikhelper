@@ -51,10 +51,4 @@ public class ApplicationPropertiesDaoJpaImpl extends GenericDaoJpaImpl<Applicati
         return query.getResultList();
     }
 
-    @Override
-	public List<ApplicationProperty> getServicesWithRates() {
-		Query query = entityManager.createNamedQuery("serviceWithRates");
-		query.setParameter("type", ApplicationPropertyType.SERVICES);
-		return query.getResultList();
-	}
 }
