@@ -18,13 +18,13 @@ angular.module('starter.controllers', [])
                 });
             };
         }])
-    .controller('SignUpCtrl',['$scope','$location', 'SignUpService', function ($scope, $location,SignUpService) {
+    .controller('SignUpCtrl', ['$scope', '$location', 'SignUpService', function ($scope, $location, SignUpService) {
         $scope.createUser = function () {
 
             if (SignUpService.isPasswordSame($scope.password, $scope.confirmPassword)) {
                 var object = {email: $scope.email, firstName: $scope.contactName, password: $scope.password};
 
-                SignUpService.Save(object , function (response){
+                SignUpService.Save(object, function (response) {
                     if (response.success) {
                         $location.path('/menu');
                     } else {

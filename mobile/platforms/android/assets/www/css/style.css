@@ -1,1 +1,398 @@
 /* Empty. Add your own CSS if you like */
+html, body {
+    height:100%;
+    position:relative;
+}
+a:hover{text-decoration:none;}
+
+.innerBody 	{ background: url("../img/login.png") no-repeat scroll center center / cover transparent !important; }
+
+input:focus{outline:0; border-color:#2e2aa1!important;  box-shadow:none!important; }
+.navbar-toggle {
+    display: block;
+}
+.navbar-default {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.navbar-toggle{
+    float:left;
+    box-shadow: none;
+    border: 0px;
+    border-radius:0px;
+    margin-top:28px;
+    margin-left: 10px;
+}
+.navbar-toggle:hover ,.navbar-toggle:focus{
+    background-color: transparent!important;
+    border-color: transparent!important;
+}
+
+.navbar-toggle .icon-bar {
+    display: block;
+    width: 30px;
+    height: 3px;
+    border-radius: 1px;
+    margin-bottom: 6px;
+    background-color: #fff!important;
+}
+/***************Splash Screen*******************/
+
+.container1{
+    min-height: 1682px;
+    width: 100%;
+    background:url(../../resources/splash.png) no-repeat center center ;
+    padding: 0;
+    margin: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    position:relative;
+}
+
+.btnNeed	{ text-align:center !important;background: white;position:absolute;bottom:0;left:0;right:0;padding: 20px 0px; }
+.btnNeed a	{ font-size:70pt !important; color:#45418d;}
+
+
+/***************Login Screen*******************/
+
+.login_container{
+    display: table;
+    width: 100%;
+    /*background:url(../images/login.png) no-repeat center center !important;*/
+    padding: 0;
+    margin: 0;
+    -webkit-background-size: cover!important;
+    -moz-background-size: cover!important;
+    -o-background-size: cover!important;
+    background-size: cover!important;
+    position:relative;
+    text-align:center;
+    min-height: 1682px;
+
+}
+.logo_wrapper{margin-top: 125px; margin-bottom:225px;}
+.btnAccount	{ color:white; font-size:44pt !important; text-align:center !important;background:url(../img/transparent_bg.png);position:absolute;bottom:0;left:0;right:0;padding: 20px 0px; }
+.btnAccount a	{  color:#45418d;}
+
+.logo_wrapper img{width: 350px;}
+.login_form{width:100%;margin:auto;margin-bottom: 20px;}
+
+.form_fields{border: 1px solid #2e2aa1;padding: 10px 10px;font-size: 17px; height:51px;}
+.form_submit{width: 100%;background: #2e2aa1;padding: 16px 10px;color: white;font-size: 17px;}
+.form_submit:hover{width: 100%;background: #2e2aa1;padding: 16px 10px;color: white;font-size: 17px;}
+
+/**********Check Availability *******************/
+.inner .login_form{
+    background: white;padding: 10px 15px;border-radius: 10px;
+    -webkit-box-shadow: 0 0 10px #8C8F91;
+    box-shadow: 0 0 10px #8C8F91;
+}
+.top_heading{
+    width:100%;
+    padding: 10px 0px;
+    background:#2e2aa1;
+    color: white;
+    font-size: 40pt;
+    margin-bottom: 180px;
+}
+
+.scroll-content {
+    background: url('../img/login.png');
+
+}
+
+.zip{
+    color: #2e2aa1;
+    text-align: left;
+    padding: 10px 0px;
+    margin-bottom: 10px;
+    font-size:25pt;
+}
+
+/********** Booking *******************/
+.form-group{position:relative;}
+.calender_icon{
+    position: absolute;
+    right: 10px;
+    top: 18px;
+}
+
+.ui-datepicker .ui-datepicker-header {
+    background: rgb(46, 42, 161) !important;
+    border-color: rgb(46, 42, 161) !important;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    border: 1px solid #2E2AA1!important;
+    background: #2E2AA1 url("images/ui-bg_highlight-soft_75_ffe45c_1x100.png") 50% top repeat-x!important;
+    color: #FFFFFF!important;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+    border: 1px solid #2E2AA1 !important;
+    background: #ffffff url("images/ui-bg_glass_65_ffffff_1x400.png") 50% 50% repeat-x!important;
+    font-weight: bold!important;
+    color: #2E2AA1!important;
+}
+
+.slider-wrapper{width:50%;float:right; height: 51px;padding: 25px 0px;padding-right:30px;}
+.range-min, .range-max , .display-box-label{display:none;}
+.border-form{border: 1px solid #2E2AA1;border-radius:5px; margin-bottom:15px;}
+.range-bar {
+    border: 2px solid #2E2AA1!important;
+    border-radius: 15px!important;
+    display: block;
+    height: 7px!important;
+    position: relative;
+    width: 95%!important;
+    background:white!important;
+}
+
+#js-display-change{
+    position: absolute;
+    top: 14px;
+    right: 5PX;
+    color: rgb(46, 42, 161);
+}
+.booking_fields1 {
+    border-bottom: 1px solid #2e2aa1;
+    padding: 10px 10px;
+    font-size: 16px;
+    border-radius: 0px;
+    box-shadow:none;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    height: 51px;
+}
+.booking_fields2 {
+    border-bottom: 1px solid #2e2aa1;
+    padding: 25px 10px;
+    font-size: 16px;
+    box-shadow:none;
+}
+
+.approx{
+    color: #999;
+    font-size: 16px;
+    display: inline;
+    float: left;
+    margin-top: 14px;
+    margin-left: 10px;
+}
+/***************Personal Screen*******************/
+
+.top-radius-field{
+    border-top-left-radius:5px!important;
+    border-top-right-radius:5px!important;
+}
+
+.bottom-radius-field{
+    border-bottom-left-radius:5px!important;
+    border-bottom-right-radius:5px!important;
+    border:0px!important;
+}
+
+.personal_form_fields {
+    padding: 10px 10px;
+    font-size: 17px;
+    border-radius: 0px;
+    box-shadow: none!important;
+    border:0px;
+    border-bottom: 1px solid #2E2AA1;
+    height: 51px;
+}
+
+.previous_div , .next_div{
+    width:50%;
+
+    float:left;
+}
+.previous_div {
+    padding:10px 6px 0px 0px;
+}
+
+.next_div {
+    padding:10px 0px 0px 6px;
+}
+
+.form_2{display:none;}
+
+
+/*********************Services Screen*****************************/
+.no-padding {
+    padding:0px !important;
+}
+
+.nopaddingleft{
+    padding-left:0px;
+}
+
+.nopaddingright{
+    padding-right:0px;
+}
+.service_details{
+    background: white;
+    margin: 15px 0px 15px 15px;
+    width: 97%;
+    border-right: 30px solid #3430a7;
+    overflow: hidden;
+}
+
+.service_details .service_title {
+    color: #616161;
+    font-size: 50px;
+    text-transform: uppercase;
+    font-family: 'Roboto';
+    text-align: left;
+    margin-left: 25px;
+    margin-top: 220px;
+}
+
+.service_details  .service_detail {
+    color: #9e9e9e;
+    font-size: 30px;
+    font-family: 'Roboto';
+    float: left;
+    margin-left: 25px;
+}
+
+/************menu css***********/
+.menu_top{
+    min-height:176px;
+    background:url("../img/nav_background.png") no-repeat;
+    background-size: contain;
+    padding:15px 10px;
+    color:white;
+}
+
+.menu_top img{
+    width: 105px;
+    border-radius: 50px;
+}
+
+.caret{
+    background: url(../img/select-icons.png) 0 -167px no-repeat;
+    height: 30px;
+    outline: none;
+    width: 30px;
+    border: 0px;
+}
+
+.left_nav li{
+    border-bottom: 1px solid rgb(244, 244, 244);
+    min-height: 51px;
+    padding: 10px 10px;
+}
+
+.dropdown li{
+    border:0px!important;
+}
+
+.left_nav li.dropdown a , .left_nav li > a{
+    font-weight: bold;
+    color: #5f5e5e;
+    font-family: roboto;
+}
+
+.left_nav li > a:active, .left_nav li > a:focus , .left_nav li > a:focus {
+    color: #5f5e5e!important;
+    background:white!important;
+    background-color:white;
+}
+.navmenu{
+    overflow:hidden;
+
+}
+
+.navmenu-default, .navbar-default .navbar-offcanvas {
+    background-color: white!important;
+    border-color: #e7e7e7;
+    border: 0px;
+}
+
+.dropdown-menu{
+    background-color:white!important;
+}
+
+
+@media (max-width: 990px){
+    .service_details .service_title {
+        margin-top: 115px;
+    }
+}
+
+@media (max-width: 880px){
+    .service_details .service_title {
+        margin-top: 77px;
+    }
+}
+
+@media (max-width: 768px){
+    /***************Splash Screen*******************/
+
+    .container{
+        min-height: 100%;
+    }
+
+    .btnNeed	{ padding: 5px 0px; }
+    .btnNeed a	{ font-size:20pt !important;}
+
+    /***************Login Screen*******************/
+
+    .logo_wrapper{margin-top: 50px; margin-bottom:20px;}
+    .logo_wrapper img{width: 150px;}
+    .btnAccount	{ font-size:20pt !important; padding: 20px 0px; }
+
+    /**********Check Availability *******************/
+
+
+    .top_heading{
+        font-size: 14pt;
+        margin-bottom: 75px;
+    }
+
+    .zip{
+        font-size:16pt;
+    }
+
+    .service_details .service_title {
+        color: #616161;
+        font-family: "Roboto";
+        font-size: 20pt;
+        margin-left: 25px;
+        margin-top: 120px;
+        text-align: left;
+        text-transform: uppercase;
+    }
+
+    .service_details{
+        overflow: hidden;
+        width: 93%;
+    }
+
+    .service_details .service_detail {
+        font-size: 15pt;}
+
+    .navbar-toggle{
+        margin-top:3px;
+    }
+
+}
+
+@media (max-width: 480px){
+
+    .btnAccount	{ font-size:13pt !important; padding: 20px 0px; }
+    .zip{font-size:16pt;}
+    .service_details .service_title {
+        font-size: 13pt;
+        margin-top: 25px;
+    }
+
+    .service_details .service_detail {
+        font-size: 11pt;
+    }
+
+}
