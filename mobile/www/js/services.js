@@ -56,17 +56,16 @@ angular.module('starter.services', [])
         };
 
         service.Save = function (object, callback) {
+            alert(JSON.stringify(object));
             $http.post('http://magikheper-ws.elasticbeanstalk.com/services/clients', object)
                 .success(function (response) {
-                    alert('22');
+                    alert('User successfully created');
                     response.success = true;
                     callback(response);
                 })
                 .error(function (data, status, headers, config) {
                     alert("failure message: " + JSON.stringify({data: data}));
-                    alert(status);
                     response.success = false;
-                    //alert(status);
                 });
 
         };
