@@ -6,6 +6,9 @@ angular.module('starter.controllers', [])
 
             $scope.login = function () {
                 $scope.dataLoading = true;
+
+                $location.path('/availability');
+                /*
                 AuthenticationService.Login($scope.username, $scope.password, function (response) {
                     if (response.success) {
                         AuthenticationService.SetCredentials($scope.username, $scope.password);
@@ -15,7 +18,7 @@ angular.module('starter.controllers', [])
                         $scope.error = response.message;
                         $scope.dataLoading = false;
                     }
-                });
+                 });*/
             };
         }])
     .controller('SignUpCtrl', ['$scope', '$location', 'SignUpService', function ($scope, $location, SignUpService) {
@@ -38,19 +41,18 @@ angular.module('starter.controllers', [])
 
     }])
 
-    .controller('ChatsCtrl', function ($scope, Chats) {
-        $scope.chats = Chats.all();
-        $scope.remove = function (chat) {
-            Chats.remove(chat);
+    .controller('AvailabilityCtrl', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location) {
+        $scope.checkAvailability = function () {
+            $location.path('/services');
         }
-    })
+    }])
+
+    .controller('AvailableServicesCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', function ($scope, $rootScope, $location, AvailableServices) {
+        $scope.listAllServices = function () {
+            //TODO: to be implemented
+        }
+    }])
 
     .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
         $scope.chat = Chats.get($stateParams.chatId);
-    })
-
-    .controller('AccountCtrl', function ($scope) {
-        $scope.settings = {
-            enableFriends: true
-        };
     });

@@ -51,7 +51,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 templateUrl: 'templates/services.html'
             })
 
-            .state('page10', {
+            .state('booking', {
                 url: '/booking',
                 templateUrl: 'templates/booking.html'
             })
@@ -68,8 +68,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
         ;
 
         // if none of the above states are matched, use this as the fallback
-
-        $urlRouterProvider.otherwise('/menu');
-
+        $urlRouterProvider.otherwise('/login');
 
     });
