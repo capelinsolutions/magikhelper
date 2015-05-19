@@ -23,7 +23,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
-
+        /*
             .state('side-menu2', {
                 url: '/menu',
                 templateUrl: 'templates/side-menu2.html'
@@ -65,9 +65,62 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 url: '/confirm',
                 templateUrl: 'templates/confirmation.html'
             })
+
+            .state('home', {
+                url: 'index',
+                templateUrl: 'index.html'
+            }) */
+
+
+
+            .state('signup', {
+                url: '/signup',
+                templateUrl: 'signup.html'
+            })
+
+            .state('login', {
+                url: '/login',
+                controller: 'LoginCtrl',
+                templateUrl: 'login.html'
+            })
+
+            .state('services', {
+                url: '/services',
+                templateUrl: 'services.html'
+            })
+
+            .state('about', {
+                url: '/about',
+                templateUrl: 'about.html'
+            })
+
+            .state('contact_person', {
+                url: '/contact_person',
+                templateUrl: 'contact_person.html'
+            })
+
+            .state('address', {
+                url: '/address',
+                templateUrl: 'address.html'
+            })
+
+            .state('zipcode', {
+                url: '/zipcode',
+                templateUrl: 'zipcode.html'
+            })
+
+            .state('booking', {
+                url: '/booking',
+                templateUrl: 'booking.html'
+            })
+
+            .state('home', {
+                url: 'index',
+                templateUrl: 'index.html'
+            })
         ;
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('index');
 
     });

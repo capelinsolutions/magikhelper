@@ -298,7 +298,7 @@ input:focus {
 }
 
 .previous_div, .next_div {
-    width: 50%;
+    width: 100%;
 
     float: left;
 }

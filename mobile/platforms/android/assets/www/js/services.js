@@ -5,7 +5,6 @@ angular.module('starter.services', [])
             var service = {};
 
             service.Login = function (username, password, callback) {
-
                 /* Use this for real authentication
                  ----------------------------------------------*/
                 $http.post('http://magikheper-ws.elasticbeanstalk.com/services/security/login', {
@@ -22,7 +21,6 @@ angular.module('starter.services', [])
                         // called asynchronously if an error occurs
                         // or server returns response with an error status.
                     });
-
             };
 
             service.SetCredentials = function (username, password) {
@@ -47,6 +45,25 @@ angular.module('starter.services', [])
 
             return service;
         }])
+
+    .factory('AvailableServices', ['$http', function ($http) {
+        var service = {};
+
+        service.getAllServices = function (object, callback) {
+            alert(JSON.stringify(object));
+            $http.get('http://magikheper-ws.elasticbeanstalk.com/services/helperServices', object)
+                .success(function (response) {
+                    response.success = true;
+                    callback(response);
+                })
+                .error(function (data, status, headers, config) {
+                    alert("failure message: " + JSON.stringify({data: data}));
+                    response.success = false;
+                });
+
+        };
+        return service;
+    }])
 
     .factory('SignUpService', ['$http', function ($http) {
         var service = {};

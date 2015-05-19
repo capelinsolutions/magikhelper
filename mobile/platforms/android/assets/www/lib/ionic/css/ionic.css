@@ -1,3 +1,4 @@
+
 /*!
  * Copyright 2014 Drifty Co.
  * http://drifty.com/
@@ -7175,7 +7176,7 @@ a.item-content {
 }
 
 .card .item:last-child, .list-inset .item:last-child {
-    margin-bottom: -1px;
+    margin-bottom: -3px;
 }
 
 .card .item, .list-inset .item, .padding > .list .item, .padding-horizontal > .list .item {
@@ -9952,7 +9953,7 @@ a.button .icon:before, a.button.icon:before, a.button.icon-left:before, a.button
  * Platform specific tweaks
  */
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
-    height: 64px;
+    height: 44px;
 }
 
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
@@ -9960,7 +9961,7 @@ a.button .icon:before, a.button.icon:before, a.button.icon-left:before, a.button
 }
 
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
-    margin-top: 20px;
+/* margin-top: 20px; */
 }
 
 .platform-ios.platform-cordova:not(.fullscreen) .tabs-top > .tabs, .platform-ios.platform-cordova:not(.fullscreen) .tabs.tabs-top {
@@ -9968,7 +9969,7 @@ a.button .icon:before, a.button.icon:before, a.button.icon-left:before, a.button
 }
 
 .platform-ios.platform-cordova:not(.fullscreen) .has-header, .platform-ios.platform-cordova:not(.fullscreen) .bar-subheader {
-    top: 64px;
+/*    top: 64px; */
 }
 
 .platform-ios.platform-cordova:not(.fullscreen) .has-subheader {

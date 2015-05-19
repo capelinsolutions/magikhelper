@@ -1,14 +1,21 @@
-<ion-view title="Check Availability -1">
+<ion-view title="Check Service Availability ">
     <ion-content padding="true" class="has-header">
         <div class="list card">
             <div class="item item-divider">Enter Your ZipCode</div>
             <div class="item item-body">
-                <form>
+                <form ng-submit="checkAvailability()" ng-controller="AvailabilityCtrl">
+                    <div class="list list-inset personalBox" id="personal_content">
                     <label class="item item-input">
-                        <span class="input-label"></span>
-                        <input type="text" placeholder="ZipCode">
+                        <span class="input-label">ZipCode</span>
+                        <input type="text" name="searchZipCode" id="searchZipCode" ng-model="searchZipCode"
+                               class="form-control form_field"
+                               placeholder="ZipCode">
                     </label>
-                    <a href="#/services" class="button button-stable button-block">Check</a>
+
+                        <div class="padding">
+                            <button type="submit" class="form_submit button button-royal">Check</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
