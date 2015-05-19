@@ -1,0 +1,43 @@
+<ion-view title="Check Service Availability ">
+    <ion-content padding="true" class="has-header">
+        <ion-tabs class="tabs-positive tabs-icon-only">
+
+            <ion-tab title="Assigned">
+                <content has-header="true" has-subheader="true">
+                    <div class="list card ">
+                        <div class="item item-icon-left" ng-repeat="job in listAllAssignedServices"
+                             type="item-text-wrap" href="#/vendor/{{job.id}}">
+                            <h3>{{job.jobType}}</h3>
+
+                            <p>Requested by: {{job.requestedBy}}</p>
+
+                            <p>Service Date: {{job.dateOfService}}</p>
+
+                            <p>Service Time: {{job.requestedTimeOfService}}</p>
+                        </div>
+
+                    </div>
+                </content>
+            </ion-tab>
+
+            <ion-tab title="Completed">
+                <content has-header="true" has-subheader="true">
+                    <div class="list ">
+                        <div class="item" ng-repeat="job in listAllCompletedServices" type="item-text-wrap"
+                             href="#/vendor/{{job.id}}">
+                            <h3>{{job.jobType}}</h3>
+
+                            <p>Requested by: {{job.requestedBy}}</p>
+
+                            <p>Service Date: {{job.dateOfService}}</p>
+
+                            <p>Service Time: {{job.requestedTimeOfService}}</p>
+                        </div>
+                    </div>
+                </content>
+            </ion-tab>
+
+
+        </ion-tabs>
+    </ion-content>
+</ion-view>
