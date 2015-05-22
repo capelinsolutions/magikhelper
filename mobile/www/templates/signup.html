@@ -1,3 +1,4 @@
+<!--
 <ion-view title="Signup">
     <ion-content padding="true" scroll="false" class="has-header">
         <form ng-submit="createUser()" ng-controller="SignUpCtrl">
@@ -23,4 +24,32 @@
 
         </form>
     </ion-content>
+</ion-view>
+
+-->
+<ion-view title="Signup">
+    <ion-content class="padding">
+        <div id="logo-wrapper" style="text-align: center;"><img src="img/logo.png" width="150px;"></div>
+        <div class="list">
+            <form ng-submit="createUser()" ng-controller="SignUpCtrl">
+                <label class="item item-input loginForminput border_bottom_input">
+                    <input type="text" placeholder="Name">
+                </label>
+                <label class="item item-input loginForminput border_bottom_input">
+                    <input type="email" placeholder="Email">
+                </label>
+                <label class="item item-input loginForminput border_bottom_input">
+                    <input type="password" placeholder="Password">
+                </label>
+                <label class="item item-input loginForminput border_bottom_input">
+                    <input type="password" placeholder="Confirm Password">
+                </label>
+                <a class="button button-block button-positive" ui-sref="contact_person">Sign Up</a>
+            <!--  <button class="button button-block button-positive">Sign Up</button> -->
+            </form>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer btnAccount">
+        <div class="title">Already Account? <a ui-sref="login">Login</a></div>
+    </div>
 </ion-view>

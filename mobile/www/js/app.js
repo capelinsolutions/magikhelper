@@ -23,7 +23,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
-        /*
+    /*
             .state('side-menu2', {
                 url: '/menu',
                 templateUrl: 'templates/side-menu2.html'
@@ -69,49 +69,53 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             .state('home', {
                 url: 'index',
                 templateUrl: 'index.html'
-            }) */
+            })
 
-
+*/
+            .state('side-menu2', {
+                url: '/menu',
+                templateUrl: 'templates/side-menu2.html'
+            })
 
             .state('signup', {
                 url: '/signup',
-                templateUrl: 'signup.html'
+                templateUrl: 'templates/signup.html'
             })
 
             .state('login', {
                 url: '/login',
                 controller: 'LoginCtrl',
-                templateUrl: 'login.html'
+                templateUrl: 'templates/login.html'
             })
 
             .state('services', {
                 url: '/services',
-                templateUrl: 'services.html'
+                templateUrl: 'templates/services.html'
             })
 
             .state('about', {
                 url: '/about',
-                templateUrl: 'about.html'
+                templateUrl: 'templates/about.html'
             })
 
             .state('contact_person', {
                 url: '/contact_person',
-                templateUrl: 'contact_person.html'
+                templateUrl: 'templates/contact_person.html'
             })
 
             .state('address', {
                 url: '/address',
-                templateUrl: 'address.html'
+                templateUrl: 'templates/address.html'
             })
 
-            .state('zipcode', {
-                url: '/zipcode',
-                templateUrl: 'zipcode.html'
+            .state('availability', {
+                url: '/availability',
+                templateUrl: 'templates/availability.html'
             })
 
             .state('booking', {
                 url: '/booking',
-                templateUrl: 'booking.html'
+                templateUrl: 'templates/booking.html'
             })
 
             .state('home', {
