@@ -1,0 +1,24 @@
+<ion-view title="Job Details ">
+    <ion-content padding="true" class="has-header">
+        <div class="details">
+
+            <h4>{{ job.jobType }}</h4>
+            <p>
+                {{ job.requestedBy }}<br/>
+                {{ job.serviceAddress }}<br/>
+                {{ job.dateOfService}}
+            </p>
+        </div>
+<!--
+        <div class="list card">
+            <a class="item item-icon-left" href="tel:{{job.dateOfService}}"><i class="icon ion-ios7-telephone"></i>Call Office<p>{{employee.officePhone}}</p></a>
+            <a class="item item-icon-left" href="tel:{{employee.cellPhone}}"><i class="icon ion-ios7-telephone"></i>Call Cell<p>{{employee.cellPhone}}</p></a>
+            <a class="item item-icon-left" href="sms:{{employee.cellPhone}}"><i class="icon ion-chatbox-working"></i>SMS<p>{{employee.cellPhone}}</p></a>
+            <a class="item item-icon-left" href="mailto:{{employee.email}}"><i class="icon ion-ios7-email"></i>Email<p>{{employee.email}}</p></a>
+        </div>
+        -->
+        <div class="bar bar-footer bar-balanced">
+            <div class="title">Start Job</div>
+        </div>
+    </ion-content>
+</ion-view>
