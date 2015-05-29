@@ -46,6 +46,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 templateUrl: 'templates/availability.html'
             })
 
+            .state('vendorJoblist', {
+                url: '/ven_joblist',
+                controller: 'VendorJobListCtrl',
+                templateUrl: 'templates/ven_joblist.html'
+            })
+            .state('vendorJobDetail', {
+                url: '/job/:jobId',
+                templateUrl: 'templates/ven_jobDetail.html',
+                controller: 'VendorJobDetailCtrl'
+            })
+
             .state('page12', {
                 url: '/services',
                 templateUrl: 'templates/services.html'
@@ -87,6 +98,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 controller: 'LoginCtrl',
                 templateUrl: 'templates/login.html'
             })
+            .state('vendorJoblist', {
+                url: '/ven_joblist',
+                controller: 'VendorJobListCtrl',
+                templateUrl: 'templates/ven_joblist.html'
+            })
+            .state('vendorJobDetail', {
+                url: '/job/:jobId',
+                templateUrl: 'templates/ven_jobDetail.html',
+                controller: 'VendorJobDetailCtrl'
+            })
 
             .state('services', {
                 url: '/services',
@@ -119,12 +140,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
             })
 
             .state('home', {
-                url: 'index',
+                url: '/index',
                 templateUrl: 'index.html'
             })
         ;
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('index');
+        $urlRouterProvider.otherwise('/login');
 
     });

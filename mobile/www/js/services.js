@@ -65,6 +65,44 @@ angular.module('starter.services', [])
         return service;
     }])
 
+    .factory('VendorServices', ['$http', '$q' , function ($http, $q) {
+        var service = {};
+        var joblist = [
+            {"id": 1, "jobType": "Cleaning", "requestedBy": "John Doe", "dateOfService": "05/15/2015", "requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "3", "serviceAddress": "1 main st. Dallas TX 75200", "status": "COMPLETED", "commentByRequester": "Job Done on Time"},
+            {"id": 2, "jobType": "Cleaning", "requestedBy": "John Doe", "dateOfService": "05/18/2015","requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "2","serviceAddress": "13155 Noel Rd Dallas TX 75240", "status": "ASSIGNED", "commentByRequester": ""},
+            {"id": 3, "jobType": "General Labor", "requestedBy": "Jane Doe", "dateOfService": "05/17/2015","requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "2", "serviceAddress": "14155 Preston Rd Dallas TX 75254", "status": "ASSIGNED", "commentByRequester": ""}
+        ];
+
+        service.getAllCompletedService = function () {
+            var data=[];
+            	  angular.forEach(joblist, function(item){
+                   if(item.status == 'COMPLETED'){
+                       data.push(item);
+                   }});
+             return data;
+        };
+        service.getAllAssignedService = function () {
+            var data=[];
+            angular.forEach(joblist, function(item){
+                if(item.status == 'ASSIGNED'){
+                    data.push(item);
+                }});
+            return data;
+        };
+        service.findById = function(jobId) {
+            var deferred = $q.defer();
+            var job ;
+            angular.forEach(joblist, function(item){
+                if(item.id == parseInt(jobId)){
+                    job = item;
+                }});
+            deferred.resolve(job);
+            return deferred.promise;
+        };
+
+        return service;
+    }])
+
     .factory('SignUpService', ['$http', function ($http) {
         var service = {};
 

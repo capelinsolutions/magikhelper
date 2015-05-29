@@ -24,8 +24,7 @@
     <script src="js/services.js"></script>
 
 </head>
-<body ng-app="starter" animation="slide-left-right-ios7" class="platform-android platform-cordova platform-webview overflow-scroll"
-      style="background: url(img/login.png) no-repeat scroll top center / cover transparent !important" ;>
+<body ng-app="starter" animation="slide-left-right-ios7" class="platform-android platform-cordova platform-webview overflow-scroll" style="background: url(img/login.png) no-repeat scroll top center / cover transparent !important;">
 <!--
   The nav bar that will be updated as we navigate between views.
 -->
@@ -45,37 +44,25 @@
                     <a ui-sref="services">Services</a>
                 </div>
                 <div class="item item-divider">
-                    <a href="">About Us</a>
+                    <a ui-sref="about">About Us</a>
                 </div>
 
                 <div class="item item-divider">
-                    <a ui-sref="signup">Signup</a>
+                    <a ui-sref="side-menu2">Side Menu 2</a>
                 </div>
-                <div class="item item-divider">
-                    <a ui-sref="contact_person">Contact Person</a>
-                </div>
-                <div class="item item-divider">
-                    <a ui-sref="address">Address</a>
-                </div>
-                <div class="item item-divider">
-                    <a ui-sref="zipcode">Zip Code</a>
-                </div>
-                <div class="item item-divider">
-                    <a ui-sref="booking">Booking</a>
-                </div>
+
 
 
             </ion-list>
         </ion-content>
     </ion-side-menu>
     <ion-pane  ion-side-menu-content="" style="background: url(img/splash.png) no-repeat scroll top center / cover transparent !important;">
-
         <div class="bar bar-footer">
             <div class="title helpClass">NEED HELP?</div>
         </div>
     </ion-pane>
 </ion-side-menus>
-
+<!--
 <script id="login.html" type="text/ng-template">
     <ion-side-menus>
         <ion-pane  ion-side-menu-content="" style="background: url(img/login.png) no-repeat scroll top center / cover transparent !important;">
@@ -93,6 +80,30 @@
             </ion-content>
             <div class="bar bar-footer btnAccount">
                 <div class="title">Don't have a account? <a ui-sref="signup"> Sign up </a></div>
+            </div>
+        </ion-pane>
+    </ion-side-menus>
+</script>
+<script id="signup.html" type="text/ng-template">
+    <ion-side-menus>
+        <ion-pane  ion-side-menu-content="" style="background: url(img/login.png) no-repeat scroll top center / cover transparent !important;">
+            <ion-content class="padding">
+                <div id="logo-wrapper" style="text-align: center;"><img src="img/logo.png" width="150px;"></div>
+                <div class="list">
+                    <label class="item item-input loginForminput border_bottom_input">
+                    <input type="text" placeholder="Name">
+                    </label>
+                    <label class="item item-input loginForminput border_bottom_input">
+                    <input type="text" placeholder="Username">
+                    </label>
+                    <label class="item item-input loginForminput border_bottom_input">
+                    <input type="password" placeholder="Password">
+                    </label>
+                    <a class="button button-block button-positive" ui-sref="">Sign Up</a>
+                </div>
+            </ion-content>
+            <div class="bar bar-footer btnAccount">
+                <div class="title">Already Account? <a ui-sref="login">Login</a></div>
             </div>
         </ion-pane>
     </ion-side-menus>
@@ -116,20 +127,17 @@
                     <div class="item item-divider">
                         My Account
                     </div>
-                    <a class="menu-item" href="#">Wish List</a>
-                    <a class="menu-item" href="#">Order</a>
-                    <a class="menu-item" href="#">Recommendations</a>
+                    <a class="menu-item" ui-sref="">Wish List</a>
+                    <a class="menu-item" ui-sref="">Order</a>
+                    <a class="menu-item" ui-sref="">Recommendations</a>
                     <div class="item item-divider">
                         <a ui-sref="services">Services</a>
                     </div>
-                    <a class="menu-item" href="#">Service 1</a>
-                    <a class="menu-item" href="#">Service 2</a>
-                    <a class="menu-item" href="#">Service 3</a>
+                    <a class="menu-item" ui-sref="">Service 1</a>
+                    <a class="menu-item" ui-sref="">Service 2</a>
+                    <a class="menu-item" ui-sref="">Service 3</a>
                     <div class="item item-divider">
                         About Us
-                    </div>
-                    <div class="item item-divider">
-                        <a ui-sref="contact_person">Contact Person</a>
                     </div>
                 </ion-list>
             </ion-content>
@@ -141,32 +149,32 @@
             </ion-header-bar>
             <ion-content class="padding">
                 <div class="list">
-                    <a class="item item-thumbnail-left singleService" href="#">
+                    <a class="item item-thumbnail-left singleService" ui-sref="">
                         <img src="img/service1.png">
                         <h2>General Labor</h2>
                         <p>Lorem Ipsum</p>
                     </a>
-                    <a class="item item-thumbnail-left singleService" href="#">
+                    <a class="item item-thumbnail-left singleService" ui-sref="">
                         <img src="img/service2.png">
                         <h2>Furniture Assembly</h2>
                         <p>Lorem Ipsum</p>
                     </a>
-                    <a class="item item-thumbnail-left singleService" href="#">
+                    <a class="item item-thumbnail-left singleService" ui-sref="">
                         <img src="img/service3.png">
                         <h2>Moving</h2>
                         <p>Lorem Ipsum</p>
                     </a>
-                    <a class="item item-thumbnail-left singleService" href="#">
+                    <a class="item item-thumbnail-left singleService" ui-sref="">
                         <img src="img/service1.png">
                         <h2>Cleaning</h2>
                         <p>Lorem Ipsum</p>
                     </a>
-                    <a class="item item-thumbnail-left singleService" href="#">
+                    <a class="item item-thumbnail-left singleService" ui-sref="">
                         <img src="img/service2.png">
                         <h2>Furniture Assembly</h2>
                         <p>Lorem Ipsum</p>
                     </a>
-                    <a class="item item-thumbnail-left singleService" href="#">
+                    <a class="item item-thumbnail-left singleService" ui-sref="">
                         <img src="img/service3.png">
                         <h2>Yard Work</h2>
                         <p>Lorem Ipsum</p>
@@ -176,32 +184,53 @@
         </ion-pane>
     </ion-side-menus>
 </script>
-
-<script id="signup.html" type="text/ng-template">
+<script id="about.html" type="text/ng-template">
     <ion-side-menus>
-        <ion-pane  ion-side-menu-content="" style="background: url(img/login.png) no-repeat scroll top center / cover transparent !important;">
-            <ion-content class="padding">
-                <div id="logo-wrapper" style="text-align: center;"><img src="img/logo.png" width="150px;"></div>
-                <div class="list">
-                    <label class="item item-input loginForminput border_bottom_input">
-                    <input type="text" placeholder="Name">
-                    </label>
-                    <label class="item item-input loginForminput border_bottom_input">
-                    <input type="text" placeholder="Username">
-                    </label>
-                    <label class="item item-input loginForminput border_bottom_input">
-                    <input type="password" placeholder="Password">
-                    </label>
-                    <a class="button button-block button-positive" href="personalPage.html">Sign Up</a>
+        <ion-side-menu side="left">
+            <ion-header-bar class="profileHead menu_top">
+                <div class="">
+                    <div class="">
+                        <img src="img/menu_person.png">
+                    </div>
+                    <div class="">
+                        <p class="username">Jhonny Smith</p>
+                        <p class="useremail">Jhonnysmith@xyz.com</p>
+                    </div>
                 </div>
+            </ion-header-bar>
+            <ion-content padding="false" scroll="true" class="menuProfileHead">
+                <ion-list>
+                    <div class="item item-divider">
+                        My Account
+                    </div>
+                    <a class="menu-item" ui-sref="">Wish List</a>
+                    <a class="menu-item" ui-sref="">Order</a>
+                    <a class="menu-item" ui-sref="">Recommendations</a>
+                    <div class="item item-divider">
+                        <a ui-sref="services">Services</a>
+                    </div>
+                    <a class="menu-item" ui-sref="">Service 1</a>
+                    <a class="menu-item" ui-sref="">Service 2</a>
+                    <a class="menu-item" ui-sref="">Service 3</a>
+                    <div class="item item-divider">
+                        About Us
+                    </div>
+                </ion-list>
             </ion-content>
-            <div class="bar bar-footer btnAccount">
-                <div class="title">Already Account? <a ui-sref="login">Login</a></div>
-            </div>
+        </ion-side-menu>
+        <ion-pane  ion-side-menu-content="" scroll="true" style="background: url(img/login.png) no-repeat scroll top center / cover transparent !important;">
+            <ion-header-bar class="bar bar-positive bar-stable">
+                <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+                <h1 class="title">About Us</h1>
+            </ion-header-bar>
+            <ion-content class="padding">
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            </ion-content>
         </ion-pane>
     </ion-side-menus>
 </script>
-
 <script id="contact_person.html" type="text/ng-template">
     <ion-side-menus>
         <ion-side-menu side="left">
@@ -221,15 +250,15 @@
                     <div class="item item-divider">
                         My Account
                     </div>
-                    <a class="menu-item" href="#">Wish List</a>
-                    <a class="menu-item" href="#">Order</a>
-                    <a class="menu-item" href="#">Recommendations</a>
+                    <a class="menu-item" ui-sref="">Wish List</a>
+                    <a class="menu-item" ui-sref="">Order</a>
+                    <a class="menu-item" ui-sref="">Recommendations</a>
                     <div class="item item-divider">
-                        <a href="service.html">Services</a>
+                        <a ui-sref="services">Services</a>
                     </div>
-                    <a class="menu-item" href="#">Service 1</a>
-                    <a class="menu-item" href="#">Service 2</a>
-                    <a class="menu-item" href="#">Service 3</a>
+                    <a class="menu-item" ui-sref="">Service 1</a>
+                    <a class="menu-item" ui-sref="">Service 2</a>
+                    <a class="menu-item" ui-sref="">Service 3</a>
                     <div class="item item-divider">
                         About Us
                     </div>
@@ -255,7 +284,7 @@
                             <input type="email" placeholder="Email">
                         </label>
                     </div>
-                    <a href="personalPage2.html" class="button button-theme button-block">Next</a>
+                    <a ui-sref="" class="button button-theme button-block">Next</a>
                 </div>
             </ion-content>
         </ion-pane>
@@ -281,15 +310,15 @@
                     <div class="item item-divider">
                         My Account
                     </div>
-                    <a class="menu-item" href="#">Wish List</a>
-                    <a class="menu-item" href="#">Order</a>
-                    <a class="menu-item" href="#">Recommendations</a>
+                    <a class="menu-item" ui-sref="">Wish List</a>
+                    <a class="menu-item" ui-sref="">Order</a>
+                    <a class="menu-item" ui-sref="">Recommendations</a>
                     <div class="item item-divider">
-                        <a href="service.html">Services</a>
+                        <a ui-sref="services">Services</a>
                     </div>
-                    <a class="menu-item" href="#">Service 1</a>
-                    <a class="menu-item" href="#">Service 2</a>
-                    <a class="menu-item" href="#">Service 3</a>
+                    <a class="menu-item" ui-sref="">Service 1</a>
+                    <a class="menu-item" ui-sref="">Service 2</a>
+                    <a class="menu-item" ui-sref="">Service 3</a>
                     <div class="item item-divider">
                         About Us
                     </div>
@@ -329,12 +358,12 @@
                     <div class="row row-no-padding">
                         <div class="col col-50 row-no-padding">
                             <div class="previous_div">
-                                <a href="personalPage.html" class="button button-theme button-block">Previous</a>
+                                <a ui-sref="" class="button button-theme button-block">Previous</a>
                             </div>
                         </div>
                         <div class="col col-50 row-no-padding">
                             <div class="next_div">
-                                <a href="personalPage3.html" class="button button-theme button-block">Next</a>
+                                <a ui-sref="" class="button button-theme button-block">Next</a>
                             </div>
                         </div>
                     </div>
@@ -363,15 +392,15 @@
                     <div class="item item-divider">
                         My Account
                     </div>
-                    <a class="menu-item" href="#">Wish List</a>
-                    <a class="menu-item" href="#">Order</a>
-                    <a class="menu-item" href="#">Recommendations</a>
+                    <a class="menu-item" ui-sref="">Wish List</a>
+                    <a class="menu-item" ui-sref="">Order</a>
+                    <a class="menu-item" ui-sref="">Recommendations</a>
                     <div class="item item-divider">
-                        <a href="service.html">Services</a>
+                        <a ui-sref="services">Services</a>
                     </div>
-                    <a class="menu-item" href="#">Service 1</a>
-                    <a class="menu-item" href="#">Service 2</a>
-                    <a class="menu-item" href="#">Service 3</a>
+                    <a class="menu-item" ui-sref="">Service 1</a>
+                    <a class="menu-item" ui-sref="">Service 2</a>
+                    <a class="menu-item" ui-sref="">Service 3</a>
                     <div class="item item-divider">
                         About Us
                     </div>
@@ -391,13 +420,12 @@
                             <input type="text" placeholder="Zipcode">
                         </label>
                     </div>
-                    <a href="booking.html" class="button button-theme button-block">Check</a>
+                    <a ui-sref="" class="button button-theme button-block">Check</a>
                 </div>
             </ion-content>
         </ion-pane>
     </ion-side-menus>
 </script>
-
 <script id="booking.html" type="text/ng-template">
     <ion-side-menus>
         <ion-side-menu side="left">
@@ -417,15 +445,15 @@
                     <div class="item item-divider">
                         My Account
                     </div>
-                    <a class="menu-item" href="#">Wish List</a>
-                    <a class="menu-item" href="#">Order</a>
-                    <a class="menu-item" href="#">Recommendations</a>
+                    <a class="menu-item" ui-sref="">Wish List</a>
+                    <a class="menu-item" ui-sref="">Order</a>
+                    <a class="menu-item" ui-sref="">Recommendations</a>
                     <div class="item item-divider">
-                        <a href="service.html">Services</a>
+                        <a ui-sref="services">Services</a>
                     </div>
-                    <a class="menu-item" href="#">Service 1</a>
-                    <a class="menu-item" href="#">Service 2</a>
-                    <a class="menu-item" href="#">Service 3</a>
+                    <a class="menu-item" ui-sref="">Service 1</a>
+                    <a class="menu-item" ui-sref="">Service 2</a>
+                    <a class="menu-item" ui-sref="">Service 3</a>
                     <div class="item item-divider">
                         About Us
                     </div>
@@ -463,12 +491,13 @@
                             <input type="range" value="2" min="1" max="100">
                         </ion-item>
                     </div>
-                    <a href="service.html" class="button button-theme button-block">Book</a>
+                    <a hi-sref="" class="button button-theme button-block">Book</a>
                 </div>
             </ion-content>
         </ion-pane>
     </ion-side-menus>
 </script>
+-->
 <!--
 <ion-side-menus>
     <ion-side-menu-content>

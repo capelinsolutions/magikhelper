@@ -1,3 +1,4 @@
+<!--
 <ion-view title="Booking">
     <ion-content padding="true" class="has-header has-footer">
         <div class="list card">
@@ -18,6 +19,45 @@
                     <a href="#/info" class="button button-stable button-block">Book</a>
                 </form>
             </div>
+        </div>
+    </ion-content>
+</ion-view>
+-->
+<ion-view> title="Booking">
+    <ion-header-bar class="bar bar-positive bar-stable">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        <h1 class="title">Booking</h1>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="list card formLayout">
+            <div class="sectionHeading">Create your Booking</div>
+            <form>
+                <div class="list list-inset">
+                        <label class="item item-input item-icon-right">
+                            <input type="date" placeholder="Date of Service">
+                            <i class="icon ion-calendar" style="color:#2E2AA1;"></i>
+                        </label>
+
+                        <label class="item item-input item-icon-right">
+                            <span class="input-label">Select the time window</span>
+                            <select class="selectStyle">
+                                <option selected></option>
+                                <option value="">12:00 A.M</option>
+                                <option value="">12:00 A.M</option>
+                                <option value="">12:00 A.M</option>
+                                <option value="">12:00 A.M</option>
+                                <option value="">12:00 A.M</option>
+                            </select>
+                            <i class="icon ion-chevron-down" style="color:#2E2AA1;"></i>
+                        </label>
+                        <ion-item class="range range-positive">
+                            <span class="input-label">Approx # of hours</span>
+                            <input type="range" value="2" min="1" max="100">
+                        </ion-item>
+                </div>
+                <a ui-sref="services" class="button button-theme button-block">Book</a>
+            <!--  <button ui-sref="" class="button button-theme button-block">Book</button> -->
+            </form>
         </div>
     </ion-content>
 </ion-view>

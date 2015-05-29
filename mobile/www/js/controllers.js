@@ -7,6 +7,9 @@ angular.module('starter.controllers', [])
             $scope.login = function () {
                 $scope.dataLoading = true;
 
+                //testing vendor flow
+                //$location.path('/ven_joblist');
+
                 $location.path('/availability');
                 /*
                 AuthenticationService.Login($scope.username, $scope.password, function (response) {
@@ -53,6 +56,20 @@ angular.module('starter.controllers', [])
         }
     }])
 
+    .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices', function ($scope, $rootScope, $location, VendorServices) {
+        $scope.listAllAssignedServices= VendorServices.getAllAssignedService();
+        $scope.listAllCompletedServices= VendorServices.getAllCompletedService();
+
+        $scope.getJobDetails = function (jobId) {
+            $location.path('/job/'+jobId);
+        }
+
+    }])
+    .controller('VendorJobDetailCtrl', function ($scope, $stateParams, VendorServices) {
+        VendorServices.findById($stateParams.jobId).then(function(job) {
+            $scope.job = job;
+        });
+    })
     .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
         $scope.chat = Chats.get($stateParams.chatId);
     });
