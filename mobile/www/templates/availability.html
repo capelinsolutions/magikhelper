@@ -28,17 +28,20 @@
         <h1 class="title">Check Availability</h1>
     </ion-header-bar>
     <ion-content class="padding">
-        <div class="list card formLayout">
-            <form ng-submit="checkAvailability()" ng-controller="AvailabilityCtrl">
-                <div class="sectionHeading">Enter ZipCode</div>
+        <div class="list formLayout">
+
+                <div class="sectionHeading">Enter zipcode where you need service</div>
                 <div class="list list-inset">
-                    <label class="item item-input">
-                        <input type="text" placeholder="Zipcode">
+                    <label class="item item-input loginForminput border_bottom_input">
+                        <input type="text" placeholder="Zipcode" ng-model="zip">
                     </label>
                 </div>
-                <a ui-sref="booking" class="button button-theme button-block">Check</a>
-           <!-- <button ui-sref="" class="button button-theme button-block">Check</button> -->
-            </form>
+
+                <!-- <button ui-sref="" class="button button-theme button-block">Check</button> -->
+
         </div>
     </ion-content>
+    <div class="bar bar-footer btnAccount">
+        <button type="button" ng-click="checkAvailability()" class="form_submit button-block button-positive">Check</button>
+    </div>
 </ion-view>

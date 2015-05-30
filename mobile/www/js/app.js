@@ -137,6 +137,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
             .state('availability', {
                 url: '/availability',
+                controller:'AvailabilityCtrl',
                 templateUrl: 'templates/availability.html'
             })
 
