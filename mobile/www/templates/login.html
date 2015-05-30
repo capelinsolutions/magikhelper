@@ -35,7 +35,7 @@
 -->
 <ion-view>
     <ion-content class="padding">
-        <div id="logo-wrapper" style="text-align: center;"><img src="../img/logo.png" width="150px;"></div>
+        <div id="logo-wrapper" style="text-align: center;"><img src="img/logo.png" width="150px;"></div>
         <div class="list">
             <form ng-submit="login()" ng-controller="LoginCtrl" >
                 <label class="item item-input loginForminput border_bottom_input">
@@ -44,16 +44,16 @@
                 </label>
                 <label class="item item-input loginForminput border_bottom_input">
 
-                    <input type="password" placeholder="Passworddd" name="password" id="password" class="form-control form_field"
+                    <input type="password" placeholder="Password" name="password" id="password" class="form-control form_field"
                            ng-model="password"
                            required/>
                 </label>
 
-                <button type="submit" class="form_submit button-outline button-positive">Log in</button>
+                <button type="submit" class="form_submit button-full button-positive">Log in</button>
             </form>
         </div>
     </ion-content>
     <div class="bar bar-footer btnAccount">
-        <div class="title">Don't have a account? <a ui-sref="signup"> Sign up </a></div>
+        <div class="title ">Don't have a account? <a ui-sref="signup"> Sign up </a></div>
     </div>
 </ion-view>
