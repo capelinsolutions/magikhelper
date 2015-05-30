@@ -5,23 +5,26 @@ angular.module('starter.controllers', [])
             AuthenticationService.ClearCredentials();
 
             $scope.login = function () {
+
                 $scope.dataLoading = true;
 
                 //testing vendor flow
                 //$location.path('/ven_joblist');
 
-                $location.path('/availability');
-                /*
-                AuthenticationService.Login($scope.username, $scope.password, function (response) {
-                    if (response.success) {
-                        AuthenticationService.SetCredentials($scope.username, $scope.password);
+                var user = {email: $scope.username, password: $scope.password};
+
+
+                AuthenticationService.Login(user, function (response) {
+                    if (response.login) {
+                        alert(JSON.stringify(response));
+                        AuthenticationService.SetCredentials(user);
                         $location.path('/availability');
                     } else {
-                        alert(response.message);
+                        alert(JSON.stringify(response));
                         $scope.error = response.message;
                         $scope.dataLoading = false;
                     }
-                 });*/
+                });
             };
         }])
     .controller('SignUpCtrl', ['$scope', '$location', 'SignUpService', function ($scope, $location, SignUpService) {

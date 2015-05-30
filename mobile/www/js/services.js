@@ -4,17 +4,30 @@ angular.module('starter.services', [])
         function ($http, $rootScope, $timeout) {
             var service = {};
 
-            service.Login = function (username, password, callback) {
+            service.Login = function (user, callback) {
                 /* Use this for real authentication
                  ----------------------------------------------*/
-                alert("User Name: " + username);
-                $http.post('http://magikheper-ws.elasticbeanstalk.com/services/security/login', {
-                    email: username,
-                    password: password
-                })
-                    .success(function (response) {
-                        response.success = true;
+
+                //alert(JSON.stringify(user))
+
+                var req = {
+                    method: 'POST',
+                    url: 'http://localhost:8080/magikhelper-ws/services/security/login',
+                    headers: {
+                        'DEVICE_ID': "1234"
+                    },
+                    data: user
+                }
+
+                $http(req).success(function (response) {
+                    if (response.code = "1001") {
+                        response.login = false;
                         callback(response);
+                    } else {
+                        response.login = true;
+                        callback(response);
+                    }
+
                     })
                     .error(function (data, status, headers, config) {
                         response.success = false;
