@@ -87,9 +87,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 url: '/menu',
                 templateUrl: 'templates/side-menu2.html'
             })
-
             .state('signup', {
                 url: '/signup',
+                controller: 'SignUpCtrl',
                 templateUrl: 'templates/signup.html'
             })
 
@@ -98,6 +98,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 controller: 'LoginCtrl',
                 templateUrl: 'templates/login.html'
             })
+            .state('userJobList', {
+                url: '/userJobList',
+                controller: 'LoginCtrl',
+                templateUrl: 'templates/user_joblist.html'
+            })
+
             .state('vendorJoblist', {
                 url: '/ven_joblist',
                 controller: 'VendorJobListCtrl',
