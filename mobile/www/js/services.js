@@ -7,6 +7,7 @@ angular.module('starter.services', [])
             service.Login = function (username, password, callback) {
                 /* Use this for real authentication
                  ----------------------------------------------*/
+                alert("User Name: " + username);
                 $http.post('http://magikheper-ws.elasticbeanstalk.com/services/security/login', {
                     email: username,
                     password: password
@@ -115,8 +116,7 @@ angular.module('starter.services', [])
             $http.post('http://magikheper-ws.elasticbeanstalk.com/services/clients', object)
                 .success(function (response) {
                     alert('User successfully created');
-                    response.success = true;
-                    callback(response);
+                    callback(true);
                 })
                 .error(function (data, status, headers, config) {
                     alert("failure message: " + JSON.stringify({data: data}));

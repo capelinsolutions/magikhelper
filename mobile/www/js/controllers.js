@@ -2,17 +2,22 @@ angular.module('starter.controllers', [])
     .controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'AuthenticationService',
         function ($scope, $rootScope, $location, AuthenticationService) {
             // reset login status
+
+
             AuthenticationService.ClearCredentials();
 
             $scope.login = function () {
                 $scope.dataLoading = true;
 
+
                 //testing vendor flow
                 //$location.path('/ven_joblist');
 
-                $location.path('/availability');
-                /*
+                //$location.path('/availability');
+
+
                 AuthenticationService.Login($scope.username, $scope.password, function (response) {
+
                     if (response.success) {
                         AuthenticationService.SetCredentials($scope.username, $scope.password);
                         $location.path('/availability');
@@ -21,7 +26,7 @@ angular.module('starter.controllers', [])
                         $scope.error = response.message;
                         $scope.dataLoading = false;
                     }
-                 });*/
+                });
             };
         }])
     .controller('SignUpCtrl', ['$scope', '$location', 'SignUpService', function ($scope, $location, SignUpService) {
@@ -31,10 +36,10 @@ angular.module('starter.controllers', [])
                 var object = {email: $scope.email, firstName: $scope.contactName, password: $scope.password};
 
                 SignUpService.Save(object, function (response) {
-                    if (response.success) {
-                        $location.path('/menu');
+                    if (response) {
+                        $location.path('/login');
                     } else {
-                        alert(response.message);
+                        alert(response);
                     }
                 });
             } else {
