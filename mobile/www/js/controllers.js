@@ -13,14 +13,11 @@ angular.module('starter.controllers', [])
 
                 var user = {email: $scope.username, password: $scope.password};
 
-
                 AuthenticationService.Login(user, function (response) {
                     if (response.login) {
-                        alert(JSON.stringify(response));
                         AuthenticationService.SetCredentials(user);
                         $location.path('/availability');
                     } else {
-                        alert(JSON.stringify(response));
                         $scope.error = response.message;
                         $scope.dataLoading = false;
                     }

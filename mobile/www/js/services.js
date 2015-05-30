@@ -12,7 +12,7 @@ angular.module('starter.services', [])
 
                 var req = {
                     method: 'POST',
-                    url: 'http://localhost:8080/magikhelper-ws/services/security/login',
+                    url: 'http://magikheper-ws.elasticbeanstalk.com/services/security/login',
                     headers: {
                         'DEVICE_ID': "1234"
                     },
@@ -20,7 +20,8 @@ angular.module('starter.services', [])
                 }
 
                 $http(req).success(function (response) {
-                    if (response.code = "1001") {
+
+                    if (response.code == 1001) {
                         response.login = false;
                         callback(response);
                     } else {
