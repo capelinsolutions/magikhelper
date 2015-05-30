@@ -6,11 +6,13 @@ angular.module('starter.controllers', [])
 
             $scope.login = function () {
                 $scope.dataLoading = true;
-
                 //testing vendor flow
-                //$location.path('/ven_joblist');
+                if ($scope.username == 'vendor') {
+                    $location.path('/ven_joblist');
+                } else {
+                    $location.path('/userJobList');
+                }
 
-                $location.path('/availability');
                 /*
                 AuthenticationService.Login($scope.username, $scope.password, function (response) {
                     if (response.success) {
