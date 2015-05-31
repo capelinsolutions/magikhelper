@@ -9,8 +9,15 @@ angular.module('starter.controllers', [])
 
                 //testing vendor flow
                 //$location.path('/ven_joblist');
+                //testing vendor flow
+                if ($scope.username =='vendor') {
+                    $location.path('/ven_joblist');
+                } else {
+                    $location.path('/user_joblist');
+                }
 
-                $location.path('/availability');
+
+                //$location.path('/availability');
                 /*
                 AuthenticationService.Login($scope.username, $scope.password, function (response) {
                     if (response.success) {
