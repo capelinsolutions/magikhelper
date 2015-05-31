@@ -32,19 +32,20 @@
         <div class="list">
             <form ng-submit="createUser()" ng-controller="SignUpCtrl">
                 <label class="item item-input loginForminput border_bottom_input">
-                    <input type="text" placeholder="Name">
+                    <input type="text" placeholder="Name" name="contactName" ng-model="contactName">
                 </label>
                 <label class="item item-input loginForminput border_bottom_input">
-                    <input type="email" placeholder="Email">
+                    <input type="email" placeholder="Email" name="email" ng-model="email">
                 </label>
                 <label class="item item-input loginForminput border_bottom_input">
-                    <input type="password" placeholder="Password">
+                    <input type="password" placeholder="Password" name="password" ng-model="password">>
                 </label>
                 <label class="item item-input loginForminput border_bottom_input">
-                    <input type="password" placeholder="Confirm Password">
+                    <input type="password" placeholder="Confirm Password" name="confirmPassword"
+                           ng-model="confirmPassword">
                 </label>
-                <a class="button button-block button-positive" ui-sref="contact_person">Sign Up</a>
-            <!--  <button class="button button-block button-positive">Sign Up</button> -->
+                <!--   <a class="button button-block button-positive" ui-sref="contact_person">Sign Up</a> -->
+                <button type="submit" class="button button-block button-positive">Sign Up</button>
             </form>
         </div>
     </ion-content>

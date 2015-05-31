@@ -145,7 +145,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 url: '/booking',
                 templateUrl: 'templates/booking.html'
             })
-
+            .state('confirmation', {
+                url: '/confirmation',
+                templateUrl: 'templates/confirmation.html'
+            })
             .state('home', {
                 url: '/index',
                 templateUrl: 'index.html'

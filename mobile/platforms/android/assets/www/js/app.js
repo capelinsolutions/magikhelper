@@ -46,6 +46,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 templateUrl: 'templates/availability.html'
             })
 
+            .state('vendorJoblist', {
+                url: '/ven_joblist',
+                controller: 'VendorJobListCtrl',
+                templateUrl: 'templates/ven_joblist.html'
+            })
+            .state('vendorJobDetail', {
+                url: '/job/:jobId',
+                templateUrl: 'templates/ven_jobDetail.html',
+                controller: 'VendorJobDetailCtrl'
+            })
+
             .state('page12', {
                 url: '/services',
                 templateUrl: 'templates/services.html'
@@ -76,9 +87,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 url: '/menu',
                 templateUrl: 'templates/side-menu2.html'
             })
-
             .state('signup', {
                 url: '/signup',
+                controller: 'SignUpCtrl',
                 templateUrl: 'templates/signup.html'
             })
 
@@ -86,6 +97,22 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 url: '/login',
                 controller: 'LoginCtrl',
                 templateUrl: 'templates/login.html'
+            })
+            .state('userJobList', {
+                url: '/user_joblist',
+                controller: 'LoginCtrl',
+                templateUrl: 'templates/user_joblist.html'
+            })
+
+            .state('vendorJoblist', {
+                url: '/ven_joblist',
+                controller: 'VendorJobListCtrl',
+                templateUrl: 'templates/ven_joblist.html'
+            })
+            .state('vendorJobDetail', {
+                url: '/job/:jobId',
+                templateUrl: 'templates/ven_jobDetail.html',
+                controller: 'VendorJobDetailCtrl'
             })
 
             .state('services', {
@@ -110,6 +137,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
             .state('availability', {
                 url: '/availability',
+                controller:'AvailabilityCtrl',
                 templateUrl: 'templates/availability.html'
             })
 
@@ -117,14 +145,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 url: '/booking',
                 templateUrl: 'templates/booking.html'
             })
-
+            .state('confirmation', {
+                url: '/confirmation',
+                templateUrl: 'templates/confirmation.html'
+            })
             .state('home', {
-                url: 'index',
+                url: '/index',
                 templateUrl: 'index.html'
             })
         ;
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('index');
+        $urlRouterProvider.otherwise('/login');
 
     });
