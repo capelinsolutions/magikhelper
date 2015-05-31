@@ -150,6 +150,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 url: '/index',
                 templateUrl: 'index.html'
             })
+
+            .state('location', {
+                url: '/location',
+                controller: 'MapCtrl',
+                templateUrl: 'templates/location.html'
+            })
         ;
 
         // if none of the above states are matched, use this as the fallback
