@@ -1,4 +1,5 @@
 angular.module('starter.controllers', [])
+
     .controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'AuthenticationService',
         function ($scope, $rootScope, $location, AuthenticationService) {
             // reset login status
@@ -16,7 +17,7 @@ angular.module('starter.controllers', [])
                 AuthenticationService.Login(user, function (response) {
                     if (response.login) {
                         AuthenticationService.SetCredentials(user);
-                        $location.path('/availability');
+                        $location.path('/sidemenu/availability');
                     } else {
                         $scope.error = response.message;
                         $scope.dataLoading = false;
@@ -33,7 +34,7 @@ angular.module('starter.controllers', [])
 
                 SignUpService.Save(object, function (response) {
                     if (response.success) {
-                        $location.path('/menu');
+                        $location.path('/sidemenu/login');
                     } else {
                         alert(response.message);
                     }
@@ -75,7 +76,7 @@ angular.module('starter.controllers', [])
                     alert("No Available Service found for that Zip Code!");
                 } else {
                     BookingService.setAddress();
-                    $location.path('/services');
+                    $location.path('/sidemenu/services');
                 }
 
             });
@@ -103,6 +104,35 @@ angular.module('starter.controllers', [])
             $scope.job = job;
         });
     })
+    .controller('MenuCtrl', function ($scope, $stateParams, BookingService) {
+        $scope.isLoggedIn = true;
+    })
+    .controller('MainNavigationCtrl', function($scope, $ionicNavBarDelegate, $ionicSideMenuDelegate) {
+        $scope.getPreviousTitle = function() { return $ionicNavBarDelegate.$getByHandle('mainNavBar').getPreviousTitle() };
+        $scope.toggleRight = function () {  return $ionicSideMenuDelegate.$getByHandle('mainSideMenu').toggleLeft()} ;
+    })
+
+    .controller('RightMenuCtrl', function($scope, $state, BookingService) {
+        //var isLoggedIn  = BookingService.isLoggedIn;
+        var loginMenu = {stateName : 'sidemenu.login', labelName: 'Login' };
+        var signUpMenu = {stateName : 'sidemenu.signup', labelName: 'Sign Up' };
+        var bookingMenu = {stateName : 'sidemenu.availability', labelName: 'Create a job' };
+        var userProfileMenu = {stateName : 'sidemenu.userprofile', labelName: 'User Profile' };
+        var aboutMenu = {stateName : 'sidemenu.about', labelName: 'About' };
+
+        if (BookingService.isLoggedIn()) {
+            $scope.subMenus = [userProfileMenu,bookingMenu,aboutMenu];
+        } else {
+            $scope.subMenus = [loginMenu,signUpMenu,aboutMenu];
+        }
+
+        $scope.activeSubMenuStateName = 'sidemenu.login';
+        $scope.setActiveSubMenu = function(subMenuStateName) {
+            $scope.activeSubMenuStateName=subMenuStateName;
+            return $state.go(subMenuStateName);
+        };
+    })
+
     .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
         $scope.chat = Chats.get($stateParams.chatId);
     })
