@@ -99,7 +99,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
                 templateUrl: 'templates/login.html'
             })
             .state('userJobList', {
-                url: '/userJobList',
+                url: '/user_joblist',
                 controller: 'LoginCtrl',
                 templateUrl: 'templates/user_joblist.html'
             })
