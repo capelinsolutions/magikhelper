@@ -10,7 +10,9 @@
                 <div class="sectionHeading">Enter the address where you need service at</div>
                 <div class="list ">
                     <label class="item item-input loginForminput border_bottom_input">
-                        <input type="text" id="address" class="form-control" ng-autocomplete ng-model="availabilityData.address" />
+                        <input type="text" id="address" class="form-control" ng-autocomplete
+                               ng-model="availabilityData.details.formatted_address"
+                               options="options" details="availabilityData.details"/>
 
                     </label>
                 </div>

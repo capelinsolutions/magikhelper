@@ -49,7 +49,28 @@ angular.module('starter.controllers', [])
         $scope.availabilityData = {};
 
         $scope.checkAvailability = function () {
-            AvailableServices.getAllServices($scope.availabilityData.zip, function (response) {
+
+            for (index = 0; index < $scope.availabilityData.details.address_components.length; index++) {
+                for (subIndex = 0; subIndex < $scope.availabilityData.details.address_components[index].types.length; subIndex++) {
+                    var type = $scope.availabilityData.details.address_components[index].types[subIndex];
+                    if (type == "street_number") {
+                        $scope.availabilityData.address = $scope.availabilityData.details.address_components[index].long_name;
+                    } else if (type == "route") {
+                        $scope.availabilityData.address += " " + $scope.availabilityData.details.address_components[index].long_name;
+                    } else if (type == "locality") {
+                        $scope.availabilityData.city = $scope.availabilityData.details.address_components[index].long_name;
+                    } else if (type == "administrative_area_level_1") {
+                        $scope.availabilityData.state = $scope.availabilityData.details.address_components[index].long_name;
+                    } else if (type == "country") {
+                        $scope.availabilityData.country = $scope.availabilityData.details.address_components[index].long_name;
+                    } else if (type == "postal_code") {
+                        $scope.availabilityData.zipCode = $scope.availabilityData.details.address_components[index].long_name;
+                    }
+                    //Setting Address for Booking
+                    BookingService.setAddress($scope.availabilityData);
+                }
+            }
+            AvailableServices.getAllServices($scope.availabilityData.zipCode, function (response) {
                 if (response.length == 0) {
                     alert("No Available Service found for that Zip Code!");
                 } else {
