@@ -38,6 +38,26 @@ angular.module('starter.services', [])
                     });
             };
 
+            /* service.ServicesService = function (zipCode, callback) {
+
+             var req = {
+             method: 'get',
+             url: 'http://magikheper-ws.elasticbeanstalk.com/helperServices/zipcode/'+zipCode
+             }
+
+             $http(req).success(function (response) {
+
+             alert(JSON.stringify(response));
+
+             })
+             .error(function (data, status, headers, config) {
+             response.success = false;
+             //alert(status);
+             // called asynchronously if an error occurs
+             // or server returns response with an error status.
+             });
+             };*/
+
             service.SetCredentials = function (username, password) {
                 //var authdata = Base64.encode(username + ':' + password);
                 var authdata = username + ':' + password;
@@ -63,20 +83,32 @@ angular.module('starter.services', [])
 
     .factory('AvailableServices', ['$http', function ($http) {
         var service = {};
+        var availableServices = null;
 
         service.getAllServices = function (object, callback) {
-            alert(JSON.stringify(object));
-            $http.get('http://magikheper-ws.elasticbeanstalk.com/services/helperServices', object)
-                .success(function (response) {
-                    response.success = true;
-                    callback(response);
-                })
+
+            var req = {
+                method: 'get',
+                url: 'http://magikheper-ws.elasticbeanstalk.com/services/helperServices/zipcode/' + object
+            }
+
+            $http(req).success(function (response) {
+                availableServices = response;
+                callback(response);
+            })
                 .error(function (data, status, headers, config) {
-                    alert("failure message: " + JSON.stringify({data: data}));
                     response.success = false;
+                    //alert(status);
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
                 });
 
         };
+
+        service.getFetchedServices = function () {
+            return availableServices;
+        }
+
         return service;
     }])
 
