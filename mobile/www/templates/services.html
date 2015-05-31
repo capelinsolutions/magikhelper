@@ -49,38 +49,19 @@
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
         <h1 class="title">Services Available</h1>
     </ion-header-bar>
-    <ion-content class="padding">
+    <ion-content class="padding" ng-controller="AvailableServicesCtrl">
         <div class="list">
-            <a class="item item-thumbnail-left singleService" ui-sref="">
-                <img src="img/service1.png">
-                <h2>General Labor</h2>
-                <p>Lorem Ipsum</p>
-            </a>
-            <a class="item item-thumbnail-left singleService" ui-sref="">
-                <img src="img/service2.png">
-                <h2>Furniture Assembly</h2>
-                <p>Lorem Ipsum</p>
-            </a>
-            <a class="item item-thumbnail-left singleService" ui-sref="">
-                <img src="img/service3.png">
-                <h2>Moving</h2>
-                <p>Lorem Ipsum</p>
-            </a>
-            <a class="item item-thumbnail-left singleService" ui-sref="">
-                <img src="img/service1.png">
-                <h2>Cleaning</h2>
-                <p>Lorem Ipsum</p>
-            </a>
-            <a class="item item-thumbnail-left singleService" ui-sref="">
-                <img src="img/service2.png">
-                <h2>Furniture Assembly</h2>
-                <p>Lorem Ipsum</p>
-            </a>
-            <a class="item item-thumbnail-left singleService" ui-sref="">
-                <img src="img/service3.png">
-                <h2>Yard Work</h2>
-                <p>Lorem Ipsum</p>
-            </a>
+            <div ng-repeat="service in availableServices">
+                <a class="item item-thumbnail-left singleService" ui-sref="">
+                    <img src="img/service1.png">
+
+                    <h2>{{service.name}}</h2>
+
+                    <p>Rate : ${{service.rate}} per Hour</p>
+                </a>
+
+            </div>
+
         </div>
     </ion-content>
 </ion-view>

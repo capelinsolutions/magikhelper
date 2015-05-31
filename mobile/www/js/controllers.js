@@ -27,6 +27,7 @@ angular.module('starter.controllers', [])
                         alert(response.message);
                         $scope.error = response.message;
                         $scope.dataLoading = false;
+                        alert(response.message);
                     }
                  });*/
             };
@@ -51,16 +52,25 @@ angular.module('starter.controllers', [])
 
     }])
 
-    .controller('AvailabilityCtrl', ['$scope', '$rootScope', '$location', function ($scope, $rootScope, $location) {
+    .controller('AvailabilityCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', function ($scope, $rootScope, $location, AvailableServices) {
         $scope.checkAvailability = function () {
-            $location.path('/services');
+
+            AvailableServices.getAllServices($scope.searchZipCode, function (response) {
+                if (response.length == 0) {
+                    alert("No Available Service found for that Zip Code!");
+                } else {
+                    $location.path('/services');
+                }
+
+            });
+
         }
     }])
 
     .controller('AvailableServicesCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', function ($scope, $rootScope, $location, AvailableServices) {
-        $scope.listAllServices = function () {
-            //TODO: to be implemented
-        }
+
+        $scope.availableServices = AvailableServices.getFetchedServices();
+
     }])
 
     .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices', function ($scope, $rootScope, $location, VendorServices) {
