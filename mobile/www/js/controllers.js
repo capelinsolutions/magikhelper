@@ -45,14 +45,15 @@ angular.module('starter.controllers', [])
 
     }])
 
-    .controller('AvailabilityCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', function ($scope, $rootScope, $location, AvailableServices) {
+    .controller('AvailabilityCtrl', ['$scope',  '$rootScope', '$location', 'AvailableServices', 'BookingService', function ($scope, $rootScope, $location, AvailableServices,BookingService) {
+        $scope.availabilityData = {};
+
         $scope.checkAvailability = function () {
-
-
-            AvailableServices.getAllServices($scope.searchZipCode, function (response) {
+            AvailableServices.getAllServices($scope.availabilityData.zip, function (response) {
                 if (response.length == 0) {
                     alert("No Available Service found for that Zip Code!");
                 } else {
+                    BookingService.setAddress();
                     $location.path('/services');
                 }
 

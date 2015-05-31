@@ -112,7 +112,8 @@ input:focus {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 20px 0px;
+    height: 44px;
+    padding: 10px 0px;
 }
 
 .btnAccount a {
@@ -138,16 +139,16 @@ input:focus {
 
 .form_submit {
     width: 100%;
-    background: #2e2aa1;
-    padding: 16px 10px;
+    background: #DB5A6E;
     color: white;
+    height: 44px;
     font-size: 17px;
 }
 
 .form_submit:hover {
     width: 100%;
-    background: #2e2aa1;
-    padding: 16px 10px;
+
+    background: #DB5A6E;
     color: white;
     font-size: 17px;
 }
@@ -413,6 +414,10 @@ input:focus {
     background-color: white !important;
 }
 
+.vendor_list {
+    padding: 0px 12px 20px 12px;
+}
+
 @media (max-width: 990px) {
     .service_details .service_title {
         margin-top: 115px;
@@ -508,4 +513,5 @@ input:focus {
     .service_details .service_detail {
         font-size: 11pt;
     }
+
 }

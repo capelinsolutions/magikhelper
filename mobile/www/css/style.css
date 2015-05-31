@@ -113,7 +113,7 @@ input:focus {
     left: 0;
     right: 0;
     height: 44px;
-    padding: 10px 0px;
+    padding: 0px 0px;
 }
 
 .btnAccount a {
@@ -147,7 +147,6 @@ input:focus {
 
 .form_submit:hover {
     width: 100%;
-
     background: #DB5A6E;
     color: white;
     font-size: 17px;
