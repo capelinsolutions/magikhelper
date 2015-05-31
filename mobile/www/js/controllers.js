@@ -5,31 +5,24 @@ angular.module('starter.controllers', [])
             AuthenticationService.ClearCredentials();
 
             $scope.login = function () {
+
                 $scope.dataLoading = true;
 
                 //testing vendor flow
                 //$location.path('/ven_joblist');
-                //testing vendor flow
-                if ($scope.username =='vendor') {
-                    $location.path('/ven_joblist');
-                } else {
-                    $location.path('/user_joblist');
-                }
 
+                var user = {email: $scope.username, password: $scope.password};
 
-                //$location.path('/availability');
-                /*
-                AuthenticationService.Login($scope.username, $scope.password, function (response) {
-                    if (response.success) {
-                        AuthenticationService.SetCredentials($scope.username, $scope.password);
+                AuthenticationService.Login(user, function (response) {
+                    if (response.login) {
+                        AuthenticationService.SetCredentials(user);
                         $location.path('/availability');
                     } else {
-                        alert(response.message);
                         $scope.error = response.message;
                         $scope.dataLoading = false;
                         alert(response.message);
                     }
-                 });*/
+                });
             };
         }])
     .controller('SignUpCtrl', ['$scope', '$location', 'SignUpService', function ($scope, $location, SignUpService) {
@@ -54,6 +47,7 @@ angular.module('starter.controllers', [])
 
     .controller('AvailabilityCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', function ($scope, $rootScope, $location, AvailableServices) {
         $scope.checkAvailability = function () {
+
 
             AvailableServices.getAllServices($scope.searchZipCode, function (response) {
                 if (response.length == 0) {
