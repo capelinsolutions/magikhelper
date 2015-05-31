@@ -63,6 +63,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                 url: '/services',
                 views: {
                     'mainContent': {
+                        controller: 'AvailableServicesCtrl',
                         templateUrl: 'templates/services.html'
                     }
                 }

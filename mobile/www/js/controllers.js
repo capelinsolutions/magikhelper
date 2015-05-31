@@ -36,7 +36,7 @@ angular.module('starter.controllers', [])
                 address.formatted_address = $scope.client.address.formatted_address;
                 $scope.client.address = address;
 
-                if ($scope.client.address.valide) {
+                if ($scope.client.address.valid) {
 
                     SignUpService.Save($scope.client, function (response) {
                         if (response) {
@@ -58,39 +58,28 @@ angular.module('starter.controllers', [])
 
     .controller('AvailabilityCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', 'BookingService', 'UtilityServices',
         function ($scope, $rootScope, $location, AvailableServices, BookingService, UtilityServices) {
+
         $scope.availabilityData = {};
 
         $scope.checkAvailability = function () {
 
+
             var address = UtilityServices.validateAddress($scope.availabilityData.details);
 
-            if (address.valide) {
-
-                //Setting Address for Booking
-                BookingService.setAddress(address);
+            if (address.valid) {
 
                 AvailableServices.getAllServices(address.zip, function (response) {
                     if (response.length == 0) {
                         alert("No Available Service found for that Zip Code!");
                     } else {
-                        BookingService.setAddress();
+                        BookingService.setAddress(address);
                         $location.path('/sidemenu/services');
                     }
 
                 });
             } else {
                 alert("Address is not Complete!");
-                validateAddress = 0;
             }
-            AvailableServices.getAllServices($scope.availabilityData.zipCode, function (response) {
-                if (response.length == 0) {
-                    alert("No Available Service found for that Zip Code!");
-                } else {
-                    BookingService.setAddress();
-                    $location.path('/sidemenu/services');
-                }
-
-
         }
     }])
 

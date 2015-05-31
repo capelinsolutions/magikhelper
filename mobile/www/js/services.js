@@ -87,13 +87,17 @@ angular.module('starter.services', [])
 
         service.getAllServices = function (object, callback) {
 
+
             var req = {
                 method: 'get',
                 url: 'http://magikheper-ws.elasticbeanstalk.com/services/helperServices/zipcode/' + object
             }
 
+
             $http(req).success(function (response) {
+
                 availableServices = response;
+
                 callback(response);
             })
                 .error(function (data, status, headers, config) {
@@ -224,9 +228,9 @@ angular.module('starter.services', [])
             }
 
             if (validateAddress == 6) {
-                parsedAddress.valide = true;
+                parsedAddress.valid = true;
             } else {
-                parsedAddress.valide = false;
+                parsedAddress.valid = false;
             }
 
             return parsedAddress;
