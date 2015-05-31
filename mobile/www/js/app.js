@@ -23,87 +23,110 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
 
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
-    /*
-            .state('side-menu2', {
-                url: '/menu',
-                templateUrl: 'templates/side-menu2.html'
-            })
 
-            .state('signup', {
+            .state('sidemenu', {
+                url: "/sidemenu",
+                abstract: true,
+                templateUrl: "templates/menu.html"
+            })
+            .state('sidemenu.signup', {
                 url: '/signup',
-                controller: 'SignUpCtrl',
-                templateUrl: 'templates/signup.html'
+                views: {
+                    'mainContent': {
+                        controller: 'SignUpCtrl',
+                        templateUrl: 'templates/signup.html'
+                    }
+                }
             })
 
-            .state('login', {
+            .state('sidemenu.login', {
                 url: '/login',
-                controller: 'LoginCtrl',
-                templateUrl: 'templates/login.html'
+                views: {
+                    'mainContent': {
+                        controller: 'LoginCtrl',
+                        templateUrl: 'templates/login.html'
+                    }
+                }
             })
-
-            .state('page11', {
-                url: '/availability',
-                templateUrl: 'templates/availability.html'
-            })
-
-            .state('vendorJoblist', {
-                url: '/ven_joblist',
-                controller: 'VendorJobListCtrl',
-                templateUrl: 'templates/ven_joblist.html'
-            })
-            .state('vendorJobDetail', {
-                url: '/job/:jobId',
-                templateUrl: 'templates/ven_jobDetail.html',
-                controller: 'VendorJobDetailCtrl'
-            })
-
-            .state('page12', {
-                url: '/services',
-                templateUrl: 'templates/services.html'
-            })
-
-            .state('booking', {
-                url: '/booking',
-                templateUrl: 'templates/booking.html'
-            })
-
-            .state('page14', {
-                url: '/info',
-                templateUrl: 'templates/info.html'
-            })
-
-            .state('page13', {
-                url: '/confirm',
-                templateUrl: 'templates/confirmation.html'
-            })
-
-            .state('home', {
-                url: 'index',
-                templateUrl: 'index.html'
-            })
-
-*/
-            .state('side-menu2', {
-                url: '/menu',
-                templateUrl: 'templates/side-menu2.html'
-            })
-            .state('signup', {
-                url: '/signup',
-                controller: 'SignUpCtrl',
-                templateUrl: 'templates/signup.html'
-            })
-
-            .state('login', {
-                url: '/login',
-                controller: 'LoginCtrl',
-                templateUrl: 'templates/login.html'
-            })
-            .state('userJobList', {
+            .state('sidemenu.userJobList', {
                 url: '/user_joblist',
-                controller: 'LoginCtrl',
-                templateUrl: 'templates/user_joblist.html'
+                views: {
+                    'mainContent': {
+                        controller: 'LoginCtrl',
+                        templateUrl: 'templates/user_joblist.html'
+                    }
+                }
             })
 
+
+            .state('sidemenu.services', {
+                url: '/services',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/services.html'
+                    }
+                }
+            })
+
+            .state('sidemenu.about', {
+                url: '/about',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/about.html'
+                    }
+                }
+            })
+
+            .state('sidemenu.contact_person', {
+                url: '/contact_person',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/contact_person.html'
+                    }
+                }
+            })
+            .state('sidemenu.address', {
+                url: '/address',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/address.html'
+                    }
+                }
+            })
+
+            .state('sidemenu.availability', {
+                url: '/availability',
+                views: {
+                    'mainContent': {
+                        controller: 'AvailabilityCtrl',
+                        templateUrl: 'templates/availability.html'
+                    }
+                }
+            })
+            .state('sidemenu.userprofile', {
+                url: '/userprofile',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/user_profile.html'
+                    }
+                }
+            })
+            .state('sidemenu.booking', {
+                url: '/booking',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/booking.html'
+                    }
+                }
+            })
+            .state('sidemenu.confirmation', {
+                url: '/confirmation',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/confirmation.html'
+                    }
+                }
+            })
             .state('vendorJoblist', {
                 url: '/ven_joblist',
                 controller: 'VendorJobListCtrl',
@@ -115,40 +138,6 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                 controller: 'VendorJobDetailCtrl'
             })
 
-            .state('services', {
-                url: '/services',
-                templateUrl: 'templates/services.html'
-            })
-
-            .state('about', {
-                url: '/about',
-                templateUrl: 'templates/about.html'
-            })
-
-            .state('contact_person', {
-                url: '/contact_person',
-                templateUrl: 'templates/contact_person.html'
-            })
-
-            .state('address', {
-                url: '/address',
-                templateUrl: 'templates/address.html'
-            })
-
-            .state('availability', {
-                url: '/availability',
-                controller:'AvailabilityCtrl',
-                templateUrl: 'templates/availability.html'
-            })
-
-            .state('booking', {
-                url: '/booking',
-                templateUrl: 'templates/booking.html'
-            })
-            .state('confirmation', {
-                url: '/confirmation',
-                templateUrl: 'templates/confirmation.html'
-            })
             .state('home', {
                 url: '/index',
                 templateUrl: 'index.html'
@@ -162,6 +151,6 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
         ;
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/sidemenu/login');
 
     });

@@ -127,6 +127,9 @@ angular.module('starter.services', [])
         service.setAddress = function (address) {
             bookingObj.address = address;
         };
+        service.isLoggedIn = function () {
+            return true;
+        };
 
         service.setBookingDetails = function(object) {
             bookingObj.bookingDate = object.bookingDate;
