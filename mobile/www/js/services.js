@@ -112,6 +112,41 @@ angular.module('starter.services', [])
         return service;
     }])
 
+    .factory('BookingService', ['$http', function ($http) {
+        var service = {};
+        var bookingObj= {};
+
+        service.setSelectedServiceId = function (id) {
+            bookingObj.serviceId = id;
+        };
+
+        service.setClientId = function (id) {
+            bookingObj.clientId = id;
+        };
+
+        service.setAddress = function (address) {
+            bookingObj.address = address;
+        };
+
+        service.setBookingDetails = function(object) {
+            bookingObj.bookingDate = object.bookingDate;
+            bookingObj.bookedTime = object.bookedTime;
+            bookingObj.duration = object.duration;
+            bookingObj.instructions = object.instructions;
+        }
+
+        service.setContactPerson = function(object) {
+            bookingObj.contactName = object.contactName;
+            bookingObj.phone = object.phone;
+            bookingObj.email = object.email;
+        }
+
+        service.getBookingObject = function() {
+            return bookingObj;
+        }
+        return service;
+    }])
+
     .factory('VendorServices', ['$http', '$q' , function ($http, $q) {
         var service = {};
         var joblist = [
