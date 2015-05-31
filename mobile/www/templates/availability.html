@@ -7,11 +7,11 @@
     <ion-content class="padding">
         <div class="list formLayout">
             <form name="zipForm" ng-submit="checkAvailability()" >
-                <div class="sectionHeading">Enter zipcode where you need service</div>
+                <div class="sectionHeading">Enter the address where you need service at</div>
                 <div class="list ">
                     <label class="item item-input loginForminput border_bottom_input">
-                        <input type="text" class="form-control form_field" placeholder="Zipcode" required
-                               ng-model="availabilityData.zip" >
+                        <input type="text" id="address" class="form-control" ng-autocomplete ng-model="availabilityData.address" />
+
                     </label>
                 </div>
             </form>
@@ -21,6 +21,4 @@
     <div class="bar bar-footer form_submit">
         <button class=" form_submit button-clear button-positive" ng-click="checkAvailability()" >Check</button>
     </div>
-
-
 </ion-view>
