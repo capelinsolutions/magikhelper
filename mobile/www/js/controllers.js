@@ -97,6 +97,39 @@ angular.module('starter.controllers', ['starter.messages'])
 
     }])
 
+    .controller('ContactPersonCtrl', ['$scope', '$rootScope', '$location', 'BookingService', function ($scope, $rootScope, $location, BookingService) {
+
+        var client = BookingService.getBookingObject().client;
+        $scope.contact = {};
+
+        $scope.contact.firstName = client.firstName;
+        $scope.contact.lastName = client.lastName;
+        $scope.contact.mobilePhone = client.mobilePhone;
+        $scope.contact.email = client.email;
+
+        $scope.setContactDetails = function () {
+
+            BookingService.setContactPerson($scope.contact);
+            $location.path('/sidemenu/confirmation');
+        }
+
+
+    }])
+
+    .controller('ConfirmationCtrl', ['$scope', '$rootScope', '$location', 'BookingService', function ($scope, $rootScope, $location, BookingService) {
+
+        $scope.booking = BookingService.getBookingObject();
+
+
+        $scope.setConfirmBooking = function () {
+
+            BookingService.setContactPerson($scope.contact);
+            $location.path('/sidemenu/confirmation');
+        }
+
+
+    }])
+
     .controller('BookingCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices','BookingService', function ($scope, $rootScope, $location, AvailableServices, BookingService) {
         $scope.availableServices = AvailableServices.getFetchedServices();
         $scope.bookingDetails = {};

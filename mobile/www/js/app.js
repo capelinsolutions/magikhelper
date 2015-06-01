@@ -82,6 +82,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                 url: '/contact_person',
                 views: {
                     'mainContent': {
+                        controller: 'ContactPersonCtrl',
                         templateUrl: 'templates/contact_person.html'
                     }
                 }
@@ -125,6 +126,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                 url: '/confirmation',
                 views: {
                     'mainContent': {
+                        controller: 'ConfirmationCtrl',
                         templateUrl: 'templates/confirmation.html'
                     }
                 }
