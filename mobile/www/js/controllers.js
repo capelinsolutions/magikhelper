@@ -21,7 +21,7 @@ angular.module('starter.controllers', ['starter.messages'])
                         if (response.login) {
                             BookingService.setClient(response)
                             AuthenticationService.SetCredentials(user);
-                            $location.path('/sidemenu/availability');
+                            $location.path('/sidemenu/user_joblist');
                         } else {
                             $scope.error = response.message;
                             $scope.dataLoading = false;
@@ -116,6 +116,28 @@ angular.module('starter.controllers', ['starter.messages'])
             }
 
     }])
+    .controller('JobListCtrl', ['$scope', '$rootScope', '$location', 'BookingService', function ($scope, $rootScope, $location, BookingService) {
+        $scope.listAllUserPastJobs= {}
+
+        BookingService.getAllBookings(function (listOfBookings) {
+                if (listOfBookings) {
+                    var bookObj = BookingService.getBookingObject();
+                        var data = [];
+                        angular.forEach(listOfBookings, function (item) {
+                            if (item.email == bookObj.client.email) {
+                                data.push(item);
+                            }
+                        });
+                    $scope.listAllUserPastJobs = data;
+                } else {
+                    $scope.error = listOfBookings.message;
+                    $scope.dataLoading = false;
+                    alert(listOfBookings.message);
+                }
+            })
+
+    }])
+
     .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices', function ($scope, $rootScope, $location, VendorServices) {
         $scope.listAllAssignedServices= VendorServices.getAllAssignedService();
         $scope.listAllCompletedServices= VendorServices.getAllCompletedService();

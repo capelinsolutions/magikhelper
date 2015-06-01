@@ -52,7 +52,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                 url: '/user_joblist',
                 views: {
                     'mainContent': {
-                        controller: 'LoginCtrl',
+                        controller: 'JobListCtrl',
                         templateUrl: 'templates/user_joblist.html'
                     }
                 }

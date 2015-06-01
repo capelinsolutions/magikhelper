@@ -113,9 +113,10 @@ angular.module('starter.services', ['starter.config'])
         return service;
     }])
 
-    .factory('BookingService', ['$http', function ($http) {
+    .factory('BookingService', ['$http','configuration', function ($http , configuration) {
         var service = {};
         var bookingObj= {};
+        var listOfBookings = {};
 
         service.setSelectedService = function (service) {
             bookingObj.service = service;
@@ -152,6 +153,23 @@ angular.module('starter.services', ['starter.config'])
         service.getBookingObject = function() {
             return bookingObj;
         }
+
+
+        service.getAllBookings =  function (callback) {
+            var req = {
+                method: 'get',
+                url: configuration.BASE_URL +  '/clients/bookings/'
+            }
+
+            $http(req).success(function (response) {
+                listOfBookings = response;
+                callback(listOfBookings);
+            })
+                .error(function (data, status, headers, config) {
+                    response.success = false;
+                });
+        }
+
         return service;
     }])
 
@@ -192,6 +210,7 @@ angular.module('starter.services', ['starter.config'])
 
         return service;
     }])
+
 
 
     .factory('UtilityServices', ['$http', function ($http) {
