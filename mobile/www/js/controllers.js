@@ -1,7 +1,6 @@
 angular.module('starter.controllers', [])
-
-    .controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'AuthenticationService',
-        function ($scope, $rootScope, $location, AuthenticationService) {
+    .controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'AuthenticationService', 'BookingService',
+        function ($scope, $rootScope, $location, AuthenticationService, BookingService) {
             // reset login status
             AuthenticationService.ClearCredentials();
 
@@ -16,6 +15,7 @@ angular.module('starter.controllers', [])
 
                 AuthenticationService.Login(user, function (response) {
                     if (response.login) {
+                        BookingService.setClient(response)
                         AuthenticationService.SetCredentials(user);
                         $location.path('/sidemenu/availability');
                     } else {
@@ -26,19 +26,29 @@ angular.module('starter.controllers', [])
                 });
             };
         }])
-    .controller('SignUpCtrl', ['$scope', '$location', 'SignUpService', function ($scope, $location, SignUpService) {
+    .controller('SignUpCtrl', ['$scope', '$location', 'SignUpService', 'UtilityServices', function ($scope, $location, SignUpService, UtilityServices) {
         $scope.createUser = function () {
 
-            if (SignUpService.isPasswordSame($scope.password, $scope.confirmPassword)) {
-                var object = {email: $scope.email, firstName: $scope.contactName, password: $scope.password};
+            if (SignUpService.isPasswordSame($scope.client.password, $scope.client.confirmPassword)) {
 
-                SignUpService.Save(object, function (response) {
-                    if (response.success) {
-                        $location.path('/sidemenu/login');
-                    } else {
-                        alert(response.message);
-                    }
-                });
+
+                var address = UtilityServices.validateAddress($scope.client.address);
+                address.formatted_address = $scope.client.address.formatted_address;
+                $scope.client.address = address;
+
+                if ($scope.client.address.valid) {
+
+                    SignUpService.Save($scope.client, function (response) {
+                        if (response) {
+                            $location.path('/sidemenu/login');
+                        } else {
+                            alert(response.message);
+                        }
+                    });
+                } else {
+                    alert("Address is not Valid !");
+                }
+
             } else {
                 alert("Passwords don't match");
             }
@@ -46,41 +56,30 @@ angular.module('starter.controllers', [])
 
     }])
 
-    .controller('AvailabilityCtrl', ['$scope',  '$rootScope', '$location', 'AvailableServices', 'BookingService', function ($scope, $rootScope, $location, AvailableServices,BookingService) {
+    .controller('AvailabilityCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', 'BookingService', 'UtilityServices',
+        function ($scope, $rootScope, $location, AvailableServices, BookingService, UtilityServices) {
+
         $scope.availabilityData = {};
 
         $scope.checkAvailability = function () {
 
-            for (index = 0; index < $scope.availabilityData.details.address_components.length; index++) {
-                for (subIndex = 0; subIndex < $scope.availabilityData.details.address_components[index].types.length; subIndex++) {
-                    var type = $scope.availabilityData.details.address_components[index].types[subIndex];
-                    if (type == "street_number") {
-                        $scope.availabilityData.address = $scope.availabilityData.details.address_components[index].long_name;
-                    } else if (type == "route") {
-                        $scope.availabilityData.address += " " + $scope.availabilityData.details.address_components[index].long_name;
-                    } else if (type == "locality") {
-                        $scope.availabilityData.city = $scope.availabilityData.details.address_components[index].long_name;
-                    } else if (type == "administrative_area_level_1") {
-                        $scope.availabilityData.state = $scope.availabilityData.details.address_components[index].long_name;
-                    } else if (type == "country") {
-                        $scope.availabilityData.country = $scope.availabilityData.details.address_components[index].long_name;
-                    } else if (type == "postal_code") {
-                        $scope.availabilityData.zipCode = $scope.availabilityData.details.address_components[index].long_name;
+
+            var address = UtilityServices.validateAddress($scope.availabilityData.details);
+
+            if (address.valid) {
+
+                AvailableServices.getAllServices(address.zip, function (response) {
+                    if (response.length == 0) {
+                        alert("No Available Service found for that Zip Code!");
+                    } else {
+                        BookingService.setAddress(address);
+                        $location.path('/sidemenu/services');
                     }
-                    //Setting Address for Booking
-                    BookingService.setAddress($scope.availabilityData);
-                }
+
+                });
+            } else {
+                alert("Address is not Complete!");
             }
-            AvailableServices.getAllServices($scope.availabilityData.zipCode, function (response) {
-                if (response.length == 0) {
-                    alert("No Available Service found for that Zip Code!");
-                } else {
-                    BookingService.setAddress();
-                    $location.path('/sidemenu/services');
-                }
-
-            });
-
         }
     }])
 

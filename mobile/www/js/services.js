@@ -87,13 +87,17 @@ angular.module('starter.services', [])
 
         service.getAllServices = function (object, callback) {
 
+
             var req = {
                 method: 'get',
                 url: 'http://magikheper-ws.elasticbeanstalk.com/services/helperServices/zipcode/' + object
             }
 
+
             $http(req).success(function (response) {
+
                 availableServices = response;
+
                 callback(response);
             })
                 .error(function (data, status, headers, config) {
@@ -116,12 +120,12 @@ angular.module('starter.services', [])
         var service = {};
         var bookingObj= {};
 
-        service.setSelectedServiceId = function (id) {
-            bookingObj.serviceId = id;
+        service.setSelectedService = function (service) {
+            bookingObj.service = service;
         };
 
-        service.setClientId = function (id) {
-            bookingObj.clientId = id;
+        service.setClient = function (client) {
+            bookingObj.client = client;
         };
 
         service.setAddress = function (address) {
@@ -176,6 +180,7 @@ angular.module('starter.services', [])
         };
         service.findById = function(jobId) {
             var deferred = $q.defer();
+
             var job ;
             angular.forEach(joblist, function(item){
                 if(item.id == parseInt(jobId)){
@@ -183,6 +188,52 @@ angular.module('starter.services', [])
                 }});
             deferred.resolve(job);
             return deferred.promise;
+        };
+
+        return service;
+    }])
+
+    .factory('UtilityServices', ['$http', function ($http) {
+        var service = {};
+
+        service.validateAddress = function (address) {
+
+            var parsedAddress = {}
+            var validateAddress = 0;
+
+            for (index = 0; index < address.address_components.length; index++) {
+                for (subIndex = 0; subIndex < address.address_components[index].types.length; subIndex++) {
+                    var type = address.address_components[index].types[subIndex];
+
+                    if (type == "street_number") {
+                        parsedAddress.street = address.address_components[index].long_name;
+                        validateAddress++;
+                    } else if (type == "route") {
+                        parsedAddress.street += " " + address.address_components[index].long_name;
+                        validateAddress++;
+                    } else if (type == "locality") {
+                        parsedAddress.city = address.address_components[index].long_name;
+                        validateAddress++;
+                    } else if (type == "administrative_area_level_1") {
+                        parsedAddress.state = address.address_components[index].long_name;
+                        validateAddress++;
+                    } else if (type == "country") {
+                        parsedAddress.country = address.address_components[index].long_name;
+                        validateAddress++;
+                    } else if (type == "postal_code") {
+                        parsedAddress.zip = address.address_components[index].long_name;
+                        validateAddress++;
+                    }
+                }
+            }
+
+            if (validateAddress == 6) {
+                parsedAddress.valid = true;
+            } else {
+                parsedAddress.valid = false;
+            }
+
+            return parsedAddress;
         };
 
         return service;
@@ -196,17 +247,17 @@ angular.module('starter.services', [])
         };
 
         service.Save = function (object, callback) {
-            alert(JSON.stringify(object));
+            var status = {};
             $http.post('http://magikheper-ws.elasticbeanstalk.com/services/clients', object)
                 .success(function (response) {
-                    alert('User successfully created');
-                    callback(true);
+                    alert("User Created Successfully");
+                    status = true;
+                    callback(status);
                 })
                 .error(function (data, status, headers, config) {
                     alert("failure message: " + JSON.stringify({data: data}));
-                    response.success = false;
+                    callback(response);
                 });
-
         };
         return service;
     }]);
