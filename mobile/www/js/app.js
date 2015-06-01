@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'starter.services', 'ui.router'])
+angular.module('starter', ['ionic', 'ngAutocomplete', 'ngMap', 'starter.controllers', 'starter.services', 'ui.router'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -128,6 +128,18 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                     }
                 }
             })
+
+            .state('sidemenu.location', {
+                url: '/location',
+                views: {
+                    'mainContent': {
+                        controller: 'MapCtrl',
+                        templateUrl: 'templates/location.html'
+                    }
+                }
+
+            })
+
             .state('vendorJoblist', {
                 url: '/ven_joblist',
                 controller: 'VendorJobListCtrl',
@@ -144,11 +156,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                 templateUrl: 'index.html'
             })
 
-            .state('location', {
-                url: '/location',
-                controller: 'MapCtrl',
-                templateUrl: 'templates/location.html'
-            })
+
         ;
 
         // if none of the above states are matched, use this as the fallback
