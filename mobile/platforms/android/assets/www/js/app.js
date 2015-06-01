@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ui.router'])
+angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'starter.services', 'starter.config', 'starter.messages', 'ui.router'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -23,139 +23,143 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
-    /*
-            .state('side-menu2', {
-                url: '/menu',
-                templateUrl: 'templates/side-menu2.html'
-            })
 
-            .state('signup', {
+            .state('sidemenu', {
+                url: "/sidemenu",
+                abstract: true,
+                templateUrl: "templates/menu.html"
+            })
+            .state('sidemenu.signup', {
                 url: '/signup',
-                controller: 'SignUpCtrl',
-                templateUrl: 'templates/signup.html'
+                views: {
+                    'mainContent': {
+                        controller: 'SignUpCtrl',
+                        templateUrl: 'templates/signup.html'
+                    }
+                }
             })
 
-            .state('login', {
+            .state('sidemenu.login', {
                 url: '/login',
-                controller: 'LoginCtrl',
-                templateUrl: 'templates/login.html'
+                views: {
+                    'mainContent': {
+                        controller: 'LoginCtrl',
+                        templateUrl: 'templates/login.html'
+                    }
+                }
             })
-
-            .state('page11', {
-                url: '/availability',
-                templateUrl: 'templates/availability.html'
-            })
-
-            .state('vendorJoblist', {
-                url: '/ven_joblist',
-                controller: 'VendorJobListCtrl',
-                templateUrl: 'templates/ven_joblist.html'
-            })
-            .state('vendorJobDetail', {
-                url: '/job/:jobId',
-                templateUrl: 'templates/ven_jobDetail.html',
-                controller: 'VendorJobDetailCtrl'
-            })
-
-            .state('page12', {
-                url: '/services',
-                templateUrl: 'templates/services.html'
-            })
-
-            .state('booking', {
-                url: '/booking',
-                templateUrl: 'templates/booking.html'
-            })
-
-            .state('page14', {
-                url: '/info',
-                templateUrl: 'templates/info.html'
-            })
-
-            .state('page13', {
-                url: '/confirm',
-                templateUrl: 'templates/confirmation.html'
-            })
-
-            .state('home', {
-                url: 'index',
-                templateUrl: 'index.html'
-            })
-
-*/
-            .state('side-menu2', {
-                url: '/menu',
-                templateUrl: 'templates/side-menu2.html'
-            })
-            .state('signup', {
-                url: '/signup',
-                controller: 'SignUpCtrl',
-                templateUrl: 'templates/signup.html'
-            })
-
-            .state('login', {
-                url: '/login',
-                controller: 'LoginCtrl',
-                templateUrl: 'templates/login.html'
-            })
-            .state('userJobList', {
+            .state('sidemenu.userJobList', {
                 url: '/user_joblist',
-                controller: 'LoginCtrl',
-                templateUrl: 'templates/user_joblist.html'
+                views: {
+                    'mainContent': {
+                        controller: 'LoginCtrl',
+                        templateUrl: 'templates/user_joblist.html'
+                    }
+                }
             })
 
-            .state('vendorJoblist', {
-                url: '/ven_joblist',
-                controller: 'VendorJobListCtrl',
-                templateUrl: 'templates/ven_joblist.html'
-            })
-            .state('vendorJobDetail', {
-                url: '/job/:jobId',
-                templateUrl: 'templates/ven_jobDetail.html',
-                controller: 'VendorJobDetailCtrl'
-            })
 
-            .state('services', {
+            .state('sidemenu.services', {
                 url: '/services',
-                templateUrl: 'templates/services.html'
+                views: {
+                    'mainContent': {
+                        controller: 'AvailableServicesCtrl',
+                        templateUrl: 'templates/services.html'
+                    }
+                }
             })
 
-            .state('about', {
+            .state('sidemenu.about', {
                 url: '/about',
-                templateUrl: 'templates/about.html'
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/about.html'
+                    }
+                }
             })
 
-            .state('contact_person', {
+            .state('sidemenu.contact_person', {
                 url: '/contact_person',
-                templateUrl: 'templates/contact_person.html'
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/contact_person.html'
+                    }
+                }
             })
-
-            .state('address', {
+            .state('sidemenu.address', {
                 url: '/address',
-                templateUrl: 'templates/address.html'
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/address.html'
+                    }
+                }
             })
 
-            .state('availability', {
+            .state('sidemenu.availability', {
                 url: '/availability',
-                controller:'AvailabilityCtrl',
-                templateUrl: 'templates/availability.html'
+                views: {
+                    'mainContent': {
+                        controller: 'AvailabilityCtrl',
+                        templateUrl: 'templates/availability.html'
+                    }
+                }
+            })
+            .state('sidemenu.userprofile', {
+                url: '/userprofile',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/user_profile.html'
+                    }
+                }
+            })
+            .state('sidemenu.booking', {
+                url: '/booking',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/booking.html'
+                    }
+                }
+            })
+            .state('sidemenu.confirmation', {
+                url: '/confirmation',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/confirmation.html'
+                    }
+                }
+            })
+            .state('sidemenu.vendorJoblist', {
+                url: '/ven_joblist',
+                views: {
+                    'mainContent': {
+                        controller: 'VendorJobListCtrl',
+                        templateUrl: 'templates/ven_joblist.html'
+                    }
+                }
+            })
+            .state('sidemenu.vendorJobDetail', {
+                url: '/job/:jobId',
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/ven_jobDetail.html',
+                        controller: 'VendorJobDetailCtrl'
+                    }
+                }
             })
 
-            .state('booking', {
-                url: '/booking',
-                templateUrl: 'templates/booking.html'
-            })
-            .state('confirmation', {
-                url: '/confirmation',
-                templateUrl: 'templates/confirmation.html'
-            })
             .state('home', {
                 url: '/index',
                 templateUrl: 'index.html'
             })
+
+            .state('location', {
+                url: '/location',
+                controller: 'MapCtrl',
+                templateUrl: 'templates/location.html'
+            })
         ;
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/sidemenu/login');
 
     });

@@ -1,32 +1,26 @@
-<ion-view title="Check Service Availability">
+<ion-view ng-controller="AvailabilityCtrl" title="Check Service Availability">
 
     <ion-header-bar class="bar bar-positive bar-stable">
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
         <h1 class="title">Check Availability</h1>
     </ion-header-bar>
-    <ion-content class="padding">
+    <ion-content class="padding" data-tap-disabled="true">
         <div class="list formLayout">
-            <form ng-submit="checkAvailability()" ng-controller="AvailabilityCtrl">
-                <div class="sectionHeading">Enter zipcode where you need service</div>
+            <form name="zipForm">
+                <div class="sectionHeading">Enter the address where you need service at</div>
                 <div class="list ">
                     <label class="item item-input loginForminput border_bottom_input">
-                        <input type="text" class="form-control form_field" placeholder="Zipcode"
-                               ng-model="searchZipCode" name="searchZipCode" id="searchZipCode">
+                        <input type="text" id="address" class="form-control" ng-autocomplete
+                               ng-model="availabilityData.details.formatted_address"
+                               options="options" details="availabilityData.details"/>
+
                     </label>
                 </div>
-
-                <!-- <button ui-sref="" class="button button-theme button-block">Check</button> -->
-                <button type="submit" class=" form_submit button-block button-positive">Check</button>
-
-
             </form>
         </div>
 
     </ion-content>
-    <div class="bar bar-footer btnAccount">
-        <!--<button type="button" class=" form_submit button-block button-positive" ng-click="checkAvailability()" >Check</button>
-         <button type="button" class="form_submit button-block button-positive">Check</button> -->
+    <div class="bar bar-footer form_submit">
+        <button class=" form_submit button-clear  title" ng-click="checkAvailability()" >Check</button>
     </div>
-
-
 </ion-view>
