@@ -82,6 +82,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                 url: '/contact_person',
                 views: {
                     'mainContent': {
+                        controller: 'ContactPersonCtrl',
                         templateUrl: 'templates/contact_person.html'
                     }
                 }

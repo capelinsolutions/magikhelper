@@ -94,6 +94,19 @@ angular.module('starter.controllers', ['starter.messages'])
 
     }])
 
+    .controller('ContactPersonCtrl', ['$scope', '$rootScope', '$location', 'BookingService', function ($scope, $rootScope, $location, BookingService) {
+
+        var client = BookingService.getBookingObject().client;
+        $scope.contact = {};
+
+        $scope.contact.firstName = client.firstName;
+        $scope.contact.lastName = client.lastName;
+        $scope.contact.phone = client.mobilePhone;
+        $scope.contact.email = client.email;
+
+
+    }])
+
     .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices', function ($scope, $rootScope, $location, VendorServices) {
         $scope.listAllAssignedServices= VendorServices.getAllAssignedService();
         $scope.listAllCompletedServices= VendorServices.getAllCompletedService();
