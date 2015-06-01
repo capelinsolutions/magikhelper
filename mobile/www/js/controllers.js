@@ -149,25 +149,20 @@ angular.module('starter.controllers', ['starter.messages'])
             }
 
     }])
-    .controller('JobListCtrl', ['$scope', '$rootScope', '$location', 'BookingService', function ($scope, $rootScope, $location, BookingService) {
-        $scope.listAllUserPastJobs= {}
+    .controller('JobListCtrl', ['$scope', '$rootScope',  '$q','$location', 'BookingService', function ($scope, $rootScope, $q, $location, BookingService) {
+        $scope.listAllUserPastJobs= [];
 
-        BookingService.getAllBookings(function (listOfBookings) {
-                if (listOfBookings) {
-                    var bookObj = BookingService.getBookingObject();
-                        var data = [];
-                        angular.forEach(listOfBookings, function (item) {
-                            if (item.email == bookObj.client.email) {
-                                data.push(item);
-                            }
-                        });
-                    $scope.listAllUserPastJobs = data;
-                } else {
-                    $scope.error = listOfBookings.message;
-                    $scope.dataLoading = false;
-                    alert(listOfBookings.message);
-                }
-            })
+        $scope.getListAllUserPastJobs = function() {
+            return $scope.listAllUserPastJobs;
+        }
+
+        var bookingPromise = BookingService.getAllBookings();
+
+        bookingPromise.then(function(data) {
+            $scope.listAllUserPastJobs = data;
+        }, function(error) {
+            alert('No data found');
+        });
 
     }])
 

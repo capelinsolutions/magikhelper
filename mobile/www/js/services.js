@@ -113,7 +113,7 @@ angular.module('starter.services', ['starter.config'])
         return service;
     }])
 
-    .factory('BookingService', ['$http','configuration', function ($http , configuration) {
+    .factory('BookingService', ['$http','configuration', '$q', function ($http , configuration, $q) {
         var service = {};
         var bookingObj= {};
         var listOfBookings = {};
@@ -156,7 +156,9 @@ angular.module('starter.services', ['starter.config'])
         }
 
 
-        service.getAllBookings =  function (callback) {
+        service.getAllBookings =  function () {
+            var deferred = $q.defer();
+
             var req = {
                 method: 'get',
                 url: configuration.BASE_URL +  '/clients/bookings/'
@@ -164,11 +166,14 @@ angular.module('starter.services', ['starter.config'])
 
             $http(req).success(function (response) {
                 listOfBookings = response;
-                callback(listOfBookings);
+                //callback(listOfBookings);
+                deferred.resolve(listOfBookings[0].bookings);
             })
                 .error(function (data, status, headers, config) {
                     response.success = false;
+                    deferred.reject(data);
                 });
+            return deferred.promise;
         }
 
         return service;
