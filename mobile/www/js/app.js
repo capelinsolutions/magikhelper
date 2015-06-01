@@ -117,6 +117,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                 url: '/booking',
                 views: {
                     'mainContent': {
+                        controller: 'BookingCtrl',
                         templateUrl: 'templates/booking.html'
                     }
                 }
@@ -161,10 +162,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
             .state('home', {
                 url: '/index',
                 templateUrl: 'index.html'
-            })
-
-
-        ;
+            });
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/sidemenu/login');

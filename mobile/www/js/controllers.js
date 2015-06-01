@@ -88,9 +88,12 @@ angular.module('starter.controllers', ['starter.messages'])
         }
     }])
 
-    .controller('AvailableServicesCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', function ($scope, $rootScope, $location, AvailableServices) {
-
+    .controller('AvailableServicesCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices','BookingService', function ($scope, $rootScope, $location, AvailableServices, BookingService) {
         $scope.availableServices = AvailableServices.getFetchedServices();
+        $scope.setSelectedService = function(serviceObj) {
+            BookingService.setSelectedService(serviceObj);
+            $location.path('/sidemenu/booking');
+        }
 
     }])
 
@@ -107,6 +110,25 @@ angular.module('starter.controllers', ['starter.messages'])
 
     }])
 
+    .controller('BookingCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices','BookingService', function ($scope, $rootScope, $location, AvailableServices, BookingService) {
+        $scope.availableServices = AvailableServices.getFetchedServices();
+        $scope.bookingDetails = {};
+
+        $scope.timeSlots = [
+            {code:"1", name:"8:00 AM - 10:00 AM"},
+            {code:"2", name:"10:00 AM - 12:00 PM"},
+            {code:"3", name:"12:00 PM - 02:00 PM"},
+            {code:"4", name:"02:00 PM - 04:00 PM"},
+            {code:"5", name:"04:00 PM - 06:00 PM"}
+        ];
+
+
+            $scope.setBookingDetails = function() {
+                BookingService.setBookingDetails($scope.bookingDetails);
+                $location.path('/sidemenu/contact_person');
+            }
+
+    }])
     .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices', function ($scope, $rootScope, $location, VendorServices) {
         $scope.listAllAssignedServices= VendorServices.getAllAssignedService();
         $scope.listAllCompletedServices= VendorServices.getAllCompletedService();

@@ -138,8 +138,8 @@ angular.module('starter.services', ['starter.config'])
 
         service.setBookingDetails = function(object) {
             bookingObj.bookingDate = object.bookingDate;
-            bookingObj.bookedTime = object.bookedTime;
-            bookingObj.duration = object.duration;
+            bookingObj.bookedTime = object.selectedTimeSlot.name;
+            bookingObj.duration = object.hours;
             bookingObj.instructions = object.instructions;
         }
 
