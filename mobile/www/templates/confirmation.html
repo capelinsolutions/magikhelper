@@ -9,42 +9,45 @@
             <div class="sectionHeading"> 
                 <div > 
                     <div class="avatarLg" style=" display: inline-block;vertical-align: middle">
-                        <img id="1" />
+                        <img id="{{booking.service.serviceId}}"/>
                     </div>
-                    <div style=" display: inline-block;vertical-align: middle">Furniture Assembly</div>
+                    <div style=" display: inline-block;vertical-align: middle">{{booking.service.name}}</div>
 
                 </div>
             </div>
             <a href="#" class="item item-icon-left">
                 <i class="icon ion-person" style="color:#4571DA;"></i>
-                Syed Mehdi
+                {{booking.firstName}} {{booking.lastName}}
             </a>
 
             <a href="#" class="item item-icon-left item-icon-right">
                 <i class="icon ion-home" style="color:#4571DA;"></i>
-                14255 Preston Rd # 1033 Dallas, TX 75254
+                {{booking.address.street}} {{booking.address.city}} {{booking.address.state}} {{booking.address.zip}}
                 <i class="icon ion-edit" style="color:#4571DA;"></i>
             </a>
 
             <a href="#" class="item item-icon-left">
                 <i class="icon ion-ios-telephone" style="color:#4571DA;"></i>
-                    650-892-4943
+                {{booking.phone}}
             </a>
             <a href="#" class="item item-icon-left">
                 <i class="icon ion-ios-clock-outline" style="color:#4571DA;"></i>
-                    05/05/2015
-                <p>10:00 AM - 12:00 PM</p>
+                {{booking.bookingDate}}
+                <p>{{booking.bookedTime}}</p>
+
+                <p>{{booking.duration}}</p>
             </a>
 
 
             <a href="#" class="item item-icon-left">
                 <i class="icon ion-email" style="color:#4571DA;"></i>
-                kmehdi@gmail.com
+                {{booking.email}}
             </a>
 
             <a href="#" class="item item-icon-left">
                 <i class="icon ion-hammer" style="color:#4571DA;"></i>
-                <p>Need to clean bathroom, living and backyard</p>
+
+                <p>{{booking.instructions}}</p>
             </a>
 
         </div>

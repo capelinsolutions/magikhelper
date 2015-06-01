@@ -20,7 +20,7 @@
                 </div>
 
                 <label class="item item-input loginForminput border_bottom_input">
-                    <input type="text" placeholder="Phone Number" name="phone" ng-model="contact.phone">
+                    <input type="text" placeholder="Phone Number" name="phone" ng-model="contact.mobilePhone">
                     </label>
 
                     <label class="item item-input loginForminput border_bottom_input">
@@ -33,6 +33,6 @@
         </div>
     </ion-content>
     <div class="bar bar-footer form_submit ">
-        <div class="title"><a ui-sref="sidemenu.confirmation"> Next </a></div>
+        <div class="title"><a ng-click="setContactDetails()"> Next </a></div>
     </div>
 </ion-view>

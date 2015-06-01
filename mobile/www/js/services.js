@@ -144,8 +144,9 @@ angular.module('starter.services', ['starter.config'])
         }
 
         service.setContactPerson = function(object) {
-            bookingObj.contactName = object.contactName;
-            bookingObj.phone = object.phone;
+            bookingObj.firstName = object.firstName;
+            bookingObj.lastName = object.lastName;
+            bookingObj.phone = object.mobilePhone;
             bookingObj.email = object.email;
         }
 

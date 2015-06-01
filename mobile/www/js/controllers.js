@@ -104,8 +104,28 @@ angular.module('starter.controllers', ['starter.messages'])
 
         $scope.contact.firstName = client.firstName;
         $scope.contact.lastName = client.lastName;
-        $scope.contact.phone = client.mobilePhone;
+        $scope.contact.mobilePhone = client.mobilePhone;
         $scope.contact.email = client.email;
+
+        $scope.setContactDetails = function () {
+
+            BookingService.setContactPerson($scope.contact);
+            $location.path('/sidemenu/confirmation');
+        }
+
+
+    }])
+
+    .controller('ConfirmationCtrl', ['$scope', '$rootScope', '$location', 'BookingService', function ($scope, $rootScope, $location, BookingService) {
+
+        $scope.booking = BookingService.getBookingObject();
+
+
+        $scope.setConfirmBooking = function () {
+
+            BookingService.setContactPerson($scope.contact);
+            $location.path('/sidemenu/confirmation');
+        }
 
 
     }])
