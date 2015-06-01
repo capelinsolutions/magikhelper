@@ -1,4 +1,5 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['starter.messages'])
+
     .controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'AuthenticationService', 'BookingService',
         function ($scope, $rootScope, $location, AuthenticationService, BookingService) {
             // reset login status
@@ -11,19 +12,24 @@ angular.module('starter.controllers', [])
                 //testing vendor flow
                 //$location.path('/ven_joblist');
 
-                var user = {email: $scope.username, password: $scope.password};
+                if ($scope.username == 'vendor@test.com') {
+                    $location.path('/sidemenu/ven_joblist');
+                } else {
+                    var user = {email: $scope.username, password: $scope.password};
 
-                AuthenticationService.Login(user, function (response) {
-                    if (response.login) {
-                        BookingService.setClient(response)
-                        AuthenticationService.SetCredentials(user);
-                        $location.path('/sidemenu/availability');
-                    } else {
-                        $scope.error = response.message;
-                        $scope.dataLoading = false;
-                        alert(response.message);
-                    }
-                });
+                    AuthenticationService.Login(user, function (response) {
+                        if (response.login) {
+                            BookingService.setClient(response)
+                            AuthenticationService.SetCredentials(user);
+                            $location.path('/sidemenu/availability');
+                        } else {
+                            $scope.error = response.message;
+                            $scope.dataLoading = false;
+                            alert(response.message);
+                        }
+                    });
+                }
+
             };
         }])
     .controller('SignUpCtrl', ['$scope', '$location', 'SignUpService', 'UtilityServices', function ($scope, $location, SignUpService, UtilityServices) {
@@ -63,7 +69,6 @@ angular.module('starter.controllers', [])
 
         $scope.checkAvailability = function () {
 
-
             var address = UtilityServices.validateAddress($scope.availabilityData.details);
 
             if (address.valid) {
@@ -94,7 +99,7 @@ angular.module('starter.controllers', [])
         $scope.listAllCompletedServices= VendorServices.getAllCompletedService();
 
         $scope.getJobDetails = function (jobId) {
-            $location.path('/job/'+jobId);
+            $location.path('/sidemenu/job/'+jobId);
         }
 
     }])
@@ -104,7 +109,7 @@ angular.module('starter.controllers', [])
         });
     })
     .controller('MenuCtrl', function ($scope, $stateParams, BookingService) {
-        $scope.isLoggedIn = true;
+        $scope.isLoggedIn = false;
     })
     .controller('MainNavigationCtrl', function($scope, $ionicNavBarDelegate, $ionicSideMenuDelegate) {
         $scope.getPreviousTitle = function() { return $ionicNavBarDelegate.$getByHandle('mainNavBar').getPreviousTitle() };
@@ -118,8 +123,12 @@ angular.module('starter.controllers', [])
         var bookingMenu = {stateName : 'sidemenu.availability', labelName: 'Create a job' };
         var userProfileMenu = {stateName : 'sidemenu.userprofile', labelName: 'User Profile' };
         var aboutMenu = {stateName : 'sidemenu.about', labelName: 'About' };
+        var vendorAssignedMenu = {stateName : 'sidemenu.vendorJoblist', labelName: 'Job List' };
 
-        if (BookingService.isLoggedIn()) {
+
+        if (BookingService.isLoggedIn() &&  BookingService.isVendor()) {
+            $scope.subMenus = [vendorAssignedMenu,aboutMenu];
+        } else if (BookingService.isLoggedIn()) {
             $scope.subMenus = [userProfileMenu,bookingMenu,aboutMenu];
         } else {
             $scope.subMenus = [loginMenu,signUpMenu,aboutMenu];
@@ -127,7 +136,7 @@ angular.module('starter.controllers', [])
 
         $scope.activeSubMenuStateName = 'sidemenu.login';
         $scope.setActiveSubMenu = function(subMenuStateName) {
-            $scope.activeSubMenuStateName=subMenuStateName;
+            //$scope.activeSubMenuStateName=subMenuStateName;
             return $state.go(subMenuStateName);
         };
     })

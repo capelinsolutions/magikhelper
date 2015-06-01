@@ -53,7 +53,9 @@
         <div class="list">
             <div ng-repeat="service in availableServices">
                 <a class="item item-thumbnail-left singleService" ui-sref="sidemenu.booking">
-                    <img src="img/service1.png">
+                    <div class="avatar">
+                        <img id="{{service.serviceId}}"/>
+                    </div>
 
                     <h2>{{service.name}}</h2>
 

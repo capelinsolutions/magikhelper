@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'starter.services', 'ui.router'])
+angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'starter.services', 'starter.config', 'starter.messages', 'ui.router'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -128,15 +128,23 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                     }
                 }
             })
-            .state('vendorJoblist', {
+            .state('sidemenu.vendorJoblist', {
                 url: '/ven_joblist',
-                controller: 'VendorJobListCtrl',
-                templateUrl: 'templates/ven_joblist.html'
+                views: {
+                    'mainContent': {
+                        controller: 'VendorJobListCtrl',
+                        templateUrl: 'templates/ven_joblist.html'
+                    }
+                }
             })
-            .state('vendorJobDetail', {
+            .state('sidemenu.vendorJobDetail', {
                 url: '/job/:jobId',
-                templateUrl: 'templates/ven_jobDetail.html',
-                controller: 'VendorJobDetailCtrl'
+                views: {
+                    'mainContent': {
+                        templateUrl: 'templates/ven_jobDetail.html',
+                        controller: 'VendorJobDetailCtrl'
+                    }
+                }
             })
 
             .state('home', {

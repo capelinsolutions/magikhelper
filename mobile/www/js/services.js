@@ -1,7 +1,7 @@
-angular.module('starter.services', [])
+angular.module('starter.services', ['starter.config'])
     .factory('AuthenticationService',
-    ['$http', '$rootScope', '$timeout',
-        function ($http, $rootScope, $timeout) {
+    ['$http', '$rootScope', '$timeout', 'configuration',
+        function ($http, $rootScope, $timeout , configuration) {
             var service = {};
 
             service.Login = function (user, callback) {
@@ -12,7 +12,7 @@ angular.module('starter.services', [])
 
                 var req = {
                     method: 'POST',
-                    url: 'http://magikheper-ws.elasticbeanstalk.com/services/security/login',
+                    url:  configuration.BASE_URL +'/security/login',
                     headers: {
                         'DEVICE_ID': "1234"
                     },
@@ -81,7 +81,7 @@ angular.module('starter.services', [])
             return service;
         }])
 
-    .factory('AvailableServices', ['$http', function ($http) {
+    .factory('AvailableServices', ['$http','configuration', function ($http, configuration) {
         var service = {};
         var availableServices = null;
 
@@ -90,14 +90,11 @@ angular.module('starter.services', [])
 
             var req = {
                 method: 'get',
-                url: 'http://magikheper-ws.elasticbeanstalk.com/services/helperServices/zipcode/' + object
+                url: configuration.BASE_URL +  '/helperServices/zipcode/' + object
             }
 
-
             $http(req).success(function (response) {
-
                 availableServices = response;
-
                 callback(response);
             })
                 .error(function (data, status, headers, config) {
@@ -135,6 +132,10 @@ angular.module('starter.services', [])
             return true;
         };
 
+        service.isVendor = function () {
+            return true;
+        };
+
         service.setBookingDetails = function(object) {
             bookingObj.bookingDate = object.bookingDate;
             bookingObj.bookedTime = object.bookedTime;
@@ -157,9 +158,9 @@ angular.module('starter.services', [])
     .factory('VendorServices', ['$http', '$q' , function ($http, $q) {
         var service = {};
         var joblist = [
-            {"id": 1, "jobType": "Cleaning", "requestedBy": "John Doe", "dateOfService": "05/15/2015", "requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "3", "serviceAddress": "1 main st. Dallas TX 75200", "status": "COMPLETED", "commentByRequester": "Job Done on Time"},
-            {"id": 2, "jobType": "Cleaning", "requestedBy": "John Doe", "dateOfService": "05/18/2015","requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "2","serviceAddress": "13155 Noel Rd Dallas TX 75240", "status": "ASSIGNED", "commentByRequester": ""},
-            {"id": 3, "jobType": "General Labor", "requestedBy": "Jane Doe", "dateOfService": "05/17/2015","requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "2", "serviceAddress": "14155 Preston Rd Dallas TX 75254", "status": "ASSIGNED", "commentByRequester": ""}
+            {"id": 2, "jobType": "Cleaning", "requestedBy": "John Doe", "dateOfService": "05/15/2015", "requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "3", "serviceAddress": "1 main st. Dallas TX 75200", "status": "COMPLETED", "commentByRequester": "Job Done on Time"},
+            {"id": 3, "jobType": "Moving", "requestedBy": "John Doe", "dateOfService": "05/18/2015","requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "2","serviceAddress": "13155 Noel Rd Dallas TX 75240", "status": "ASSIGNED", "commentByRequester": "Do a good job!!"},
+            {"id": 5, "jobType": "General Labor", "requestedBy": "Jane Doe", "dateOfService": "05/17/2015","requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "2", "serviceAddress": "14155 Preston Rd Dallas TX 75254", "status": "ASSIGNED", "commentByRequester": "Do a good job"}
         ];
 
         service.getAllCompletedService = function () {
@@ -180,7 +181,6 @@ angular.module('starter.services', [])
         };
         service.findById = function(jobId) {
             var deferred = $q.defer();
-
             var job ;
             angular.forEach(joblist, function(item){
                 if(item.id == parseInt(jobId)){
@@ -192,6 +192,7 @@ angular.module('starter.services', [])
 
         return service;
     }])
+
 
     .factory('UtilityServices', ['$http', function ($http) {
         var service = {};
@@ -248,7 +249,8 @@ angular.module('starter.services', [])
 
         service.Save = function (object, callback) {
             var status = {};
-            $http.post('http://magikheper-ws.elasticbeanstalk.com/services/clients', object)
+            alert(JSON.stringify(object));
+            $http.post(configuration.BASE_URL +  '/clients', object)
                 .success(function (response) {
                     alert("User Created Successfully");
                     status = true;
@@ -258,6 +260,7 @@ angular.module('starter.services', [])
                     alert("failure message: " + JSON.stringify({data: data}));
                     callback(response);
                 });
+
         };
         return service;
     }]);
