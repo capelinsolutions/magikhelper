@@ -1,29 +1,5 @@
-<!--
+
 <ion-view title="Booking">
-    <ion-content padding="true" class="has-header has-footer">
-        <div class="list card">
-            <div class="item item-divider">Create your booking</div>
-            <div class="item item-body">
-                <form>
-                    <label class="item item-input">
-                        <span class="input-label"></span>
-                        <input type="date" placeholder="Date of Service">
-                    </label>
-                    <label class="item item-select">
-                        <span class="input-label">Select time window</span>
-                        <select></select>
-                    </label>
-                    <ion-item class="range range-positive">Approx # of hours
-                        <input type="range" value="2" min="1" max="5">
-                    </ion-item>
-                    <a href="#/info" class="button button-stable button-block">Book</a>
-                </form>
-            </div>
-        </div>
-    </ion-content>
-</ion-view>
--->
-<ion-view> title="Booking">
     <ion-header-bar class="bar bar-positive bar-stable">
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
         <h1 class="title"></h1>
@@ -34,25 +10,19 @@
 
                 <div class="list ">
                         <label class="item item-input loginForminput border_bottom_input item-icon-right">
-                            <input type="date"  placeholder="Date of Service">
+                            <input type="date"  placeholder="Date of Service" ng-model="bookingDetails.bookingDate">
                             <i class="icon ion-calendar" style="color:#4571DA;"></i>
                         </label>
 
                         <label class="item item-input loginForminput border_bottom_input item-icon-right">
                             <span class="input-label">Select the time window</span>
-                            <select class="selectStyle">
-                                <option selected></option>
-                                <option value="">8:00 AM - 10:00 AM</option>
-                                <option value="">10:00 AM - 12:00 PM</option>
-                                <option value="">12:00 PM - 02:00 PM</option>
-                                <option value="">02:00 PM - 04:00 PM</option>
-                                <option value="">04:00 PM - 06:00 PM</option>
+                            <select class="selectStyle" ng-model="bookingDetails.selectedTimeSlot" ng-options="timeSlot.name for timeSlot in timeSlots">
                             </select>
                             <i class="icon ion-chevron-down" style="color:#4571DA;"></i>
                         </label>
                          <ion-item style="color:#E18B5C " class="item range range-positive loginForminput border_bottom_input" >
-                                 <span class="loginForminput">Approx # of hours ( {{data.hours}} hrs ) </span>
-                                <input type="range" name="hours" value="2" min="2" max="10" ng-model="data.hours">
+                                 <span class="loginForminput">Approx # of hours ( {{bookingDetails.hours}} hrs ) </span>
+                                <input type="range" name="hours" value="2" min="2" max="10" ng-model="bookingDetails.hours">
                          </ion-item>
                 </div>
                 <!--
@@ -65,7 +35,7 @@
 
             <div class="list ">
                 <label class="item item-input text ">
-                    <textarea  style="width: 100%;" class="item item-input loginForminput border_bottom_input " placeholder="Tell us more about your job ..." rows="4" ng-model="job.description" ng-Required="true" name="additionalInstructions"></textarea>
+                    <textarea  style="width: 100%;" class="item item-input loginForminput border_bottom_input "  placeholder="Tell us more about your job ..." rows="4" ng-model="bookingDetails.instructions" ng-Required="true" name="additionalInstructions"></textarea>
                 </label>
             </div>
             <!--
@@ -75,6 +45,6 @@
         </div>
     </ion-content>
     <div class="bar bar-footer form_submit ">
-        <div class="title"><a ui-sref="sidemenu.contact_person"> Next </a></div>
+        <div class="title"><a ng-click="setBookingDetails()" > Next </a></div>
     </div>
 </ion-view>
