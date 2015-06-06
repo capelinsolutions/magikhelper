@@ -3,6 +3,7 @@ select * from user;
 select * from contact;
 select * from system_role;
 select * from application_properties where type='SERVICES';
+select * from application_properties where type='BOOKING_STATUS';
 select * from services;
 select * from booking_assignment;
 

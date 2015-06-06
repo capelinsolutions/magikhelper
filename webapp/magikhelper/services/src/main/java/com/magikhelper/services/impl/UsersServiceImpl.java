@@ -80,8 +80,8 @@ public class UsersServiceImpl implements UsersService {
 			UserVO client = new UserVO();
 			client.setUserId(user.getRowId());
 			client.setEmail(user.getEmail());
-			client.setFirstName(user.getFirstName());
-			client.setLastName(user.getLastName());
+			client.setFirstName(user.getContact().getFirstName());
+			client.setLastName(user.getContact().getLastName());
 			if (user.getContact()!=null){
 				client.setMobilePhone(user.getContact().getMobilePhone());
 				client.setStreet(user.getContact().getStreet());
@@ -108,12 +108,12 @@ public class UsersServiceImpl implements UsersService {
 		userRole.populatedAuditFields("SYSTEM");
 		
 		user.setEmail(userVo.getEmail());
-		user.setFirstName(userVo.getFirstName());
-		user.setLastName(userVo.getLastName());
 		user.setPassword(userVo.getPassword());
 		user.populatedAuditFields("SYSTEM");
 		user.addUserRole(userRole);
-		
+
+		contact.setFirstName(userVo.getFirstName());
+		contact.setLastName(userVo.getLastName());
 		contact.setStreet(userVo.getStreet());
 		contact.setAdditional(userVo.getAdditional());
 		contact.setCity(userVo.getCity());
@@ -154,10 +154,10 @@ public class UsersServiceImpl implements UsersService {
 		User user = usersDao.get(userVo.getUserId());
 		Contact contact = user.getContact();
 		
-		user.setFirstName(userVo.getFirstName());
-		user.setLastName(userVo.getLastName());
 		user.populatedAuditFieldsOnUpdate("SYSTEM");
-		
+
+		contact.setFirstName(userVo.getFirstName());
+		contact.setLastName(userVo.getLastName());
 		contact.setStreet(userVo.getStreet());
 		contact.setAdditional(userVo.getAdditional());
 		contact.setCity(userVo.getCity());
@@ -176,8 +176,8 @@ public class UsersServiceImpl implements UsersService {
 			UserVO userVo = new UserVO();
 			userVo.setUserId(user.getRowId());
 			userVo.setEmail(user.getEmail());
-			userVo.setFirstName(user.getFirstName());
-			userVo.setLastName(user.getLastName());
+			userVo.setFirstName(user.getContact().getFirstName());
+			userVo.setLastName(user.getContact().getLastName());
 			userVo.setMobilePhone(user.getContact().getMobilePhone());
 			userVo.setStreet(user.getContact().getStreet());
 			userVo.setAdditional(user.getContact().getAdditional());
