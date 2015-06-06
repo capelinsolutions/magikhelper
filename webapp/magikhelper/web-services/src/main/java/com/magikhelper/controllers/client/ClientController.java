@@ -1,4 +1,4 @@
-package com.magikhelper.controllers;
+package com.magikhelper.controllers.client;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.magikhelper.services.BookingService;
 import com.magikhelper.services.UsersService;
-import com.magikhelper.vo.Client;
+import com.magikhelper.vo.UserVO;
 
 /**
  *
@@ -40,37 +40,43 @@ public class ClientController {
     private BookingService bookingService;
 
     @RequestMapping(method = RequestMethod.GET,headers="Accept=application/json")
-    public List<Client> getClients() {
-        List<Client> clients = usersService.getClients(null);
+    public List<UserVO> getClients() {
+        List<UserVO> clients = usersService.getClients(null);
         return clients;
     }
     
     @RequestMapping(value="/{clientId}",method = RequestMethod.GET,headers="Accept=application/json")
-    public List<Client> getClient(@PathVariable("clientId") Integer clientId) {
-        List<Client> clients = usersService.getClients(clientId);
+    public List<UserVO> getClient(@PathVariable("clientId") Integer clientId) {
+        List<UserVO> clients = usersService.getClients(clientId);
         return clients;
     }
     
     @RequestMapping(method=RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addClient(@RequestBody Client client, HttpServletRequest request, HttpServletResponse response) {
+    public void addClient(@RequestBody UserVO client, HttpServletRequest request, HttpServletResponse response) {
 			usersService.addClient(client);
-			response.setHeader("Location", request.getRequestURL().append("/").append(client.getClientId()).toString());
+			response.setHeader("Location", request.getRequestURL().append("/").append(client.getUserId()).toString());
+    }
+    
+    @RequestMapping(method=RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    public void updateClient(@RequestBody UserVO client, HttpServletRequest request, HttpServletResponse response) {
+			usersService.updateUser(client);
     }
     
     @RequestMapping(value="/bookings/{userId}", method = RequestMethod.GET,headers="Accept=application/json")
-    public List<Client> getClientBooking(@PathVariable("userId") Integer userId) {
+    public List<UserVO> getClientBooking(@PathVariable("userId") Integer userId) {
     	List<String> columnNames = new ArrayList<String>();
     	List<String> values = new ArrayList<String>();
     	columnNames.add("user_id");
     	values.add(String.valueOf(userId));
     	
-        List<Client> bookings = bookingService.getClientBookings(columnNames, values, null);
+        List<UserVO> bookings = bookingService.getClientBookings(columnNames, values, null);
         return bookings;
     }
     
     @RequestMapping(value="/bookings", method = RequestMethod.GET,headers="Accept=application/json")
-    public List<Client> getClientBookings(
+    public List<UserVO> getClientBookings(
     		@RequestParam(value = "client", required = false) Integer clientId,
     		@RequestParam(value = "email", required = false) String email,
     		@RequestParam(value = "status", required = false) String status,
@@ -104,7 +110,7 @@ public class ClientController {
         	values.add(dateValue);    		
     	}
     	
-    	List<Client> bookings = bookingService.getClientBookings(columnNames, values, operator);
+    	List<UserVO> bookings = bookingService.getClientBookings(columnNames, values, operator);
     	return bookings;
     }
 //    @ExceptionHandler (Exception.class)

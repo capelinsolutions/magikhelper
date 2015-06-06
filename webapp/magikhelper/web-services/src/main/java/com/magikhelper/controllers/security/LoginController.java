@@ -1,4 +1,4 @@
-package com.magikhelper.controllers;
+package com.magikhelper.controllers.security;
 
 import java.util.Date;
 
@@ -20,7 +20,7 @@ import com.magikhelper.services.SecurityTokenService;
 import com.magikhelper.services.UsersService;
 import com.magikhelper.utils.MagikHelperConstants;
 import com.magikhelper.utils.Utils;
-import com.magikhelper.vo.Client;
+import com.magikhelper.vo.UserVO;
 import com.magikhelper.vo.ErrorMessageVO;
 import com.magikhelper.vo.LoginVO;
 
@@ -49,7 +49,7 @@ public class LoginController {
 //    	String password = request.getParameter("password");
     	LOGGER.debug("email: "+vo.getEmail());
     	LOGGER.debug("deviceId: "+deviceId);
-        Client client = usersService.loginUser(vo.getEmail(), vo.getPassword());
+        UserVO client = usersService.loginUser(vo.getEmail(), vo.getPassword());
         if (client != null){
         	HttpSession session = request.getSession(true);
         	String token = Utils.getSecurityToken(client.getEmail()+new Date().getTime()+MagikHelperConstants.SECURITY_KEY);

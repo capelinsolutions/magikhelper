@@ -16,7 +16,7 @@ import com.magikhelper.entities.enums.ApplicationPropertyType;
 import com.magikhelper.services.ApplicationPropertiesService;
 import com.magikhelper.utils.MagikHelperConstants;
 import com.magikhelper.vo.ApplicationPropertyVO;
-import com.magikhelper.vo.Client;
+import com.magikhelper.vo.UserVO;
 
 /**
  *
@@ -39,7 +39,7 @@ public class ApplicationPropertiesController {
         ApplicationPropertyVO prop = new ApplicationPropertyVO(p.getPropertyId(), p.getType().name(), p.getName(), p.getValue(), p.getSortOrder());
     	LOGGER.debug("Is session new: "+session.isNew());
     	LOGGER.debug("session Id: "+session.getId());
-    	LOGGER.debug("Client: "+(Client)session.getAttribute(MagikHelperConstants.SESSION_ATT_LOGIN));
+    	LOGGER.debug("UserVO: "+(UserVO)session.getAttribute(MagikHelperConstants.SESSION_ATT_LOGIN));
         return prop;
     }
     
