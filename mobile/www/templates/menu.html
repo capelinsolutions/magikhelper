@@ -1,0 +1,39 @@
+<ion-side-menus delegate-handle="mainSideMenu">
+
+    <ion-side-menu-content>
+        <ion-nav-bar delegate-handle="mainNavBar" ng-controller="MainNavigationCtrl" class="bar-stable">
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-outline ion-navicon" ng-click="toggleRight()">
+                </button>
+            </ion-nav-buttons>
+            <!--
+            <ion-nav-back-button class="button-outline">
+                <i class="ion-arrow-left-c"></i>Back
+            </ion-nav-back-button>
+            -->
+        </ion-nav-bar>
+        <ion-nav-view id="mainContent" name="mainContent"></ion-nav-view>
+    </ion-side-menu-content>
+
+
+
+    <ion-side-menu side="left" ng-controller="RightMenuCtrl">
+        <ion-header-bar class="profileHead menu_top">
+            <div class="">
+                <div class="">
+                    <img src="../img/menu_person.png">
+                </div>
+                <div class="">
+                    <p class="username">Jhonny Smith</p>
+                    <p class="useremail">Jhonnysmith@xyz.com</p>
+                </div>
+            </div>
+        </ion-header-bar>
+        <ion-content padding="false" scroll="true" class="menuProfileHead">
+            <ion-list>
+                <ion-item align="left" ng-repeat="subMenu in subMenus" nav-clear menu-close ng-class="{active: activeSubMenuStateName == subMenu.stateName }" ng-click="setActiveSubMenu(subMenu.stateName)">{{subMenu.labelName}}</ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+
+</ion-side-menus>

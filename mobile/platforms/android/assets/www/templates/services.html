@@ -1,46 +1,69 @@
-<ion-view title="Services Available - 2">
+<!--
+<ion-view title="Services Available">
     <ion-content padding="true" class="has-header">
+
         <ion-list>
             <ion-item class="item-thumbnail-left">
-                <img src="/img/avatar-img.png">
-
+                <img src="img/service1.png">
                 <h2></h2>
-
                 <p></p>
-                <a href="#/booking" class="button button-positive button-clear">General Labor</a>
+                <a ui-sref="booking" class="button button-positive button-clear">General Labor</a>
             </ion-item>
             <ion-item class="item-thumbnail-left">
-                <img src="/img/avatar-img.png">
+                <img src="img/service2.png">
 
                 <h2></h2>
 
                 <p></p>
-                <a href="#/booking" class="button button-positive button-clear">Furniture Assembly</a>
+                <a ui-sref="booking" class="button button-positive button-clear">Furniture Assembly</a>
             </ion-item>
             <ion-item class="item-thumbnail-left">
-                <img src="/img/avatar-img.png">
-
+                <img src="img/service3.png">
                 <h2></h2>
-
                 <p></p>
-                <a href="#/booking" class="button button-positive button-clear">Moving</a>
-            </ion-item>
-            <ion-item class="item-thumbnail-left">
-                <img src="/img/avatar-img.png">
-
-                <h2></h2>
-
-                <p></p>
-                <a href="#/booking" class="button button-positive button-clear">Cleaning</a>
-            </ion-item>
-            <ion-item class="item-thumbnail-left">
-                <img src="/img/avatar-img.png">
-
-                <h2></h2>
-
-                <p></p>
-                <a href="#/booking" class="button button-positive button-clear">Yard Work</a>
+                <a ui-sref="booking" class="button button-positive button-clear">Cleaning</a>
             </ion-item>
         </ion-list>
+
+        <ion-pane ng-controller="AvailableServicesCtrl">
+            <ion-header-bar class="bar-default">
+                <h1 class="title">Services</h1>
+            </ion-header-bar>
+
+            <td-cards>
+                <td-card ng-repeat="card in cards" on-destroy="cardDestroyed($index)" on-swipe-left="cardSwipedLeft($index)" on-swipe-right="cardSwipedRight($index)" on-partial-swipe="cardPartialSwipe(amt)" class="card-{{$index}}">
+                    <div class="image" ng-controller="CardCtrl">
+                        <div class="no-text">NOPE</div>
+                        <img ng-src="{{card.image}}">
+                        <div class="yes-text">LIKE</div>
+                    </div>
+                </td-card>
+            </td-cards>
+        </ion-pane>
+
+    </ion-content>
+</ion-view>
+-->
+<ion-view title="Services">
+    <ion-header-bar class="bar bar-positive bar-stable">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        <h1 class="title">Services Available</h1>
+    </ion-header-bar>
+    <ion-content class="padding" ng-controller="AvailableServicesCtrl">
+        <div class="list">
+            <div ng-repeat="service in availableServices">
+                <a class="item item-thumbnail-left singleService" ui-sref="sidemenu.booking">
+                    <div class="avatar">
+                        <img id="{{service.serviceId}}"/>
+                    </div>
+
+                    <h2>{{service.name}}</h2>
+
+                    <p>Rate : ${{service.rate}} per Hour</p>
+                </a>
+
+            </div>
+
+        </div>
     </ion-content>
 </ion-view>

@@ -1,0 +1,49 @@
+<ion-view title="Contact Person">
+
+    <ion-header-bar class="bar bar-positive bar-stable">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        <h1 class="title">Check Availability</h1>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="list card formLayout">
+            <div class="sectionHeading">Address</div>
+            <div class="list list-inset">
+                    <label class="item item-input">
+                        <input type="text" placeholder="Street Address">
+                    </label>
+                    <label class="item item-input">
+                        <input type="text" placeholder="City">
+                    </label>
+                    <label class="item item-input item-icon-right" placeholder="State">
+                        <select class="selectStyle">
+                            <option selected>State</option>
+                            <option value="">State1</option>
+                            <option value="">State2</option>
+                            <option value="">State3</option>
+                            <option value="">State4</option>
+                            <option value="">State5</option>
+                        </select>
+                        <i class="icon ion-chevron-down" style="color:#2E2AA1;"></i>
+                    </label>
+                    <label class="item item-input">
+                        <input type="text" placeholder="Zip">
+                    </label>
+            </div>
+            <div class="row row-no-padding">
+                <div class="col col-50 row-no-padding">
+                    <div class="previous_div">
+                        <a class="button button-theme button-block" ui-sref="contact_person">Previous</a>
+                  <!-- <button ui-sref="" class="button button-theme button-block">Previous</button>  -->
+                    </div>
+                </div>
+                <div class="col col-50 row-no-padding">
+                    <div class="next_div">
+                        <a class="button button-theme button-block" ui-sref="availability">Next</a>
+                <!--  <button ui-sref="" class="button button-theme button-block">Next</button>  -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+
+</ion-view>

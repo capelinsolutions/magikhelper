@@ -1,0 +1,39 @@
+<ion-view view-title="Dashboard">
+    <ion-content class="padding">
+        <div class="list card">
+            <div class="item item-divider">Jobs In Progress</div>
+            <div class="item item-body">
+                <div class="list  ">
+                    <ion-list class="ven-job-list" ng-repeat="item in getListAllUserPastJobs()">
+                        <ion-item class="item-avatar item-icon-right" ui-sref="sidemenu.location">
+                            <div class="avatar">
+                                <!--
+                                <img id="{{item.bookingId}}"/>
+                                -->
+                                <!--hardcoding because service is not returning the service id -->
+                                <img id="1"/>
+                            </div>
+                            <span class="userName">{{item.serviceName}}</span>
+                            <span class="variable">{{item.bookedDate}}</span>
+                            <span class="variable">{{item.bookedTime}}</span>
+                            <span class="variable">{{item.duration}} hrs</span>
+                            <i class="icon ion-chevron-right icon-accessory"></i>
+                        </ion-item>
+                    </ion-list>
+
+                </div>
+            </div>
+        </div>
+        <div class="list card">
+            <div class="item item-divider">Completed Jobs</div>
+            <div class="item item-body">
+                <div>
+                    No Past Job(s)
+                </div>
+            </div>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer form_submit ">
+        <div class="title"><a ui-sref="sidemenu.availability"> Create a new job </a></div>
+    </div>
+</ion-view>

@@ -1,33 +1,63 @@
+<!--
 <ion-view title="Login">
     <ion-content padding="true" class="has-header">
         <div class="list card">
             <div class="item item-image ">
-                <img src="img/logo.png"/>
+               <img src="img/logo.png"/>
             </div>
-            <div class="item item-body">
-
+            <div class="list">
                 <form ng-submit="login()" ng-controller="LoginCtrl">
-                    <ion-list>
-                        <label class="item item-input">
-                            <span class="input-label">Username</span>
-                            <input type="text" name="username" id="username" class="form-control form_field"
-                                   ng-model="username" required/>
-                        </label>
-                        <label class="item item-input">
-                            <span class="input-label">Password</span>
-                            <input type="password" name="password" id="password" class="form-control form_field"
-                                   ng-model="password"
-                                   required/>
-                        </label>
-                    </ion-list>
+
+                    <label class="item item-input">
+                        <span class="input-label">Username</span>
+                        <input type="text" name="username" id="username" class="form-control form_field"
+                               ng-model="username" required/>
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Password</span>
+                        <input type="password" name="password" id="password" class="form-control form_field"
+                               ng-model="password"
+                               required/>
+                    </label>
                     <div class="padding">
-                        <button type="submit" class=" form_submit button button-royal button-block">Log in</button>
+                        <button type="submit" class=" form_submit button button-royal">Log in</button>
                     </div>
-                    <div class="item item-divider btnAccount">
-                        Don't have a account?<a ui-sref="signup"> Sign up </a>
-                    </div>
+
                 </form>
+                <div class="item item-divider btnAccount">
+                    Don't have a account?<a ui-sref="signup"> Sign up </a>
+                </div>
+
             </div>
         </div>
     </ion-content>
+</ion-view>
+-->
+<ion-view>
+    <ion-content class="padding">
+        <div id="logo-wrapper" style="text-align: center;"><img src="img/logo.png" width="150px;"></div>
+        <div class="list">
+
+        <form ng-submit="login()" ng-controller="LoginCtrl" >
+                <label class="item item-input loginForminput border_bottom_input">
+                    <input type="text" placeholder="Email" name="username" id="username" class="form-control form_field"
+                           ng-model="username" required/>
+                </label>
+                <label class="item item-input loginForminput border_bottom_input">
+
+                    <input type="password" placeholder="Password" name="password" id="password"
+                           class="form-control form_field"
+                           ng-model="password"
+                           required/>
+                </label>
+
+                <button type="submit" class="form_submit button-full button-positive">Log in</button>
+            </form>
+        </div>
+    </ion-content>
+    <div class="title ">Don't have a account? <a ui-sref="location"> location</a></div>
+    <div class="bar bar-footer btnAccount">
+        <div class="title ">Don't have a account? <a ui-sref="signup"> Sign up </a></div>
+
+    </div>
 </ion-view>

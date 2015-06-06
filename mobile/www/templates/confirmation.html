@@ -1,3 +1,59 @@
 <ion-view title="Confirmation">
-    <ion-content padding="true" class="has-header"></ion-content>
+    <ion-header-bar class="bar bar-positive bar-stable">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        <h1 class="title"></h1>
+    </ion-header-bar>
+    <ion-content class="padding" >
+        Thank you for choosing magikHelp, please review the information below before confirming
+        <div class="list card">
+            <div class="sectionHeading"> 
+                <div > 
+                    <div class="avatarLg" style=" display: inline-block;vertical-align: middle">
+                        <img id="{{booking.service.serviceId}}"/>
+                    </div>
+                    <div style=" display: inline-block;vertical-align: middle">{{booking.service.name}}</div>
+
+                </div>
+            </div>
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-person" style="color:#4571DA;"></i>
+                {{booking.firstName}} {{booking.lastName}}
+            </a>
+
+            <a href="#" class="item item-icon-left item-icon-right">
+                <i class="icon ion-home" style="color:#4571DA;"></i>
+                {{booking.address.street}} {{booking.address.city}} {{booking.address.state}} {{booking.address.zip}}
+                <i class="icon ion-edit" style="color:#4571DA;"></i>
+            </a>
+
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-ios-telephone" style="color:#4571DA;"></i>
+                {{booking.phone}}
+            </a>
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-ios-clock-outline" style="color:#4571DA;"></i>
+                {{booking.bookingDate}}
+                <p>{{booking.bookedTime}}</p>
+
+                <p>{{booking.duration}}</p>
+            </a>
+
+
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-email" style="color:#4571DA;"></i>
+                {{booking.email}}
+            </a>
+
+            <a href="#" class="item item-icon-left">
+                <i class="icon ion-hammer" style="color:#4571DA;"></i>
+
+                <p>{{booking.instructions}}</p>
+            </a>
+
+        </div>
+    </ion-content>
+    <div class="bar bar-footer form_submit ">
+        <div class="title"><a ui-sref="contact_person"> Confirm Job </a></div>
+    </div>
+
 </ion-view>
