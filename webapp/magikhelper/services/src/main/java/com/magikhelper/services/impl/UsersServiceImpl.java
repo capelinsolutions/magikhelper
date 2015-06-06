@@ -21,7 +21,7 @@ import com.magikhelper.entities.UserRole;
 import com.magikhelper.exceptions.UserNotRegisteredException;
 import com.magikhelper.services.UsersService;
 import com.magikhelper.utils.MagikHelperConstants;
-import com.magikhelper.vo.Client;
+import com.magikhelper.vo.UserVO;
 import com.magikhelper.vo.MagikHelperService;
 import com.magikhelper.vo.VendorVO;
 
@@ -73,12 +73,12 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-    public List<Client> getClients(Integer clientId){
-    	List<Client> clients = new ArrayList<Client>();
+    public List<UserVO> getClients(Integer clientId){
+    	List<UserVO> clients = new ArrayList<UserVO>();
     	List<User> users = usersDao.getCleints(clientId);
     	for (User user : users) {
-			Client client = new Client();
-			client.setClientId(user.getRowId());
+			UserVO client = new UserVO();
+			client.setUserId(user.getRowId());
 			client.setEmail(user.getEmail());
 			client.setFirstName(user.getFirstName());
 			client.setLastName(user.getLastName());
@@ -98,7 +98,7 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
-	public void addClient(Client client) {
+	public void addClient(UserVO userVo) {
 		User user = new User();
 		Contact contact = new Contact();
 		SystemRole role = rolesDao.getReference(MagikHelperConstants.SYS_ROLE_CLIENT);
@@ -107,26 +107,27 @@ public class UsersServiceImpl implements UsersService {
 		userRole.setSystemRole(role);
 		userRole.populatedAuditFields("SYSTEM");
 		
-		user.setEmail(client.getEmail());
-		user.setFirstName(client.getFirstName());
-		user.setLastName(client.getLastName());
-		user.setPassword(client.getPassword());
+		user.setEmail(userVo.getEmail());
+		user.setFirstName(userVo.getFirstName());
+		user.setLastName(userVo.getLastName());
+		user.setPassword(userVo.getPassword());
 		user.populatedAuditFields("SYSTEM");
 		user.addUserRole(userRole);
 		
-		contact.setStreet(client.getStreet());
-		contact.setAdditional(client.getAdditional());
-		contact.setCity(client.getCity());
-		contact.setState(client.getState());
-		contact.setZip(client.getZip());
-		contact.setCountry(client.getCountry());
+		contact.setStreet(userVo.getStreet());
+		contact.setAdditional(userVo.getAdditional());
+		contact.setCity(userVo.getCity());
+		contact.setState(userVo.getState());
+		contact.setZip(userVo.getZip());
+		contact.setCountry(userVo.getCountry());
+		contact.setMobilePhone(userVo.getMobilePhone());
 		contact.populatedAuditFields("SYSTEM");
 		
 		user.setContact(contact);
 		
 		try {
 			usersDao.add(user);
-			client.setClientId(user.getRowId());
+			userVo.setUserId(user.getRowId());
 		} 
 		catch (DataIntegrityViolationException e){
 //			log.error(e,e);
@@ -147,22 +148,44 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public Client loginUser(String email, String password) {
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
+	public void updateUser(UserVO userVo) {
+		
+		User user = usersDao.get(userVo.getUserId());
+		Contact contact = user.getContact();
+		
+		user.setFirstName(userVo.getFirstName());
+		user.setLastName(userVo.getLastName());
+		user.populatedAuditFieldsOnUpdate("SYSTEM");
+		
+		contact.setStreet(userVo.getStreet());
+		contact.setAdditional(userVo.getAdditional());
+		contact.setCity(userVo.getCity());
+		contact.setState(userVo.getState());
+		contact.setZip(userVo.getZip());
+		contact.setCountry(userVo.getCountry());
+		contact.setMobilePhone(userVo.getMobilePhone());
+		contact.populatedAuditFieldsOnUpdate("SYSTEM");
+		
+		usersDao.update(user);
+	}
+	@Override
+	public UserVO loginUser(String email, String password) {
 		User user = usersDao.loginUser(email, password);
 		if (user != null){
-			Client client = new Client();
-			client.setClientId(user.getRowId());
-			client.setEmail(user.getEmail());
-			client.setFirstName(user.getFirstName());
-			client.setLastName(user.getLastName());
-			client.setMobilePhone(user.getContact().getMobilePhone());
-			client.setStreet(user.getContact().getStreet());
-			client.setAdditional(user.getContact().getAdditional());
-			client.setCity(user.getContact().getCity());
-			client.setZip(user.getContact().getZip());
-			client.setState(user.getContact().getState());
-			client.setCountry(user.getContact().getCountry());
-			return client;
+			UserVO userVo = new UserVO();
+			userVo.setUserId(user.getRowId());
+			userVo.setEmail(user.getEmail());
+			userVo.setFirstName(user.getFirstName());
+			userVo.setLastName(user.getLastName());
+			userVo.setMobilePhone(user.getContact().getMobilePhone());
+			userVo.setStreet(user.getContact().getStreet());
+			userVo.setAdditional(user.getContact().getAdditional());
+			userVo.setCity(user.getContact().getCity());
+			userVo.setZip(user.getContact().getZip());
+			userVo.setState(user.getContact().getState());
+			userVo.setCountry(user.getContact().getCountry());
+			return userVo;
 		}
 		return null;
 	}

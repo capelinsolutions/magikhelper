@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.magikhelper.vo.BookingListVO;
 import com.magikhelper.vo.BookingVO;
-import com.magikhelper.vo.Client;
+import com.magikhelper.vo.UserVO;
 
 public class BookingServiceTest extends BaseServiceTest {
 
@@ -34,7 +34,7 @@ public class BookingServiceTest extends BaseServiceTest {
     
     @Test
     public void testClientBookings(){
-    	List<Client> bookings = bookingService.getClientBookings(null, null, null);
+    	List<UserVO> bookings = bookingService.getClientBookings(null, null, null);
     	log.debug(bookings);
     }
     

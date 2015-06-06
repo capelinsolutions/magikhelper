@@ -2,8 +2,8 @@ package com.magikhelper.vo;
 
 import java.util.List;
 
-public class Client {
-	private int clientId;
+public class UserVO {
+	private int userId;
 	private String email;
 	private String firstName;
 	private String lastName;
@@ -17,13 +17,13 @@ public class Client {
 	private String password;
 	private List<ClientBookingsVO> bookings;
 	
-	public int getClientId() {
-		return clientId;
+	public int getUserId() {
+		return userId;
 	}
 
 
-	public void setClientId(int clientId) {
-		this.clientId = clientId;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 
@@ -147,7 +147,7 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client [clientId=" + clientId + ", email=" + email
+		return "UserVO [userId=" + userId + ", email=" + email
 				+ ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", mobilePhone=" + mobilePhone + ", street=" + street
 				+ ", additional=" + additional + ", city=" + city + ", zip="

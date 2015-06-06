@@ -1,4 +1,4 @@
-package com.magikhelper.controllers;
+package com.magikhelper.controllers.booking;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -24,7 +24,7 @@ import com.magikhelper.utils.DateUtils;
 import com.magikhelper.utils.MagikHelperConstants;
 import com.magikhelper.vo.BookingListVO;
 import com.magikhelper.vo.BookingVO;
-import com.magikhelper.vo.Client;
+import com.magikhelper.vo.UserVO;
 import com.magikhelper.vo.ClientBookingsVO;
 import com.magikhelper.vo.MagikHelperService;
 import com.magikhelper.vo.VendorVO;
@@ -51,6 +51,7 @@ public class BookingServiceImpl implements BookingService {
 		booking.setBookedDatetime(date);
 		booking.setDuration(vo.getDuration());
 		booking.setStatusDesc("Booking created with active status.");
+		booking.setAddress(vo.getAddress());
 		booking.populatedAuditFields("SYSTEM");
 		
 		User client = usersDao.getReference(vo.getClientId());
@@ -67,9 +68,9 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
-	public List<Client> getClientBookings(List<String> columnNames,	List<String> values, String dateOperator) {
+	public List<UserVO> getClientBookings(List<String> columnNames,	List<String> values, String dateOperator) {
 		List<Object[]> bookingsObjs = bookingDao.getClientBookings(columnNames, values, dateOperator);
-		List<Client> clients = new ArrayList<Client>();
+		List<UserVO> clients = new ArrayList<UserVO>();
 		List<Integer> clientIds = new ArrayList<Integer>();
 		
 		int index=-1;
@@ -110,8 +111,8 @@ public class BookingServiceImpl implements BookingService {
 			
 			
 			if(clientIds.contains(clientId)==false){
-				Client client=new Client();
-				client.setClientId(clientId);
+				UserVO client=new UserVO();
+				client.setUserId(clientId);
 				client.setEmail(email);
 				client.setFirstName(firstName);
 				client.setLastName(lastName);
@@ -145,6 +146,7 @@ public class BookingServiceImpl implements BookingService {
 		for (Booking b : bookings) {
 			BookingListVO vo = new BookingListVO();
 			vo.setBookingId(b.getRowId());
+			vo.setServiceId(b.getService().getPropertyId());
 			vo.setBookedDate(DateUtils.convertToString(b.getBookedDatetime(), "MM/dd/yyyy"));
 			vo.setBookedTime(DateUtils.convertToString(b.getBookedDatetime(), "HH:mm:ss"));
 			vo.setDuration(b.getDuration());
@@ -152,6 +154,7 @@ public class BookingServiceImpl implements BookingService {
 			vo.setFinishDateTime(DateUtils.convertToString(b.getFinishDatetime(), "MM/dd/yyyy HH:mm:ss"));
 			vo.setStatus(b.getStatus().getName());
 			vo.setStatusDesc(b.getStatusDesc());
+			vo.setAddress(b.getAddress());
 			vo.setServiceName(b.getService().getName());
 			vo.setRate(b.getService().getServices().get(0).getRate());
 			vo.setClientId(b.getUser().getRowId());

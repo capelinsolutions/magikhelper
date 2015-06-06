@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 public class BookingListVO {
 	private Integer bookingId;
+	private Integer serviceId;
 	private String bookedDate;
 	private String bookedTime;
 	private int duration;
@@ -11,6 +12,7 @@ public class BookingListVO {
 	private String finishDateTime;
 	private String status;
 	private String statusDesc;
+	private String address;
 	private String serviceName;
 	private BigDecimal rate;
 	private int clientId;
@@ -29,6 +31,12 @@ public class BookingListVO {
 	}
 	public void setBookingId(Integer bookingId) {
 		this.bookingId = bookingId;
+	}
+	public Integer getServiceId() {
+		return serviceId;
+	}
+	public void setServiceId(Integer serviceId) {
+		this.serviceId = serviceId;
 	}
 	public String getBookedDate() {
 		return bookedDate;
@@ -71,6 +79,12 @@ public class BookingListVO {
 	}
 	public void setStatusDesc(String statusDesc) {
 		this.statusDesc = statusDesc;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	public String getServiceName() {
 		return serviceName;

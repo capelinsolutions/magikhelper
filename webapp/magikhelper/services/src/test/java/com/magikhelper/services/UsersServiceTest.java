@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.magikhelper.exceptions.UserNotRegisteredException;
-import com.magikhelper.vo.Client;
+import com.magikhelper.vo.UserVO;
 import com.magikhelper.vo.MagikHelperService;
 import com.magikhelper.vo.VendorVO;
 
@@ -36,19 +36,19 @@ public class UsersServiceTest extends BaseServiceTest {
  
     @Test
     public void testGetClients() {
-       List<Client> clients = usersService.getClients(null);
-       for (Client client : clients) {
+       List<UserVO> clients = usersService.getClients(null);
+       for (UserVO client : clients) {
     	   log.debug(client);
        }
     }
     
     @Test
     public void testAddClient(){
-    	Client client = new Client();
+    	UserVO client = new UserVO();
     	client.setEmail("client-test"+new Date().getTime()+"@hotmail.com");
     	client.setPassword("Password");
     	client.setFirstName("Test");
-    	client.setLastName("Client");
+    	client.setLastName("UserVO");
     	client.setMobilePhone("Mobile");
     	client.setStreet("Street");
     	client.setAdditional("Additional");

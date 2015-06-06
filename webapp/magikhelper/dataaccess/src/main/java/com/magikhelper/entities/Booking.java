@@ -35,6 +35,7 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 	private Date finishDatetime;
 	private Date startDatetime;
 	private String statusDesc;
+	private String address;
 	private User user;
 	private ApplicationProperty status;
 	private ApplicationProperty service;
@@ -103,6 +104,16 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 	public void setStatusDesc(String statusDesc) {
 		this.statusDesc = statusDesc;
 	}
+	
+	@Column(name="address")
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 
 	//bi-directional many-to-one association to User
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})

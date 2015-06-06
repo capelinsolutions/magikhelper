@@ -30,6 +30,8 @@ public class BookingDaoJpaImpl extends GenericDaoJpaImpl<Booking, Integer> imple
 	public List<Booking> getBookings(List<String> columnNames, List<String> values, String dateOperator) {
     	
 		StringBuilder qryStr = new StringBuilder();
+//		qryStr.append("select bookings.rowId, bookings.bookedDatetime, bookings.duration, bookings.startDatetime, bookings.finishDatetime, bookings.statusDesc, bookings.address,  ");
+//		qryStr.append(" status.name, services.name,  from Booking bookings ");
 		qryStr.append("select bookings from Booking bookings ");
 		qryStr.append("inner join fetch bookings.service services ");
 		qryStr.append("inner join fetch bookings.status status ");
