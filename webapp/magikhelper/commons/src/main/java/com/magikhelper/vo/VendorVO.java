@@ -55,7 +55,7 @@ public class VendorVO {
 	public String toString() {
 		return "Vendor [vendorId=" + vendorId + ", email=" + email
 				+ ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", services=" + services + "]";
+				+ ", services=" + services + "]\n";
 	}
 	
 }

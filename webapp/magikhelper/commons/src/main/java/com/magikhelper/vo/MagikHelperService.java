@@ -49,7 +49,7 @@ public class MagikHelperService {
 
 	@Override
 	public String toString() {
-		return "MagikHelperService [serviceId=" + serviceId + ", name=" + name + ", rate=" + rate + ", zipcode=" + zipcode + "]";
+		return "\nMagikHelperService [serviceId=" + serviceId + ", name=" + name + ", rate=" + rate + ", zipcode=" + zipcode + "]";
 	}
 
 	

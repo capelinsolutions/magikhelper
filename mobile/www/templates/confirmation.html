@@ -4,7 +4,14 @@
         <h1 class="title"></h1>
     </ion-header-bar>
     <ion-content class="padding" >
-        Thank you for choosing magikHelp, please review the information below before confirming
+
+        <div>
+            <div ng-show="!booking.booked">Please review the information below before confirming</div>
+            <div ng-show="booking.booked">Thank you for choosing magikHelp, Booking Confirmation Code:
+                {{booking.confirmation}}
+            </div>
+        </div>
+
         <div class="list card">
             <div class="sectionHeading"> 
                 <div > 
@@ -32,7 +39,7 @@
             </a>
             <a href="#" class="item item-icon-left">
                 <i class="icon ion-ios-clock-outline" style="color:#4571DA;"></i>
-                {{booking.bookingDate}}
+                {{booking.bookingDate | date:'MM/dd/yyyy'}}
                 <p>{{booking.bookedTime}}</p>
 
                 <p>{{booking.duration}}</p>
@@ -53,7 +60,10 @@
         </div>
     </ion-content>
     <div class="bar bar-footer form_submit ">
-        <div class="title"><a ui-sref="contact_person"> Confirm Job </a></div>
+        <button class=" form_submit button-clear  title" ng-click="makeBooking()" ng-show="!booking.booked">Confirm
+            Job
+        </button>
+        <button class=" form_submit button-clear  title" ng-click="done()" ng-show="booking.booked">Done</button>
     </div>
 
 </ion-view>

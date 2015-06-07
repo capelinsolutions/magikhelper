@@ -23,6 +23,8 @@ import javax.persistence.Table;
 public class Contact extends com.magikhelper.entities.BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int rowId;
+	private String firstName;
+	private String lastName;	
 	private String additional;
 	private String city;
 	private String country;
@@ -47,6 +49,24 @@ public class Contact extends com.magikhelper.entities.BaseEntity implements Seri
 		this.rowId = rowId;
 	}
 
+	@Column(name="first_name")
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	@Column(name="last_name")
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
 
 	public String getAdditional() {
 		return this.additional;
@@ -122,13 +142,12 @@ public class Contact extends com.magikhelper.entities.BaseEntity implements Seri
 		this.users = users;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Contact [rowId=" + rowId + ", additional=" + additional
-				+ ", city=" + city + ", country=" + country + ", mobilePhone="
-				+ mobilePhone + ", state=" + state + ", street=" + street
-				+ ", zip=" + zip + "]";
+		return "Contact [rowId=" + rowId + ", firstName=" + firstName + ", lastName=" + lastName + ", additional=" + additional + "]";
 	}
+
 
 	
 }

@@ -3,3 +3,23 @@ Zipcode:
 75254
 75240
 75001
+
+06/05/2015
+Current:
+--booking created, 
+--booking assigned to vendor,
+--booking in progress
+--booking completed
+
+
+tbl_booking_Event
+booking_status
+audit_fields
+status_desc
+
+booking_feedback
+comments
+rating
+audit_fields
+
+additional comment at the time of booking creation

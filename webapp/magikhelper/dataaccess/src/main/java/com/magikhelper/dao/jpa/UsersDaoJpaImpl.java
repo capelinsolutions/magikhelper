@@ -34,6 +34,7 @@ public class UsersDaoJpaImpl extends GenericDaoJpaImpl<User, Integer> implements
 		qryStr.append("	    system_role roles, ");
 		qryStr.append("	    user_role user_roles, ");
 		qryStr.append("	    user users, ");
+		qryStr.append("	    contact contact, ");
 		qryStr.append("	    vendor_skill skills, ");
 		qryStr.append("	    application_properties props ");
 		qryStr.append("	WHERE ");
@@ -41,6 +42,7 @@ public class UsersDaoJpaImpl extends GenericDaoJpaImpl<User, Integer> implements
 		qryStr.append("	        AND user_roles.user_id = users.row_id ");
 		qryStr.append("	        AND roles.title = 'VENDOR_ROLE' ");
 		qryStr.append("	        AND users.row_id = skills.vendor_id ");
+		qryStr.append("	        AND users.address_id = contact.row_id ");
 		qryStr.append("	        AND skills.skill_id = props.property_id ");
 		qryStr.append("	        AND props.type = 'SERVICES' ");
 		qryStr.append("	        AND roles.is_active = '1' ");

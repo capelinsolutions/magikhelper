@@ -1,6 +1,7 @@
 package com.magikhelper.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -35,12 +36,17 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 	private Date finishDatetime;
 	private Date startDatetime;
 	private String statusDesc;
-	private String address;
+	private BigDecimal rate;
+	private String comments;
 	private User user;
+	private Contact contact;
 	private ApplicationProperty status;
 	private ApplicationProperty service;
 	private List<BookingAssignment> bookingAssignments;
+	private List<BookingEvent> bookingEvents;
+	private List<BookingFeedback> bookingFeedbacks;
 
+	
 	public Booking() {
 	}
 
@@ -105,15 +111,21 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 		this.statusDesc = statusDesc;
 	}
 	
-	@Column(name="address")
-	public String getAddress() {
-		return address;
+	public BigDecimal getRate() {
+		return this.rate;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setRate(BigDecimal rate) {
+		this.rate = rate;
 	}
 
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 
 	//bi-directional many-to-one association to User
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
@@ -124,6 +136,17 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	//bi-directional many-to-one association to Contact
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	@JoinColumn(name="contact_id")
+	public Contact getContact() {
+		return this.contact;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
 	}
 
 	//bi-directional many-to-one association to ApplicationProperty
@@ -149,7 +172,7 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 	}
 
 	//bi-directional many-to-one association to BookingAssignment
-	@OneToMany(mappedBy="booking")
+	@OneToMany(mappedBy="booking", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	public List<BookingAssignment> getBookingAssignments() {
 		return this.bookingAssignments;
 	}
@@ -158,7 +181,26 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 		this.bookingAssignments = bookingAssignments;
 	}
 
+	//bi-directional many-to-one association to BookingEvent
+	@OneToMany(mappedBy="booking", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+	public List<BookingEvent> getBookingEvents() {
+		return this.bookingEvents;
+	}
 
+	public void setBookingEvents(List<BookingEvent> bookingEvents) {
+		this.bookingEvents = bookingEvents;
+	}
+
+	//bi-directional many-to-one association to BookingFeedback
+	@OneToMany(mappedBy="booking", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+	public List<BookingFeedback> getBookingFeedbacks() {
+		return this.bookingFeedbacks;
+	}
+
+	public void setBookingFeedbacks(List<BookingFeedback> bookingFeedbacks) {
+		this.bookingFeedbacks = bookingFeedbacks;
+	}
+	
 	@Override
 	public String toString() {
 		return "\nBooking [rowId=" + rowId + ", bookedDatetime=" + bookedDatetime

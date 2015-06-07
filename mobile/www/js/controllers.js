@@ -20,7 +20,7 @@ angular.module('starter.controllers', ['starter.messages'])
                     AuthenticationService.Login(user, function (response) {
                         if (response.login) {
                             BookingService.setClient(response)
-                            AuthenticationService.SetCredentials(user);
+                            AuthenticationService.SetCredentials(response);
                             $location.path('/sidemenu/user_joblist');
                         } else {
                             $scope.error = response.message;
@@ -99,6 +99,7 @@ angular.module('starter.controllers', ['starter.messages'])
     .controller('ContactPersonCtrl', ['$scope', '$rootScope', '$location', 'BookingService', function ($scope, $rootScope, $location, BookingService) {
 
         var client = BookingService.getBookingObject().client;
+
         $scope.contact = {};
 
         $scope.contact.firstName = client.firstName;
@@ -115,9 +116,10 @@ angular.module('starter.controllers', ['starter.messages'])
 
     }])
 
-    .controller('ConfirmationCtrl', ['$scope', '$rootScope', '$location', 'BookingService', function ($scope, $rootScope, $location, BookingService) {
+    .controller('ConfirmationCtrl', ['$scope', '$rootScope', '$filter', '$location', 'BookingService', function ($scope, $rootScope, $filter, $location, BookingService) {
 
         $scope.booking = BookingService.getBookingObject();
+        $scope.booking.booked = false;
 
 
         $scope.setConfirmBooking = function () {
@@ -125,6 +127,34 @@ angular.module('starter.controllers', ['starter.messages'])
             BookingService.setContactPerson($scope.contact);
             $location.path('/sidemenu/confirmation');
         }
+
+        $scope.done = function () {
+            $scope.booking = {};
+            $scope.bookingPojo = {};
+            BookingService.getAllBookings();
+            $location.path('/sidemenu/user_joblist');
+        }
+
+        $scope.makeBooking = function () {
+            $scope.bookingPojo = {};
+
+
+            $scope.bookingPojo.clientId = $scope.booking.client.userId;
+            $scope.bookingPojo.serviceId = $scope.booking.service.serviceId;
+            $scope.bookingPojo.address = $scope.booking.address.street;
+            $scope.bookingPojo.bookedDate = $filter('date')($scope.booking.bookingDate, 'MM/dd/yyyy');
+            $scope.bookingPojo.bookedTime = "16:00";//TODO: add actual time
+            $scope.bookingPojo.duration = +$scope.booking.duration;
+
+
+            BookingService.makeBooking($scope.bookingPojo, function (response) {
+                $scope.booking.confirmation = 1234;
+                $scope.booking.booked = true;
+            });
+            $location.path('/sidemenu/confirmation');
+        }
+
+
 
 
     }])
@@ -142,10 +172,16 @@ angular.module('starter.controllers', ['starter.messages'])
         ];
 
 
-            $scope.setBookingDetails = function() {
-                BookingService.setBookingDetails($scope.bookingDetails);
-                $location.path('/sidemenu/contact_person');
-            }
+        $scope.setBookingDetails = function () {
+            BookingService.setBookingDetails($scope.bookingDetails);
+            $location.path('/sidemenu/contact_person');
+        }
+
+        $scope.makeBooking = function () {
+            $scope.bookingDetails.confirmation = "12345";
+
+            $location.path('/sidemenu/confirmation');
+        }
 
     }])
     .controller('JobListCtrl', ['$scope', '$rootScope',  '$q','$location', 'BookingService', function ($scope, $rootScope, $q, $location, BookingService) {

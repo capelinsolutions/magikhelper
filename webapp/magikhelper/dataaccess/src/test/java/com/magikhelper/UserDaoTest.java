@@ -19,27 +19,27 @@ public class UserDaoTest extends AbstractDaoTest {
     private UsersDao usersDao;
 
     @Test
-    public void testGetVendorSkills() {
-    	List<Object[]> vendors = usersDao.getVendorWithSkills(5);
+    public void getVendorWithSkills() {
+    	List<Object[]> vendors = usersDao.getVendorWithSkills(4);
     	for (Object[] data : vendors) {
-    		log.debug(data[0]+" "+data[1]+" "+data[2]+" "+data[3]+" "+data[4]+" "+data[5]+" "+data[6]);
+    		System.out.println(data[0]+" "+data[1]+" "+data[2]+" "+data[3]+" "+data[4]+" "+data[5]+" "+data[6]);
 		}
     }
     
     @Test
-    public void testGetClients() {
+    public void getCleints() {
     	List<User> clients = usersDao.getCleints(3);
     	for (User user : clients) {
-			log.debug(user);
-			log.debug(user.getContact());
+    		System.out.println(user);
+    		System.out.println(user.getContact());
 		}
     }
     
     @Test
-    public void testLogin(){
-    	/*String email="client1@hotmail.com";
+    public void loginUser(){
+    	String email="client1@hotmail.com";
     	String password="Test123";
     	User user = usersDao.loginUser(email, password);
-    	log.debug("=======>"+user);*/
+    	System.out.println("=======>"+user);
     }
 }

@@ -189,7 +189,7 @@
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Vendors Services" enabled="true"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Vendors Services" enabled="false"/>
           <hashTree>
             <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get All Vendors Skills" enabled="false">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
@@ -231,7 +231,7 @@
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/vendors/skills/5</stringProp>
+              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/vendors/skills/4</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -251,24 +251,26 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Update Vendor" enabled="true">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Update Vendor" enabled="false">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
                     <stringProp name="Argument.value">{&#xd;
-    &quot;userId&quot;:&quot;3&quot;,&#xd;
-    &quot;firstName&quot;: &quot;Test-updated&quot;,&#xd;
-    &quot;lastName&quot;: &quot;Client-1-update&quot;,&#xd;
-    &quot;mobilePhone&quot;: &quot;Mobile-update&quot;,&#xd;
-    &quot;street&quot;: &quot;Street-updated&quot;,&#xd;
-    &quot;additional&quot;: &quot;Additional-updated&quot;,&#xd;
-    &quot;city&quot;: &quot;City-updated&quot;,&#xd;
-    &quot;zip&quot;: &quot;Zip-update&quot;,&#xd;
-    &quot;state&quot;: &quot;State-updated&quot;,&#xd;
-    &quot;country&quot;: &quot;Country-updated&quot;&#xd;
-  }</stringProp>
+    &quot;userId&quot;:&quot;5&quot;,&#xd;
+    &quot;contact&quot;: {&#xd;
+          &quot;firstName&quot;: &quot;Vendor-updated&quot;,&#xd;
+    		&quot;lastName&quot;: &quot;One-update&quot;,&#xd;
+    		&quot;mobilePhone&quot;: &quot;Mobile-update&quot;,&#xd;
+    		&quot;street&quot;: &quot;Street-updated&quot;,&#xd;
+    		&quot;additional&quot;: &quot;Additional-updated&quot;,&#xd;
+    		&quot;city&quot;: &quot;City-updated&quot;,&#xd;
+    		&quot;zip&quot;: &quot;Zip-update&quot;,&#xd;
+    		&quot;state&quot;: &quot;State-updated&quot;,&#xd;
+    		&quot;country&quot;: &quot;Country-updated&quot;&#xd;
+    }&#xd;
+ }</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -365,19 +367,29 @@
           </hashTree>
           <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Booking Services" enabled="false"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Booking" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Booking" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
                     <stringProp name="Argument.value">{&#xd;
-    &quot;bookedDate&quot;: &quot;02/07/2015&quot;,&#xd;
+    &quot;bookedDate&quot;: &quot;06/06/2015&quot;,&#xd;
     &quot;bookedTime&quot;: &quot;16:00&quot;,&#xd;
     &quot;duration&quot;: &quot;2&quot;,&#xd;
     &quot;clientId&quot;: &quot;3&quot;,&#xd;
     &quot;serviceId&quot;: &quot;1&quot;,&#xd;
-    &quot;address&quot;:&quot;Address-1&quot;&#xd;
+    &quot;bookingContact&quot;: {&#xd;
+      &quot;firstName&quot;: &quot;Test&quot;,&#xd;
+      &quot;lastName&quot;: &quot;UserVO&quot;,&#xd;
+      &quot;mobilePhone&quot;: &quot;Mobile&quot;,&#xd;
+      &quot;street&quot;: &quot;Street&quot;,&#xd;
+      &quot;additional&quot;: &quot;Additional&quot;,&#xd;
+      &quot;city&quot;: &quot;City&quot;,&#xd;
+      &quot;zip&quot;: &quot;Zip&quot;,&#xd;
+      &quot;state&quot;: &quot;State&quot;,&#xd;
+      &quot;country&quot;: &quot;Country&quot;&#xd;
+    }&#xd;
 }</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
@@ -409,7 +421,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="List of all bookings" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="List of all bookings" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -439,7 +451,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by Id" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by Id" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -449,7 +461,7 @@
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings/3</stringProp>
+              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings/1</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -469,7 +481,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by client Id" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by client Id" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -479,7 +491,7 @@
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings?client=4</stringProp>
+              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings?client=3</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -499,7 +511,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by client email" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by client email" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -529,7 +541,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by status" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by status" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -539,7 +551,7 @@
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings?status=active</stringProp>
+              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings?status=created</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -559,7 +571,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by date" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by date" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -569,7 +581,7 @@
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings?date=02/08/2015&amp;op==</stringProp>
+              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings?date=06/06/2015&amp;op==</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -589,7 +601,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by date and email" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by date and email" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -599,7 +611,7 @@
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings?date=02/08/2015&amp;op==&amp;email=client2@hotmail.com</stringProp>
+              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings?date=06/06/2015&amp;op==&amp;email=client1@hotmail.com</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -619,7 +631,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by clientId and status" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Booking by clientId and status" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -629,7 +641,7 @@
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings?client=3&amp;status=active</stringProp>
+              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/bookings?client=3&amp;status=created</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -650,9 +662,9 @@
               <hashTree/>
             </hashTree>
           </hashTree>
-          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Client Services" enabled="false"/>
+          <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Client Services" enabled="true"/>
           <hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get All Clients" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get All Clients" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -682,7 +694,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get client by Id" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get client by Id" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -712,25 +724,27 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Client" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Client" enabled="true">
               <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
                 <collectionProp name="Arguments.arguments">
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
                     <stringProp name="Argument.value">{&#xd;
-    &quot;email&quot;: &quot;client-test-1@hotmail.com&quot;,&#xd;
-    &quot;firstName&quot;: &quot;Test&quot;,&#xd;
-    &quot;lastName&quot;: &quot;Client-1&quot;,&#xd;
-    &quot;mobilePhone&quot;: &quot;Mobile&quot;,&#xd;
-    &quot;street&quot;: &quot;Street&quot;,&#xd;
-    &quot;additional&quot;: &quot;Additional&quot;,&#xd;
-    &quot;city&quot;: &quot;City&quot;,&#xd;
-    &quot;zip&quot;: &quot;Zip&quot;,&#xd;
-    &quot;state&quot;: &quot;State&quot;,&#xd;
-    &quot;country&quot;: &quot;Country&quot;,&#xd;
-    &quot;password&quot;: &quot;Password&quot;&#xd;
-  }</stringProp>
+    &quot;email&quot;: &quot;client-test-100@hotmail.com&quot;,&#xd;
+    &quot;password&quot;: &quot;Password&quot;,&#xd;
+    &quot;contact&quot;: {&#xd;
+         &quot;firstName&quot;: &quot;Test&quot;,&#xd;
+	    &quot;lastName&quot;: &quot;Client-100&quot;,&#xd;
+	    &quot;mobilePhone&quot;: &quot;Mobile&quot;,&#xd;
+	    &quot;street&quot;: &quot;Street&quot;,&#xd;
+	    &quot;additional&quot;: &quot;Additional&quot;,&#xd;
+	    &quot;city&quot;: &quot;City&quot;,&#xd;
+	    &quot;zip&quot;: &quot;Zip&quot;,&#xd;
+	    &quot;state&quot;: &quot;State&quot;,&#xd;
+	    &quot;country&quot;: &quot;Country&quot;&#xd;
+    }&#xd;
+ }</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -768,17 +782,19 @@
                   <elementProp name="" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">false</boolProp>
                     <stringProp name="Argument.value">{&#xd;
-    &quot;userId&quot;:&quot;3&quot;,&#xd;
-    &quot;firstName&quot;: &quot;Test-updated&quot;,&#xd;
-    &quot;lastName&quot;: &quot;Client-1-update&quot;,&#xd;
-    &quot;mobilePhone&quot;: &quot;Mobile-update&quot;,&#xd;
-    &quot;street&quot;: &quot;Street-updated&quot;,&#xd;
-    &quot;additional&quot;: &quot;Additional-updated&quot;,&#xd;
-    &quot;city&quot;: &quot;City-updated&quot;,&#xd;
-    &quot;zip&quot;: &quot;Zip-update&quot;,&#xd;
-    &quot;state&quot;: &quot;State-updated&quot;,&#xd;
-    &quot;country&quot;: &quot;Country-updated&quot;&#xd;
-  }</stringProp>
+    &quot;userId&quot;:&quot;6&quot;,&#xd;
+    &quot;contact&quot;: {&#xd;
+          &quot;firstName&quot;: &quot;Client-updated&quot;,&#xd;
+    		&quot;lastName&quot;: &quot;One-update&quot;,&#xd;
+    		&quot;mobilePhone&quot;: &quot;Mobile-update&quot;,&#xd;
+    		&quot;street&quot;: &quot;Street-updated&quot;,&#xd;
+    		&quot;additional&quot;: &quot;Additional-updated&quot;,&#xd;
+    		&quot;city&quot;: &quot;City-updated&quot;,&#xd;
+    		&quot;zip&quot;: &quot;Zip-update&quot;,&#xd;
+    		&quot;state&quot;: &quot;State-updated&quot;,&#xd;
+    		&quot;country&quot;: &quot;Country-updated&quot;&#xd;
+    }&#xd;
+}</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                   </elementProp>
                 </collectionProp>
@@ -809,7 +825,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="All Clients Bookings" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="All Clients Bookings" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -839,7 +855,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get bookings by client id" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get bookings by client id" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -869,7 +885,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get bookings by client email" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get bookings by client email" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -899,7 +915,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get bookings by status" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get bookings by status" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -909,7 +925,7 @@
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/clients/bookings?status=active</stringProp>
+              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/clients/bookings?status=created</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -929,7 +945,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get bookings by date" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get bookings by date" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -939,7 +955,7 @@
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/clients/bookings?date=02/07/2015&amp;op==</stringProp>
+              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/clients/bookings?date=06/06/2015&amp;op==</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -959,7 +975,7 @@
               </HeaderManager>
               <hashTree/>
             </hashTree>
-            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get bookings by date and email" enabled="false">
+            <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get bookings by date and email" enabled="true">
               <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
                 <collectionProp name="Arguments.arguments"/>
               </elementProp>
@@ -969,7 +985,7 @@
               <stringProp name="HTTPSampler.response_timeout"></stringProp>
               <stringProp name="HTTPSampler.protocol"></stringProp>
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
-              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/clients/bookings?date=02/07/2015&amp;op==&amp;email=client1@hotmail.com</stringProp>
+              <stringProp name="HTTPSampler.path">/magikhelper-ws/services/clients/bookings?date=06/06/2015&amp;op==&amp;email=client1@hotmail.com</stringProp>
               <stringProp name="HTTPSampler.method">GET</stringProp>
               <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>

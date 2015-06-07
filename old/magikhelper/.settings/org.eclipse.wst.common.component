@@ -4,6 +4,6 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <property name="java-output-path" value="/magikhelper/build/classes"/>
-        <property name="context-root" value="magikhelper"/>
+        <property name="context-root" value="inventles"/>
     </wb-module>
 </project-modules>

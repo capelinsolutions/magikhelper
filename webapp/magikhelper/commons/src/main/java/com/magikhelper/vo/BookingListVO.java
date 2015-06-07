@@ -12,20 +12,13 @@ public class BookingListVO {
 	private String finishDateTime;
 	private String status;
 	private String statusDesc;
-	private String address;
 	private String serviceName;
 	private BigDecimal rate;
+	private String bookingComments;
 	private int clientId;
-	private String email;
-	private String firstName;
-	private String lastName;
-	private String mobilePhone;
-	private String street;
-	private String additional;
-	private String city;
-	private String zip;
-	private String state;	
-	private String country;
+	private String clientEmail;
+	private ContactVO bookingContact = new ContactVO();
+	
 	public Integer getBookingId() {
 		return bookingId;
 	}
@@ -80,12 +73,6 @@ public class BookingListVO {
 	public void setStatusDesc(String statusDesc) {
 		this.statusDesc = statusDesc;
 	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
 	public String getServiceName() {
 		return serviceName;
 	}
@@ -104,78 +91,31 @@ public class BookingListVO {
 	public void setClientId(int clientId) {
 		this.clientId = clientId;
 	}
-	public String getEmail() {
-		return email;
+	public String getClientEmail() {
+		return clientEmail;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setClientEmail(String clientEmail) {
+		this.clientEmail = clientEmail;
 	}
-	public String getFirstName() {
-		return firstName;
+	public String getBookingComments() {
+		return bookingComments;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setBookingComments(String bookingComments) {
+		this.bookingComments = bookingComments;
 	}
-	public String getLastName() {
-		return lastName;
+	public ContactVO getBookingContact() {
+		return bookingContact;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getMobilePhone() {
-		return mobilePhone;
-	}
-	public void setMobilePhone(String mobilePhone) {
-		this.mobilePhone = mobilePhone;
-	}
-	public String getStreet() {
-		return street;
-	}
-	public void setStreet(String street) {
-		this.street = street;
-	}
-	public String getAdditional() {
-		return additional;
-	}
-	public void setAdditional(String additional) {
-		this.additional = additional;
-	}
-	public String getCity() {
-		return city;
-	}
-	public void setCity(String city) {
-		this.city = city;
-	}
-	public String getZip() {
-		return zip;
-	}
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
-	}
-	public String getCountry() {
-		return country;
-	}
-	public void setCountry(String country) {
-		this.country = country;
+	public void setBookingContact(ContactVO bookingContact) {
+		this.bookingContact = bookingContact;
 	}
 	@Override
 	public String toString() {
-		return "\nBookingListVO [bookingId=" + bookingId + ", bookedDate="
-				+ bookedDate + ", bookedTime=" + bookedTime + ", duration="
-				+ duration + ", startDateTime=" + startDateTime
-				+ ", finishDateTime=" + finishDateTime + ", status=" + status
-				+ ", statusDesc=" + statusDesc + ", serviceName=" + serviceName
-				+ ", rate=" + rate + ", clientId=" + clientId + ", email="
-				+ email + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", mobilePhone=" + mobilePhone + ", street=" + street
-				+ ", additional=" + additional + ", city=" + city + ", zip="
-				+ zip + ", state=" + state + ", country=" + country + "]";
+		return "BookingListVO [bookingId=" + bookingId + ", serviceId="
+				+ serviceId + ", bookedDate=" + bookedDate + ", bookedTime="
+				+ bookedTime + ", duration=" + duration + ", rate=" + rate
+				+ ", clientId=" + clientId + ", clientEmail=" + clientEmail
+				+ "]\n";
 	}
 	
 }
