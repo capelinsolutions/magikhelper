@@ -1,14 +1,18 @@
 package com.magikhelper.vo;
 
+import java.math.BigDecimal;
+
 
 public class BookingVO {
 	private Integer bookingId;
 	private String bookedDate;
 	private String bookedTime;
 	private int duration;
+	private BigDecimal rate;
 	private Integer clientId;
 	private Integer serviceId;
-
+	private ContactVO bookingContact = new ContactVO();
+	
 	public BookingVO() {
 	}
 	public BookingVO(Integer bookingId, String bookedDate, String bookedTime, int duration) {
@@ -41,6 +45,12 @@ public class BookingVO {
 	public void setDuration(int duration) {
 		this.duration = duration;
 	}
+	public BigDecimal getRate() {
+		return rate;
+	}
+	public void setRate(BigDecimal rate) {
+		this.rate = rate;
+	}
 	public Integer getClientId() {
 		return clientId;
 	}
@@ -53,5 +63,12 @@ public class BookingVO {
 	public void setServiceId(Integer serviceId) {
 		this.serviceId = serviceId;
 	}
+	public ContactVO getBookingContact() {
+		return bookingContact;
+	}
+	public void setBookingContact(ContactVO bookingContact) {
+		this.bookingContact = bookingContact;
+	}
+	
 	
 }

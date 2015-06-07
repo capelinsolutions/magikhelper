@@ -201,7 +201,7 @@ VALUES
 INSERT INTO `magikhelper`.`user_role`
 (`user_role_id`,`create_time`,`create_by`,`update_time`,`update_by`,`is_active`,`user_id`,`role_id`)
 VALUES
-(4,now(),'SYSTEM',now(),'SYSTEM','1',4,2);
+(4,now(),'SYSTEM',now(),'SYSTEM','1',4,3);
 
 /*User roles ends here*/
 

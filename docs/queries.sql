@@ -1,35 +1,53 @@
 select * from booking;
 select * from user;
-select * from contact;
 select * from system_role;
+select * from contact;
+select * from user_role;
 select * from application_properties where type='SERVICES';
 select * from application_properties where type='BOOKING_STATUS';
 select * from application_properties;
 select * from services;
 select * from booking_assignment;
-
-select property_id, name, value, rate, zipcode from application_properties a, services b where a.property_id = b.service_id;
-
-select a.row_id, booked_datetime, duration,start_datetime, finish_datetime, client_id, status_desc, status_id, service_id, address,
-b.email, b.first_name, b.last_name, c.street,
-d.name
-from booking a,  user b, contact c, application_properties d
-where a.client_id=b.row_id 
-and a.service_id = d.property_id
-and b.row_id=c.row_id;
+select * from vendor_skill;
 
 SELECT 
-    services3_.*, booking0_.*, applicatio1_.*, applicatio2_.*, user4_.*
+    users.row_id,
+    email,
+    first_name,
+    last_name,
+    rates,
+    props.property_id,
+    value
 FROM
-    booking booking0_
-        INNER JOIN
-    application_properties applicatio1_ ON booking0_.service_id = applicatio1_.property_id
-        INNER JOIN
-    services services3_ ON applicatio1_.property_id = services3_.service_id
-        INNER JOIN
-    application_properties applicatio2_ ON booking0_.status_id = applicatio2_.property_id
-        CROSS JOIN
-    user user4_
+    system_role roles,
+    user_role user_roles,
+    user users,
+    contact contact,
+    vendor_skill skills,
+    application_properties props
 WHERE
-    booking0_.client_id = user4_.row_id
-        AND user4_.is_active = '1';
+    roles.role_id = user_roles.role_id
+        AND user_roles.user_id = users.row_id
+        AND users.row_id = skills.vendor_id
+        AND users.address_id = contact.row_id
+        AND skills.skill_id = props.property_id
+        AND props.type = 'SERVICES'
+		AND roles.title = 'VENDOR_ROLE'
+        AND roles.is_active = '1'
+        AND users.is_active = '1'
+        AND props.is_active = '1'
+		AND user_roles.user_id = 4;         
+SELECT 
+    users.row_id,
+    email
+FROM
+    system_role roles,
+    user_role user_roles,
+    user users
+WHERE
+    roles.role_id = user_roles.role_id
+        AND user_roles.user_id = users.row_id
+		AND roles.title = 'VENDOR_ROLE'
+        AND roles.is_active = '1'
+        AND users.is_active = '1'
+		AND user_roles.user_id = 4;         

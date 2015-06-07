@@ -9,8 +9,8 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.magikhelper.exceptions.UserNotRegisteredException;
+import com.magikhelper.vo.ContactVO;
 import com.magikhelper.vo.UserVO;
-import com.magikhelper.vo.MagikHelperService;
 import com.magikhelper.vo.VendorVO;
 
 public class UsersServiceTest extends BaseServiceTest {
@@ -24,43 +24,71 @@ public class UsersServiceTest extends BaseServiceTest {
     }
 
     @Test
-    public void testVendorSkills() {
-        List<VendorVO> vendors = usersService.getVendorWithSkills(6);
+    public void getVendorWithSkills() {
+        List<VendorVO> vendors = usersService.getVendorWithSkills(4);
         for (VendorVO vendor : vendors) {
-        	log.debug(vendor);
-			for (MagikHelperService skill : vendor.getServices()) {
-				log.debug(skill);
-			}
+        	System.out.println(vendor);
 		}
     }
  
     @Test
-    public void testGetClients() {
+    public void addClient(){
+    	UserVO client = new UserVO();
+    	ContactVO contact = new ContactVO();
+    	client.setEmail("client-test"+new Date().getTime()+"@hotmail.com");
+    	client.setPassword("Password");
+    	
+    	contact.setFirstName("Test");
+    	contact.setLastName("UserVO");
+    	contact.setMobilePhone("Mobile");
+    	contact.setStreet("Street");
+    	contact.setAdditional("Additional");
+    	contact.setCity("City");
+    	contact.setZip("Zip");
+    	contact.setState("State");
+    	contact.setCountry("Country");
+    	client.setContact(contact);
+    	
+    	try {
+			usersService.addClient(client);
+			System.out.println("Client Added");
+		} catch (UserNotRegisteredException e) {
+			e.printStackTrace();
+		}
+    }
+    
+    @Test
+    public void updateUser(){
+    	UserVO user = new UserVO();
+    	ContactVO contact = new ContactVO();
+
+    	user.setUserId(5);
+    	contact.setFirstName("Test--");
+    	contact.setLastName("UserVO--");
+    	contact.setMobilePhone("Mobile--");
+    	contact.setStreet("Street--");
+    	contact.setAdditional("Additional--");
+    	contact.setCity("City--");
+    	contact.setZip("Zip--");
+    	contact.setState("State--");
+    	contact.setCountry("Country--");
+    	user.setContact(contact);
+    	
+//    	usersService.updateUser(user);
+    }
+    
+    @Test
+    public void getClients() {
        List<UserVO> clients = usersService.getClients(null);
        for (UserVO client : clients) {
-    	   log.debug(client);
+    	   System.out.println(client);
        }
     }
     
     @Test
-    public void testAddClient(){
-    	UserVO client = new UserVO();
-    	client.setEmail("client-test"+new Date().getTime()+"@hotmail.com");
-    	client.setPassword("Password");
-    	client.setFirstName("Test");
-    	client.setLastName("UserVO");
-    	client.setMobilePhone("Mobile");
-    	client.setStreet("Street");
-    	client.setAdditional("Additional");
-    	client.setCity("City");
-    	client.setZip("Zip");
-    	client.setState("State");
-    	client.setCountry("Country");
-    	
-    	try {
-			usersService.addClient(client);
-		} catch (UserNotRegisteredException e) {
-			e.printStackTrace();
-		}
+    public void loginUser(){
+    	System.out.println("login user test");
+    	UserVO user = usersService.loginUser("leo_adnan@hotmail.com", "Test123");
+    	System.out.println("Logged In User: "+user);
     }
 }

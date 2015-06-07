@@ -1,6 +1,7 @@
 package com.magikhelper.entities;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 	private Date finishDatetime;
 	private Date startDatetime;
 	private String statusDesc;
+	private BigDecimal rate;
 	private User user;
 	private Contact contact;
 	private ApplicationProperty status;
@@ -108,6 +110,14 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 		this.statusDesc = statusDesc;
 	}
 	
+	public BigDecimal getRate() {
+		return this.rate;
+	}
+
+	public void setRate(BigDecimal rate) {
+		this.rate = rate;
+	}
+
 	//bi-directional many-to-one association to User
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinColumn(name="client_id")

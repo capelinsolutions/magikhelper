@@ -74,4 +74,11 @@ public class Services extends com.magikhelper.entities.BaseEntity implements Ser
 		this.service = service;
 	}
 
+
+	@Override
+	public String toString() {
+		return "Service [rowId=" + rowId + ", rate=" + rate + ", zipcode=" + zipcode + "]";
+	}
+
+	
 }

@@ -13,6 +13,7 @@ public class ClientBookingsVO {
 	private String statusDesc;
 	private String serviceName;
 	private BigDecimal rate;
+	private ContactVO bookingContact = new ContactVO();
 	public Integer getBookingId() {
 		return bookingId;
 	}
@@ -72,6 +73,12 @@ public class ClientBookingsVO {
 	}
 	public void setRate(BigDecimal rate) {
 		this.rate = rate;
+	}
+	public ContactVO getBookingContact() {
+		return bookingContact;
+	}
+	public void setBookingContact(ContactVO bookingContact) {
+		this.bookingContact = bookingContact;
 	}
 	@Override
 	public String toString() {

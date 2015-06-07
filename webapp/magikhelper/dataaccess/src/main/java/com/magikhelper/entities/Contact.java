@@ -142,13 +142,12 @@ public class Contact extends com.magikhelper.entities.BaseEntity implements Seri
 		this.users = users;
 	}
 
+
 	@Override
 	public String toString() {
-		return "Contact [rowId=" + rowId + ", additional=" + additional
-				+ ", city=" + city + ", country=" + country + ", mobilePhone="
-				+ mobilePhone + ", state=" + state + ", street=" + street
-				+ ", zip=" + zip + "]";
+		return "Contact [rowId=" + rowId + ", firstName=" + firstName + ", lastName=" + lastName + ", additional=" + additional + "]";
 	}
+
 
 	
 }

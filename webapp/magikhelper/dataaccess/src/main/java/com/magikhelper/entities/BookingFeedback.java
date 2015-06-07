@@ -27,7 +27,6 @@ public class BookingFeedback extends com.magikhelper.entities.BaseEntity impleme
 	private static final long serialVersionUID = 1L;
 	private int rowId;
 	private String comments;
-	private BigDecimal rate;
 	private int rating;
 	private Booking booking;
 
@@ -54,16 +53,6 @@ public class BookingFeedback extends com.magikhelper.entities.BaseEntity impleme
 	public void setComments(String comments) {
 		this.comments = comments;
 	}
-
-
-	public BigDecimal getRate() {
-		return this.rate;
-	}
-
-	public void setRate(BigDecimal rate) {
-		this.rate = rate;
-	}
-
 
 	public int getRating() {
 		return this.rating;

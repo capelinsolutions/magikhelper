@@ -21,6 +21,7 @@ import com.magikhelper.entities.UserRole;
 import com.magikhelper.exceptions.UserNotRegisteredException;
 import com.magikhelper.services.UsersService;
 import com.magikhelper.utils.MagikHelperConstants;
+import com.magikhelper.vo.ContactVO;
 import com.magikhelper.vo.UserVO;
 import com.magikhelper.vo.MagikHelperService;
 import com.magikhelper.vo.VendorVO;
@@ -78,19 +79,23 @@ public class UsersServiceImpl implements UsersService {
     	List<User> users = usersDao.getCleints(clientId);
     	for (User user : users) {
 			UserVO client = new UserVO();
+			ContactVO contact = new ContactVO();
 			client.setUserId(user.getRowId());
 			client.setEmail(user.getEmail());
-			client.setFirstName(user.getContact().getFirstName());
-			client.setLastName(user.getContact().getLastName());
+			
 			if (user.getContact()!=null){
-				client.setMobilePhone(user.getContact().getMobilePhone());
-				client.setStreet(user.getContact().getStreet());
-				client.setAdditional(user.getContact().getAdditional());
-				client.setCity(user.getContact().getCity());
-				client.setZip(user.getContact().getZip());
-				client.setState(user.getContact().getState());	
-				client.setCountry(user.getContact().getCountry());
+				contact.setLastName(user.getContact().getLastName());
+				contact.setFirstName(user.getContact().getFirstName());
+				contact.setMobilePhone(user.getContact().getMobilePhone());
+				contact.setStreet(user.getContact().getStreet());
+				contact.setAdditional(user.getContact().getAdditional());
+				contact.setCity(user.getContact().getCity());
+				contact.setZip(user.getContact().getZip());
+				contact.setState(user.getContact().getState());	
+				contact.setCountry(user.getContact().getCountry());
 			}
+			
+			client.setContact(contact);
 			clients.add(client);
 		}
     	return clients;
@@ -112,15 +117,16 @@ public class UsersServiceImpl implements UsersService {
 		user.populatedAuditFields("SYSTEM");
 		user.addUserRole(userRole);
 
-		contact.setFirstName(userVo.getFirstName());
-		contact.setLastName(userVo.getLastName());
-		contact.setStreet(userVo.getStreet());
-		contact.setAdditional(userVo.getAdditional());
-		contact.setCity(userVo.getCity());
-		contact.setState(userVo.getState());
-		contact.setZip(userVo.getZip());
-		contact.setCountry(userVo.getCountry());
-		contact.setMobilePhone(userVo.getMobilePhone());
+		
+		contact.setFirstName(userVo.getContact().getFirstName());
+		contact.setLastName(userVo.getContact().getLastName());
+		contact.setStreet(userVo.getContact().getStreet());
+		contact.setAdditional(userVo.getContact().getAdditional());
+		contact.setCity(userVo.getContact().getCity());
+		contact.setState(userVo.getContact().getState());
+		contact.setZip(userVo.getContact().getZip());
+		contact.setCountry(userVo.getContact().getCountry());
+		contact.setMobilePhone(userVo.getContact().getMobilePhone());
 		contact.populatedAuditFields("SYSTEM");
 		
 		user.setContact(contact);
@@ -156,15 +162,15 @@ public class UsersServiceImpl implements UsersService {
 		
 		user.populatedAuditFieldsOnUpdate("SYSTEM");
 
-		contact.setFirstName(userVo.getFirstName());
-		contact.setLastName(userVo.getLastName());
-		contact.setStreet(userVo.getStreet());
-		contact.setAdditional(userVo.getAdditional());
-		contact.setCity(userVo.getCity());
-		contact.setState(userVo.getState());
-		contact.setZip(userVo.getZip());
-		contact.setCountry(userVo.getCountry());
-		contact.setMobilePhone(userVo.getMobilePhone());
+		contact.setFirstName(userVo.getContact().getFirstName());
+		contact.setLastName(userVo.getContact().getLastName());
+		contact.setStreet(userVo.getContact().getStreet());
+		contact.setAdditional(userVo.getContact().getAdditional());
+		contact.setCity(userVo.getContact().getCity());
+		contact.setState(userVo.getContact().getState());
+		contact.setZip(userVo.getContact().getZip());
+		contact.setCountry(userVo.getContact().getCountry());
+		contact.setMobilePhone(userVo.getContact().getMobilePhone());
 		contact.populatedAuditFieldsOnUpdate("SYSTEM");
 		
 		usersDao.update(user);
@@ -174,17 +180,18 @@ public class UsersServiceImpl implements UsersService {
 		User user = usersDao.loginUser(email, password);
 		if (user != null){
 			UserVO userVo = new UserVO();
+			ContactVO contact = new ContactVO();
 			userVo.setUserId(user.getRowId());
 			userVo.setEmail(user.getEmail());
-			userVo.setFirstName(user.getContact().getFirstName());
-			userVo.setLastName(user.getContact().getLastName());
-			userVo.setMobilePhone(user.getContact().getMobilePhone());
-			userVo.setStreet(user.getContact().getStreet());
-			userVo.setAdditional(user.getContact().getAdditional());
-			userVo.setCity(user.getContact().getCity());
-			userVo.setZip(user.getContact().getZip());
-			userVo.setState(user.getContact().getState());
-			userVo.setCountry(user.getContact().getCountry());
+			contact.setFirstName(user.getContact().getFirstName());
+			contact.setLastName(user.getContact().getLastName());
+			contact.setMobilePhone(user.getContact().getMobilePhone());
+			contact.setStreet(user.getContact().getStreet());
+			contact.setAdditional(user.getContact().getAdditional());
+			contact.setCity(user.getContact().getCity());
+			contact.setZip(user.getContact().getZip());
+			contact.setState(user.getContact().getState());
+			contact.setCountry(user.getContact().getCountry());
 			return userVo;
 		}
 		return null;
