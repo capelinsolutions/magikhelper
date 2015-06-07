@@ -87,9 +87,9 @@ angular.module('starter.controllers', ['starter.messages'])
         }
     }])
 
-    .controller('AvailableServicesCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices','BookingService', function ($scope, $rootScope, $location, AvailableServices, BookingService) {
+    .controller('AvailableServicesCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', 'BookingService', function ($scope, $rootScope, $location, AvailableServices, BookingService) {
         $scope.availableServices = AvailableServices.getFetchedServices();
-        $scope.setSelectedService = function(serviceObj) {
+        $scope.setSelectedService = function (serviceObj) {
             BookingService.setSelectedService(serviceObj);
             $location.path('/sidemenu/booking');
         }
@@ -184,70 +184,165 @@ angular.module('starter.controllers', ['starter.messages'])
         }
 
     }])
-    .controller('JobListCtrl', ['$scope', '$rootScope',  '$q','$location', 'BookingService', function ($scope, $rootScope, $q, $location, BookingService) {
-        $scope.listAllUserPastJobs= [];
+    .controller('JobListCtrl', ['$scope', '$rootScope', '$q', '$location', 'BookingService', function ($scope, $rootScope, $q, $location, BookingService) {
+        $scope.listAllUserPastJobs = [];
 
-        $scope.getListAllUserPastJobs = function() {
+        $scope.getListAllUserPastJobs = function () {
             return $scope.listAllUserPastJobs;
         }
 
         var bookingPromise = BookingService.getAllBookings();
 
-        bookingPromise.then(function(data) {
+        bookingPromise.then(function (data) {
             $scope.listAllUserPastJobs = data;
-        }, function(error) {
+        }, function (error) {
             alert('No data found');
         });
 
     }])
 
     .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices', function ($scope, $rootScope, $location, VendorServices) {
-        $scope.listAllAssignedServices= VendorServices.getAllAssignedService();
-        $scope.listAllCompletedServices= VendorServices.getAllCompletedService();
+        $scope.listAllAssignedServices = VendorServices.getAllAssignedService();
+        $scope.listAllCompletedServices = VendorServices.getAllCompletedService();
 
         $scope.getJobDetails = function (jobId) {
-            $location.path('/sidemenu/job/'+jobId);
+            $location.path('/sidemenu/job/' + jobId);
         }
 
     }])
-    .controller('VendorJobDetailCtrl', function ($scope, $stateParams, VendorServices) {
-        VendorServices.findById($stateParams.jobId).then(function(job) {
-            $scope.job = job;
-        });
+    .controller('VendorJobDetailCtrl', function ($scope, $stateParams, VendorServices,$cordovaGeolocation) {
+        VendorServices.findById($stateParams.jobId)
+            .then(function (job) {
+                $scope.job = job;
+                getCurrentPosition();
+            }
+        );
+
+        function getCurrentPosition() {
+            var posOptions = {timeout: 10000, enableHighAccuracy: false};
+            $cordovaGeolocation
+                .getCurrentPosition(posOptions)
+                .then(function (position) {
+                    var lat = position.coords.latitude;
+                    var long = position.coords.longitude;
+                    //alert('current ' + lat);
+                    //alert('current ' +long);
+                    setWatch();
+                }, function (err) {
+                    alert('Make sure your location service is turned on.');
+                });
+        }
+
+        function setWatch() {
+            var watchOptions = {
+                frequency: 1000,
+                timeout: 3000,
+                enableHighAccuracy: false // may cause errors if true
+            };
+
+            var watch = $cordovaGeolocation.watchPosition(watchOptions);
+            watch.then(
+                null,
+                function (err) {
+                    // error
+                },
+                function (position) {
+                    var lat = position.coords.latitude;
+                    var long = position.coords.longitude;
+                    //alert('watch ' + lat);
+                    //alert('watch ' +long);
+
+                });
+        }
+
+        function clearWatch() {
+            $cordovaGeolocation.clearWatch(watch)
+                .then(function (result) {
+                    // success
+                }, function (error) {
+                    // error
+                });
+        }
+
     })
     .controller('MenuCtrl', function ($scope, $stateParams, BookingService) {
         $scope.isLoggedIn = false;
     })
-    .controller('MainNavigationCtrl', function($scope, $ionicNavBarDelegate, $ionicSideMenuDelegate) {
-        $scope.getPreviousTitle = function() { return $ionicNavBarDelegate.$getByHandle('mainNavBar').getPreviousTitle() };
-        $scope.toggleRight = function () {  return $ionicSideMenuDelegate.$getByHandle('mainSideMenu').toggleLeft()} ;
+    .controller('MainNavigationCtrl', function ($scope, $ionicNavBarDelegate, $ionicSideMenuDelegate) {
+        $scope.getPreviousTitle = function () {
+            return $ionicNavBarDelegate.$getByHandle('mainNavBar').getPreviousTitle()
+        };
+        $scope.toggleRight = function () {
+            return $ionicSideMenuDelegate.$getByHandle('mainSideMenu').toggleLeft()
+        };
     })
 
-    .controller('RightMenuCtrl', function($scope, $state, BookingService) {
+    .controller('RightMenuCtrl', function ($scope, $state, BookingService) {
         //var isLoggedIn  = BookingService.isLoggedIn;
-        var loginMenu = {stateName : 'sidemenu.login', labelName: 'Login' };
-        var signUpMenu = {stateName : 'sidemenu.signup', labelName: 'Sign Up' };
-        var bookingMenu = {stateName : 'sidemenu.availability', labelName: 'Create a job' };
-        var userProfileMenu = {stateName : 'sidemenu.userprofile', labelName: 'User Profile' };
-        var aboutMenu = {stateName : 'sidemenu.about', labelName: 'About' };
-        var vendorAssignedMenu = {stateName : 'sidemenu.vendorJoblist', labelName: 'Job List' };
+        var loginMenu = {stateName: 'sidemenu.login', labelName: 'Login'};
+        var signUpMenu = {stateName: 'sidemenu.signup', labelName: 'Sign Up'};
+        var bookingMenu = {stateName: 'sidemenu.availability', labelName: 'Create a job'};
+        var userProfileMenu = {stateName: 'sidemenu.userprofile', labelName: 'User Profile'};
+        var aboutMenu = {stateName: 'sidemenu.about', labelName: 'About'};
+        var vendorAssignedMenu = {stateName: 'sidemenu.vendorJoblist', labelName: 'Job List'};
+        var vendorProfileMenu = {stateName: 'sidemenu.vendorProfile', labelName: 'Profile'};
 
 
-        if (BookingService.isLoggedIn() &&  BookingService.isVendor()) {
-            $scope.subMenus = [vendorAssignedMenu,aboutMenu];
+        if (BookingService.isLoggedIn() && BookingService.isVendor()) {
+            $scope.subMenus = [vendorAssignedMenu, vendorProfileMenu, aboutMenu];
         } else if (BookingService.isLoggedIn()) {
-            $scope.subMenus = [userProfileMenu,bookingMenu,aboutMenu];
+            $scope.subMenus = [userProfileMenu, bookingMenu, aboutMenu];
         } else {
-            $scope.subMenus = [loginMenu,signUpMenu,aboutMenu];
+            $scope.subMenus = [loginMenu, signUpMenu, aboutMenu];
         }
 
         $scope.activeSubMenuStateName = 'sidemenu.login';
-        $scope.setActiveSubMenu = function(subMenuStateName) {
+        $scope.setActiveSubMenu = function (subMenuStateName) {
             //$scope.activeSubMenuStateName=subMenuStateName;
             return $state.go(subMenuStateName);
         };
     })
 
+    .controller('GeoCtrl', function ($cordovaGeolocation) {
+
+        var posOptions = {timeout: 10000, enableHighAccuracy: false};
+        $cordovaGeolocation
+            .getCurrentPosition(posOptions)
+            .then(function (position) {
+                var lat = position.coords.latitude
+                var long = position.coords.longitude
+            }, function (err) {
+                // error
+            });
+
+
+        var watchOptions = {
+            frequency: 1000,
+            timeout: 3000,
+            enableHighAccuracy: false // may cause errors if true
+        };
+
+        var watch = $cordovaGeolocation.watchPosition(watchOptions);
+        watch.then(
+            null,
+            function (err) {
+                // error
+            },
+            function (position) {
+                var lat = position.coords.latitude
+                var long = position.coords.longitude
+            });
+
+
+        watch.clearWatch();
+        // OR
+        $cordovaGeolocation.clearWatch(watch)
+            .then(function (result) {
+                // success
+            }, function (error) {
+                // error
+            });
+    })
     .controller('ChatDetailCtrl', function ($scope, $stateParams, Chats) {
         $scope.chat = Chats.get($stateParams.chatId);
     })
