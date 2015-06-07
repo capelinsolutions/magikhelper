@@ -23,15 +23,23 @@ VALUES
 
 INSERT INTO `magikhelper`.`application_properties` (`property_id`,`type`,`name`,`value`,`sort_order`,`create_time`,`create_by`,`update_time`,`update_by`,`is_active`)
 VALUES
-(6,'BOOKING_STATUS','Active','Active',1,now(),'System',now(),'System',1);
+(6,'BOOKING_STATUS','CREATED','Created',1,now(),'System',now(),'System',1);
 
 INSERT INTO `magikhelper`.`application_properties` (`property_id`,`type`,`name`,`value`,`sort_order`,`create_time`,`create_by`,`update_time`,`update_by`,`is_active`)
 VALUES
-(7,'BOOKING_STATUS','Completed','Completed',2,now(),'System',now(),'System',1);
+(7,'BOOKING_STATUS','ASSIGNED_TO_VENDOR','Assigned To Vendor',2,now(),'System',now(),'System',1);
 
 INSERT INTO `magikhelper`.`application_properties` (`property_id`,`type`,`name`,`value`,`sort_order`,`create_time`,`create_by`,`update_time`,`update_by`,`is_active`)
 VALUES
-(8,'BOOKING_STATUS','Cancelled','Cancelled',3,now(),'System',now(),'System',1);
+(8,'BOOKING_STATUS','IN_PROGRESS','In Progress',3,now(),'System',now(),'System',1);
+
+INSERT INTO `magikhelper`.`application_properties` (`property_id`,`type`,`name`,`value`,`sort_order`,`create_time`,`create_by`,`update_time`,`update_by`,`is_active`)
+VALUES
+(9,'BOOKING_STATUS','COMPLETED','Completed',4,now(),'System',now(),'System',1);
+
+INSERT INTO `magikhelper`.`application_properties` (`property_id`,`type`,`name`,`value`,`sort_order`,`create_time`,`create_by`,`update_time`,`update_by`,`is_active`)
+VALUES
+(10,'BOOKING_STATUS','CANCELLED','Cancelled',5,now(),'System',now(),'System',1);
 
 /*Appilication Properties End here */
 
@@ -131,56 +139,47 @@ VALUES
 
 /*Contact starts here*/
 INSERT INTO `magikhelper`.`contact`
-(`row_id`,`street`,`additional`,`city`,`state`,`zip`,`country`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`,`mobile_phone`)
+(`row_id`,`first_name`,`last_name`,`street`,`additional`,`city`,`state`,`zip`,`country`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`,`mobile_phone`)
 VALUES
-(1,'Street-1','Additional-1','City-1','State-1','Zip-1','Country-1',now(),now(),'SYSTEM','SYSTEM','1','Mobile-1');
+(1,'Adnan','Ahmed','Street-1','Additional-1','City-1','State-1','Zip-1','Country-1',now(),now(),'SYSTEM','SYSTEM','1','Mobile-1');
 
 INSERT INTO `magikhelper`.`contact`
-(`row_id`,`street`,`additional`,`city`,`state`,`zip`,`country`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`,`mobile_phone`)
+(`row_id`,`first_name`,`last_name`,`street`,`additional`,`city`,`state`,`zip`,`country`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`,`mobile_phone`)
 VALUES
-(2,'Street-2','Additional-2','City-2','State-2','Zip-2','Country-2',now(),now(),'SYSTEM','SYSTEM','1','Mobile-2');
+(2,'Umair','Raza','Street-2','Additional-2','City-2','State-2','Zip-2','Country-2',now(),now(),'SYSTEM','SYSTEM','1','Mobile-2');
 
 INSERT INTO `magikhelper`.`contact`
-(`row_id`,`street`,`additional`,`city`,`state`,`zip`,`country`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`,`mobile_phone`)
+(`row_id`,`first_name`,`last_name`,`street`,`additional`,`city`,`state`,`zip`,`country`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`,`mobile_phone`)
 VALUES
-(3,'Street-3','Additional-3','City-3','State-3','Zip-3','Country-3',now(),now(),'SYSTEM','SYSTEM','1','Mobile-3');
+(3,'Client','One','Street-3','Additional-3','City-3','State-3','Zip-3','Country-3',now(),now(),'SYSTEM','SYSTEM','1','Mobile-3');
 
 INSERT INTO `magikhelper`.`contact`
-(`row_id`,`street`,`additional`,`city`,`state`,`zip`,`country`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`,`mobile_phone`)
+(`row_id`,`first_name`,`last_name`,`street`,`additional`,`city`,`state`,`zip`,`country`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`,`mobile_phone`)
 VALUES
-(4,'Street-4','Additional-4','City-4','State-4','Zip-4','Country-4',now(),now(),'SYSTEM','SYSTEM','1','Mobile-4');
+(4,'Vendor','One','Street-4','Additional-4','City-4','State-4','Zip-4','Country-4',now(),now(),'SYSTEM','SYSTEM','1','Mobile-4');
 /*Contact ends here*/
 
 /*User starts here*/
 INSERT INTO `magikhelper`.`user`
-(`row_id`,`email`,`password`,`first_name`,`last_name`,`address_id`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+(`row_id`,`email`,`password`,`address_id`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
 VALUES
-(1,'leo_adnan@hotmail.com','Test123','Adnan','Ahmed',1,now(),now(),'SYSTEM','SYSTEM','1');
+(1,'leo_adnan@hotmail.com','Test123',1,now(),now(),'SYSTEM','SYSTEM','1');
 
 INSERT INTO `magikhelper`.`user`
-(`row_id`,`email`,`password`,`first_name`,`last_name`,`address_id`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+(`row_id`,`email`,`password`,`address_id`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
 VALUES
-(2,'alphanzox@hotmail.com','Test123','Umair','Raza',2,now(),now(),'SYSTEM','SYSTEM','1');
+(2,'alphanzox@hotmail.com','Test123',2,now(),now(),'SYSTEM','SYSTEM','1');
 
 INSERT INTO `magikhelper`.`user`
-(`row_id`,`email`,`password`,`first_name`,`last_name`,`address_id`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+(`row_id`,`email`,`password`,`address_id`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
 VALUES
-(3,'client1@hotmail.com','Test123','Client','One',3,now(),now(),'SYSTEM','SYSTEM','1');
+(3,'client1@hotmail.com','Test123',3,now(),now(),'SYSTEM','SYSTEM','1');
 
 INSERT INTO `magikhelper`.`user`
-(`row_id`,`email`,`password`,`first_name`,`last_name`,`address_id`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
+(`row_id`,`email`,`password`,`address_id`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
 VALUES
-(4,'client2@hotmail.com','Test123','Client','Two',3,now(),now(),'SYSTEM','SYSTEM','1');
+(4,'vendor1@hotmail.com','Test123',4,now(),now(),'SYSTEM','SYSTEM','1');
 
-INSERT INTO `magikhelper`.`user`
-(`row_id`,`email`,`password`,`first_name`,`last_name`,`address_id`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
-VALUES
-(5,'vendor1@hotmail.com','Test123','Vendor','One',4,now(),now(),'SYSTEM','SYSTEM','1');
-
-INSERT INTO `magikhelper`.`user`
-(`row_id`,`email`,`password`,`first_name`,`last_name`,`address_id`,`update_time`,`create_time`,`create_by`,`update_by`,`is_active`)
-VALUES
-(6,'vendor2@hotmail.com','Test123','Vendor','Two',4,now(),now(),'SYSTEM','SYSTEM','1');
 /*User ends here*/
 
 /*User roles start here*/
@@ -204,67 +203,32 @@ INSERT INTO `magikhelper`.`user_role`
 VALUES
 (4,now(),'SYSTEM',now(),'SYSTEM','1',4,2);
 
-INSERT INTO `magikhelper`.`user_role`
-(`user_role_id`,`create_time`,`create_by`,`update_time`,`update_by`,`is_active`,`user_id`,`role_id`)
-VALUES
-(5,now(),'SYSTEM',now(),'SYSTEM','1',5,3);
-
-INSERT INTO `magikhelper`.`user_role`
-(`user_role_id`,`create_time`,`create_by`,`update_time`,`update_by`,`is_active`,`user_id`,`role_id`)
-VALUES
-(6,now(),'SYSTEM',now(),'SYSTEM','1',6,3);
-
 /*User roles ends here*/
 
 /*Vendor services starts here*/
 INSERT INTO `magikhelper`.`vendor_skill`
 (`row_id`,`skill_id`,`create_time`,`update_time`,`create_by`,`update_by`,`is_active`,`rates`,`vendor_id`)
 VALUES
-(1,1,now(),now(),'SYSTEM','SYSTEM','1','20.0',5);
+(1,1,now(),now(),'SYSTEM','SYSTEM','1','20.0',4);
 
 INSERT INTO `magikhelper`.`vendor_skill`
 (`row_id`,`skill_id`,`create_time`,`update_time`,`create_by`,`update_by`,`is_active`,`rates`,`vendor_id`)
 VALUES
-(2,2,now(),now(),'SYSTEM','SYSTEM','1','20.0',5);
+(2,2,now(),now(),'SYSTEM','SYSTEM','1','20.0',4);
 
 INSERT INTO `magikhelper`.`vendor_skill`
 (`row_id`,`skill_id`,`create_time`,`update_time`,`create_by`,`update_by`,`is_active`,`rates`,`vendor_id`)
 VALUES
-(3,3,now(),now(),'SYSTEM','SYSTEM','1','20.0',5);
+(3,3,now(),now(),'SYSTEM','SYSTEM','1','20.0',4);
 
 INSERT INTO `magikhelper`.`vendor_skill`
 (`row_id`,`skill_id`,`create_time`,`update_time`,`create_by`,`update_by`,`is_active`,`rates`,`vendor_id`)
 VALUES
-(4,4,now(),now(),'SYSTEM','SYSTEM','1','20.0',5);
+(4,4,now(),now(),'SYSTEM','SYSTEM','1','20.0',4);
 
 INSERT INTO `magikhelper`.`vendor_skill`
 (`row_id`,`skill_id`,`create_time`,`update_time`,`create_by`,`update_by`,`is_active`,`rates`,`vendor_id`)
 VALUES
-(5,5,now(),now(),'SYSTEM','SYSTEM','1','20.0',5);
-
-INSERT INTO `magikhelper`.`vendor_skill`
-(`row_id`,`skill_id`,`create_time`,`update_time`,`create_by`,`update_by`,`is_active`,`rates`,`vendor_id`)
-VALUES
-(6,1,now(),now(),'SYSTEM','SYSTEM','1','20.0',6);
-
-INSERT INTO `magikhelper`.`vendor_skill`
-(`row_id`,`skill_id`,`create_time`,`update_time`,`create_by`,`update_by`,`is_active`,`rates`,`vendor_id`)
-VALUES
-(7,2,now(),now(),'SYSTEM','SYSTEM','1','20.0',6);
-
-INSERT INTO `magikhelper`.`vendor_skill`
-(`row_id`,`skill_id`,`create_time`,`update_time`,`create_by`,`update_by`,`is_active`,`rates`,`vendor_id`)
-VALUES
-(8,3,now(),now(),'SYSTEM','SYSTEM','1','20.0',6);
-
-INSERT INTO `magikhelper`.`vendor_skill`
-(`row_id`,`skill_id`,`create_time`,`update_time`,`create_by`,`update_by`,`is_active`,`rates`,`vendor_id`)
-VALUES
-(9,4,now(),now(),'SYSTEM','SYSTEM','1','20.0',6);
-
-INSERT INTO `magikhelper`.`vendor_skill`
-(`row_id`,`skill_id`,`create_time`,`update_time`,`create_by`,`update_by`,`is_active`,`rates`,`vendor_id`)
-VALUES
-(10,5,now(),now(),'SYSTEM','SYSTEM','1','20.0',6);
+(5,5,now(),now(),'SYSTEM','SYSTEM','1','20.0',4);
 
 /*Vendor services ends here*/

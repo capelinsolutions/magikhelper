@@ -29,8 +29,6 @@ public class User extends com.magikhelper.entities.BaseEntity implements Seriali
 	private static final long serialVersionUID = 1L;
 	private int rowId;
 	private String email;
-	private String firstName;
-	private String lastName;
 	private String password;
 	private List<BookingAssignment> bookingAssignments;
 	private Contact contact;
@@ -61,27 +59,6 @@ public class User extends com.magikhelper.entities.BaseEntity implements Seriali
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
-	@Column(name="first_name")
-	public String getFirstName() {
-		return this.firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-
-	@Column(name="last_name")
-	public String getLastName() {
-		return this.lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 
 	public String getPassword() {
 		return this.password;
@@ -155,9 +132,7 @@ public class User extends com.magikhelper.entities.BaseEntity implements Seriali
 
 	@Override
 	public String toString() {
-		return "User [rowId=" + rowId + ", email=" + email + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", password="
-				+ password + "]";
+		return "User [rowId=" + rowId + ", email=" + email + ", password=" + password + "]";
 	}
 	
 }

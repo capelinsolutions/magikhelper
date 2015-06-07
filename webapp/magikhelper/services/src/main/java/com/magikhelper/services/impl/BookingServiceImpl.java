@@ -50,8 +50,7 @@ public class BookingServiceImpl implements BookingService {
 		Date date = DateUtils.convertToDate(vo.getBookedDate()+" "+vo.getBookedTime(), "MM/dd/yyyy HH:mm");
 		booking.setBookedDatetime(date);
 		booking.setDuration(vo.getDuration());
-		booking.setStatusDesc("Booking created with active status.");
-		booking.setAddress(vo.getAddress());
+		booking.setStatusDesc("Booking created with created status.");
 		booking.populatedAuditFields("SYSTEM");
 		
 		User client = usersDao.getReference(vo.getClientId());
@@ -154,13 +153,12 @@ public class BookingServiceImpl implements BookingService {
 			vo.setFinishDateTime(DateUtils.convertToString(b.getFinishDatetime(), "MM/dd/yyyy HH:mm:ss"));
 			vo.setStatus(b.getStatus().getName());
 			vo.setStatusDesc(b.getStatusDesc());
-			vo.setAddress(b.getAddress());
 			vo.setServiceName(b.getService().getName());
 			vo.setRate(b.getService().getServices().get(0).getRate());
 			vo.setClientId(b.getUser().getRowId());
 			vo.setEmail(b.getUser().getEmail());
-			vo.setFirstName(b.getUser().getFirstName());
-			vo.setLastName(b.getUser().getLastName());
+			vo.setFirstName(b.getUser().getContact().getFirstName());
+			vo.setLastName(b.getUser().getContact().getLastName());
 			vo.setMobilePhone(b.getUser().getContact().getMobilePhone());
 			vo.setStreet(b.getUser().getContact().getStreet());
 			vo.setAdditional(b.getUser().getContact().getAdditional());

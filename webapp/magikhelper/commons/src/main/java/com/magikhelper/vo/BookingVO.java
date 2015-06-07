@@ -5,7 +5,6 @@ public class BookingVO {
 	private Integer bookingId;
 	private String bookedDate;
 	private String bookedTime;
-	private String address;
 	private int duration;
 	private Integer clientId;
 	private Integer serviceId;
@@ -35,12 +34,6 @@ public class BookingVO {
 	}
 	public void setBookedTime(String bookedTime) {
 		this.bookedTime = bookedTime;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
 	}
 	public int getDuration() {
 		return duration;
