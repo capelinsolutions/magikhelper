@@ -14,6 +14,7 @@ public class BookingListVO {
 	private String statusDesc;
 	private String serviceName;
 	private BigDecimal rate;
+	private String bookingComments;
 	private int clientId;
 	private String clientEmail;
 	private ContactVO bookingContact = new ContactVO();
@@ -95,6 +96,12 @@ public class BookingListVO {
 	}
 	public void setClientEmail(String clientEmail) {
 		this.clientEmail = clientEmail;
+	}
+	public String getBookingComments() {
+		return bookingComments;
+	}
+	public void setBookingComments(String bookingComments) {
+		this.bookingComments = bookingComments;
 	}
 	public ContactVO getBookingContact() {
 		return bookingContact;

@@ -54,6 +54,7 @@ public class BookingServiceImpl implements BookingService {
 		Date date = DateUtils.convertToDate(vo.getBookedDate()+" "+vo.getBookedTime(), "MM/dd/yyyy HH:mm");
 		booking.setBookedDatetime(date);
 		booking.setDuration(vo.getDuration());
+		booking.setComments(vo.getComments());
 		booking.setStatusDesc("Booking created with created status.");
 		booking.setRate(vo.getRate());
 		booking.populatedAuditFields("SYSTEM");
@@ -121,6 +122,7 @@ public class BookingServiceImpl implements BookingService {
 			String bookingZip = (String)clientData[26];
 			String bookingState = (String)clientData[27];
 			String bookingCountry = (String)clientData[28];
+			String bookingComments = (String)clientData[29];
 			
 			ClientBookingsVO booking=new ClientBookingsVO();
 			ContactVO bookingContact = new ContactVO();
@@ -134,6 +136,7 @@ public class BookingServiceImpl implements BookingService {
 			booking.setStatusDesc(statusDesc);
 			booking.setServiceName(serviceName);
 			booking.setRate(rate);
+			booking.setBookingComments(bookingComments);
 			
 			bookingContact.setFirstName(bookingFirstName);
 			bookingContact.setLastName(bookingLastName);
@@ -196,6 +199,8 @@ public class BookingServiceImpl implements BookingService {
 			vo.setStatusDesc(b.getStatusDesc());
 			vo.setServiceName(b.getService().getValue());
 			vo.setRate(b.getRate());
+			vo.setBookingComments(b.getComments());
+			
 			vo.setClientId(b.getUser().getRowId());
 			vo.setClientEmail(b.getUser().getEmail());
 			

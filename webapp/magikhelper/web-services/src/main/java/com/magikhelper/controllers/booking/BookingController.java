@@ -40,7 +40,7 @@ public class BookingController {
 
     @RequestMapping(method=RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addClient(@RequestBody BookingVO booking, HttpServletRequest request, HttpServletResponse response) {
+    public void addBooking(@RequestBody BookingVO booking, HttpServletRequest request, HttpServletResponse response) {
 		bookingService.createBooking(booking);	
     	response.setHeader("Location", request.getRequestURL().append("/").append(booking.getBookingId()).toString());
     }

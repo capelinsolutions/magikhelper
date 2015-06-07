@@ -88,7 +88,7 @@ public class BookingDaoJpaImpl extends GenericDaoJpaImpl<Booking, Integer> imple
 		qryStr.append("    bookings.row_id booking_id, booked_datetime, duration, start_datetime, finish_datetime, status.name status, status_desc, ");
 		qryStr.append("    services.name service, rate, booking_contact.first_name b_first_name, booking_contact.last_name b_last_name,  ");
 		qryStr.append("    booking_contact.mobile_phone b_mobile_phone, booking_contact.street b_street, booking_contact.additional b_additional,  ");
-		qryStr.append("    booking_contact.city b_city, booking_contact.zip b_zip, booking_contact.state b_state, booking_contact.country b_country ");
+		qryStr.append("    booking_contact.city b_city, booking_contact.zip b_zip, booking_contact.state b_state, booking_contact.country b_country, bookings.comments ");
 		qryStr.append("FROM ");
 		qryStr.append("    system_role roles, ");
 		qryStr.append("    user_role user_roles, ");

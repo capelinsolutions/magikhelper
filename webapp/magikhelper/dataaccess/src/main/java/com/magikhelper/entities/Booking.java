@@ -37,6 +37,7 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 	private Date startDatetime;
 	private String statusDesc;
 	private BigDecimal rate;
+	private String comments;
 	private User user;
 	private Contact contact;
 	private ApplicationProperty status;
@@ -116,6 +117,14 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 
 	public void setRate(BigDecimal rate) {
 		this.rate = rate;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
 	}
 
 	//bi-directional many-to-one association to User
