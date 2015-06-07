@@ -150,6 +150,17 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                     }
                 }
             })
+            .state('sidemenu.vendorProfile', {
+                url: '/ven_profile',
+                views: {
+                    'mainContent': {
+                        //controller: 'VendorJobListCtrl',
+                        templateUrl: 'templates/vendor_profile.html'
+                    }
+                }
+            })
+
+
             .state('sidemenu.vendorJobDetail', {
                 url: '/job/:jobId',
                 views: {
