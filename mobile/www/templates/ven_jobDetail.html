@@ -47,9 +47,9 @@
 
         </div>
     </ion-content>
-    <div class="bar bar-footer bar-balanced" ng-show="job.status != 'COMPLETED'"> 
-        <div class="title">Start Job</div>
-         
+
+    <div class="bar bar-footer bar-balanced form_submit" ng-show="job.status != 'COMPLETED'">
+        <button class=" form_submit button-clear button-positive" ng-click="refresh()">Start Job</button>
     </div>
 
 </ion-view>

@@ -1,0 +1,46 @@
+<ion-view title="Profile">
+    <ion-header-bar class="bar bar-positive bar-stable">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        <h1 class="title"></h1>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="list  formLayout">
+            <form>
+                <div class="sectionHeading">Personal Info</div>
+
+                <div class="list ">
+
+                    <div class="item item-input-inset loginForminput border_bottom_input">
+                        <label>
+                            <input type="text" placeholder="First Name" name="firstName" ng-model="contact.firstName">
+                        </label>
+
+                        <label>
+                            <input type="text" placeholder="Last Name" name="lastName" ng-model="contact.lastName">
+                        </label>
+                    </div>
+
+                    <label class="item item-input loginForminput border_bottom_input">
+                        <input type="text" placeholder="Phone Number" name="phone" ng-model="contact.mobilePhone">
+                    </label>
+
+                    <label class="item item-input loginForminput border_bottom_input">
+                        <input type="text" placeholder="Email" name="email" ng-model="contact.email">
+                    </label>
+                </div>
+                <div class="sectionHeading">Skills</div>
+
+                <div class="list ">
+                    <ion-toggle  toggle-class="toggle-calm">General Labor</ion-toggle>
+                    <ion-toggle  toggle-class="toggle-calm">Cleaning</ion-toggle>
+                    <ion-toggle  toggle-class="toggle-calm">Moving</ion-toggle>
+                    <ion-toggle  toggle-class="toggle-calm">Furniture Assembly</ion-toggle>
+                    <ion-toggle  toggle-class="toggle-calm">Landscaping</ion-toggle>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+    <div class="bar bar-footer form_submit ">
+        <div class="title"><a ng-click="setContactDetails()"> Update </a></div>
+    </div>
+</ion-view>
