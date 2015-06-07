@@ -183,6 +183,7 @@ public class UsersServiceImpl implements UsersService {
 			ContactVO contact = new ContactVO();
 			userVo.setUserId(user.getRowId());
 			userVo.setEmail(user.getEmail());
+			userVo.setContact(contact);
 			contact.setFirstName(user.getContact().getFirstName());
 			contact.setLastName(user.getContact().getLastName());
 			contact.setMobilePhone(user.getContact().getMobilePhone());
@@ -192,6 +193,7 @@ public class UsersServiceImpl implements UsersService {
 			contact.setZip(user.getContact().getZip());
 			contact.setState(user.getContact().getState());
 			contact.setCountry(user.getContact().getCountry());
+			
 			return userVo;
 		}
 		return null;
