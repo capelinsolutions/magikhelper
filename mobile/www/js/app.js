@@ -21,7 +21,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         $stateProvider
 
             .state('sidemenu', {
@@ -167,5 +167,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/sidemenu/login');
+
+        $ionicConfigProvider.tabs.position('bottom');
 
     });
