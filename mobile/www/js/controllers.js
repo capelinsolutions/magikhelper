@@ -37,7 +37,6 @@ angular.module('starter.controllers', ['starter.messages'])
 
             if (SignUpService.isPasswordSame($scope.client.password, $scope.client.confirmPassword)) {
 
-
                 var address = UtilityServices.validateAddress($scope.client.address);
                 address.formatted_address = $scope.client.address.formatted_address;
                 $scope.client.address = address;
