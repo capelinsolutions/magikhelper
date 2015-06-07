@@ -1,20 +1,20 @@
 angular.module('starter.services', ['starter.config'])
     .factory('AuthenticationService',
-    ['$http', '$rootScope', '$timeout', 'configuration',
-        function ($http, $rootScope, $timeout , configuration) {
+    ['$http', '$rootScope', '$timeout', 'configuration','$cordovaDevice',
+        function ($http, $rootScope, $timeout , configuration, $cordovaDevice) {
             var service = {};
 
             service.Login = function (user, callback) {
                 /* Use this for real authentication
                  ----------------------------------------------*/
 
-
+                //alert(JSON.stringify(user))
 
                 var req = {
                     method: 'POST',
                     url:  configuration.BASE_URL +'/security/login',
                     headers: {
-                        'DEVICE_ID': "1234"
+                        'DEVICE_ID': $cordovaDevice.getUUID()
                     },
                     data: user
                 }
@@ -25,7 +25,6 @@ angular.module('starter.services', ['starter.config'])
                         response.login = false;
                         callback(response);
                     } else {
-
                         response.login = true;
                         callback(response);
                     }

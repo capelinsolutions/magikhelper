@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'starter.services', 'starter.config', 'starter.messages','ngMap', 'ui.router'])
+angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'starter.services', 'starter.config', 'starter.messages','ngMap', 'ui.router', 'ngCordova'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -21,7 +21,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
         });
     })
 
-    .config(function ($stateProvider, $urlRouterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         $stateProvider
 
             .state('sidemenu', {
@@ -150,6 +150,17 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                     }
                 }
             })
+            .state('sidemenu.vendorProfile', {
+                url: '/ven_profile',
+                views: {
+                    'mainContent': {
+                        //controller: 'VendorJobListCtrl',
+                        templateUrl: 'templates/vendor_profile.html'
+                    }
+                }
+            })
+
+
             .state('sidemenu.vendorJobDetail', {
                 url: '/job/:jobId',
                 views: {
@@ -167,5 +178,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/sidemenu/login');
+
+        $ionicConfigProvider.tabs.position('bottom');
 
     });
