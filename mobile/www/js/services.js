@@ -8,7 +8,7 @@ angular.module('starter.services', ['starter.config'])
                 /* Use this for real authentication
                  ----------------------------------------------*/
 
-                //alert(JSON.stringify(user))
+
 
                 var req = {
                     method: 'POST',
@@ -25,6 +25,7 @@ angular.module('starter.services', ['starter.config'])
                         response.login = false;
                         callback(response);
                     } else {
+
                         response.login = true;
                         callback(response);
                     }
@@ -58,13 +59,14 @@ angular.module('starter.services', ['starter.config'])
              });
              };*/
 
-            service.SetCredentials = function (username, password) {
+            service.SetCredentials = function (user) {
                 //var authdata = Base64.encode(username + ':' + password);
-                var authdata = username + ':' + password;
+                var authdata = user.email + ':' + user.password;
                 $rootScope.globals = {
                     currentUser: {
-                        username: username,
-                        authdata: authdata
+                        username: user.email,
+                        authdata: authdata,
+                        userId: user.userId
                     }
                 };
 
@@ -113,7 +115,7 @@ angular.module('starter.services', ['starter.config'])
         return service;
     }])
 
-    .factory('BookingService', ['$http','configuration', '$q', function ($http , configuration, $q) {
+    .factory('BookingService', ['$http', 'configuration', '$q', '$rootScope', function ($http, configuration, $q, $rootScope) {
         var service = {};
         var bookingObj= {};
         var listOfBookings = {};
@@ -155,13 +157,35 @@ angular.module('starter.services', ['starter.config'])
             return bookingObj;
         }
 
+        service.makeBooking = function (object, callback) {
+
+            var req = {
+                method: 'POST',
+                url: configuration.BASE_URL + '/bookings',
+                headers: {
+                    'DEVICE_ID': "1234"
+                },
+                data: object
+            }
+
+
+            $http(req).success(function (response) {
+                response.success = true;
+                callback(response);
+            })
+                .error(function (data, status, headers, config) {
+                    response.success = false;
+                    callback(response);
+                });
+        }
+
 
         service.getAllBookings =  function () {
             var deferred = $q.defer();
 
             var req = {
                 method: 'get',
-                url: configuration.BASE_URL +  '/clients/bookings/'
+                url: configuration.BASE_URL + '/clients/bookings/' + $rootScope.globals.currentUser.userId
             }
 
             $http(req).success(function (response) {
@@ -222,6 +246,7 @@ angular.module('starter.services', ['starter.config'])
     .factory('UtilityServices', ['$http', function ($http) {
         var service = {};
 
+
         service.validateAddress = function (address) {
 
             var parsedAddress = {}
@@ -274,7 +299,7 @@ angular.module('starter.services', ['starter.config'])
 
         service.Save = function (object, callback) {
             var status = {};
-            alert(JSON.stringify(object));
+
             $http.post(configuration.BASE_URL +  '/clients', object)
                 .success(function (response) {
                     alert("User Created Successfully");
