@@ -140,7 +140,7 @@ angular.module('starter.services', ['starter.config'])
 
         service.setBookingDetails = function(object) {
             bookingObj.bookingDate = object.bookingDate;
-            bookingObj.bookedTime = object.selectedTimeSlot.name;
+            bookingObj.bookedTime = object.selectedTimeSlot.code;
             bookingObj.duration = object.hours;
             bookingObj.instructions = object.instructions;
         }
@@ -178,6 +178,28 @@ angular.module('starter.services', ['starter.config'])
                 });
         }
 
+        service.getAllBookingForCurrentUser = function () {
+            var booking = {}
+
+            var req = {
+                method: 'get',
+                url: configuration.BASE_URL + '/clients/bookings/' + $rootScope.globals.currentUser.userId
+            }
+
+            $http(req).success(function (response) {
+
+                booking.success = true;
+                //callback(listOfBookings);
+                if (response[0] != null) {
+                    booking.list = response[0];
+                }
+            })
+                .error(function (data, status, headers, config) {
+                    response.success = false;
+
+                });
+
+        }
 
         service.getAllBookings =  function () {
             var deferred = $q.defer();
@@ -190,7 +212,9 @@ angular.module('starter.services', ['starter.config'])
             $http(req).success(function (response) {
                 listOfBookings = response;
                 //callback(listOfBookings);
-                deferred.resolve(listOfBookings[0].bookings);
+                if (listOfBookings[0] != null) {
+                    deferred.resolve(listOfBookings[0].bookings);
+                }
             })
                 .error(function (data, status, headers, config) {
                     response.success = false;
@@ -289,7 +313,7 @@ angular.module('starter.services', ['starter.config'])
         return service;
     }])
 
-    .factory('SignUpService', ['$http', function ($http) {
+    .factory('SignUpService', ['$http', 'configuration', function ($http, configuration) {
         var service = {};
 
         service.isPasswordSame = function (password, confirmPassword) {

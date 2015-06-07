@@ -37,6 +37,7 @@ angular.module('starter.controllers', ['starter.messages'])
 
             if (SignUpService.isPasswordSame($scope.client.password, $scope.client.confirmPassword)) {
 
+
                 var address = UtilityServices.validateAddress($scope.client.address);
                 address.formatted_address = $scope.client.address.formatted_address;
                 $scope.client.address = address;
@@ -131,7 +132,8 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.done = function () {
             $scope.booking = {};
             $scope.bookingPojo = {};
-            BookingService.getAllBookings();
+            $scope.listAllUserPastJobs = BookingService.getAllBookingForCurrentUser();
+
             $location.path('/sidemenu/user_joblist');
         }
 
@@ -141,11 +143,21 @@ angular.module('starter.controllers', ['starter.messages'])
 
             $scope.bookingPojo.clientId = $scope.booking.client.userId;
             $scope.bookingPojo.serviceId = $scope.booking.service.serviceId;
-            $scope.bookingPojo.address = $scope.booking.address.street;
             $scope.bookingPojo.bookedDate = $filter('date')($scope.booking.bookingDate, 'MM/dd/yyyy');
-            $scope.bookingPojo.bookedTime = "16:00";//TODO: add actual time
-            $scope.bookingPojo.duration = +$scope.booking.duration;
+            $scope.bookingPojo.bookedTime = $scope.booking.bookedTime;
+            $scope.bookingPojo.duration = $scope.booking.duration;
 
+            var bookingContact = {};
+            bookingContact.firstName = $scope.booking.firstName;
+            bookingContact.lastName = $scope.booking.lastName;
+            bookingContact.mobilePhone = $scope.booking.phone;
+            bookingContact.street = $scope.booking.address.street;
+            bookingContact.city = $scope.booking.address.city;
+            bookingContact.zip = $scope.booking.address.zip;
+            bookingContact.state = $scope.booking.address.state;
+            bookingContact.country = $scope.booking.address.country;
+
+            $scope.bookingPojo.bookingContact = bookingContact;
 
             BookingService.makeBooking($scope.bookingPojo, function (response) {
                 $scope.booking.confirmation = 1234;
