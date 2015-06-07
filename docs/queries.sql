@@ -9,6 +9,7 @@ select * from application_properties;
 select * from services;
 select * from booking_assignment;
 select * from vendor_skill;
+select * from vendor_booking_route;
 
 SELECT 
     users.row_id,
