@@ -132,7 +132,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                 }
             })
             .state('sidemenu.location', {
-                url: '/location',
+                url: '/location/:bookingId',
                 views: {
                     'mainContent': {
                         controller: 'MapCtrl',

@@ -11,3 +11,9 @@ angular.module('starter.messages', [])
         AVAILABILITY_SERVICE_NOT_FOUND: 'No Available Service found for that Zip Code!'
     });
 
+angular.module('starter.demo', [])
+    .constant('demoVendorInfo', {
+        VENDOR_ID : '4',
+        VENDOR_EMAIL : 'vendor1@hotmail.com'
+    });
+
