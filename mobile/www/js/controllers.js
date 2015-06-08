@@ -241,7 +241,7 @@ angular.module('starter.controllers', ['starter.messages'])
 
         $scope.locateVendor = function (bookingId) {
             //$rootScope.globals.currentUser.userId
-
+            //TODO: remove hardcoding vendor Id
             var locationPromise = LocationServices.getVendorLocation('5');
 
             locationPromise.then(function (data) {
@@ -433,7 +433,7 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.chat = Chats.get($stateParams.chatId);
     })
 
-    .controller('MapCtrl',  function ($scope,$stateParams, $location, LocationServices) {
+    .controller('MapCtrl',  function ($scope,$stateParams, $location, LocationServices, demoVendorInfo) {
 
         var locObj = LocationServices.getVendorCurrentLocation();
         $scope.latitude = locObj.latitude;
@@ -441,6 +441,7 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.zoom = 15;
 
         $scope.refresh = function () {
+            //TODO: remove hardcoding vendor Id
             var locationPromise = LocationServices.getVendorLocation('5');
 
             locationPromise.then(function (data) {
@@ -453,7 +454,7 @@ angular.module('starter.controllers', ['starter.messages'])
 
             //$scope.latitude = 32.941858;
             //$scope.longitude = -96.818282;
-
+            //TODO: remove hardcoding vendor Id
             $location.path('/sidemenu/location/5' );
 
         };
