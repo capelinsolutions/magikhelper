@@ -371,12 +371,13 @@ angular.module('starter.controllers', ['starter.messages'])
         var aboutMenu = {stateName: 'sidemenu.about', labelName: 'About'};
         var vendorAssignedMenu = {stateName: 'sidemenu.vendorJoblist', labelName: 'Job List'};
         var vendorProfileMenu = {stateName: 'sidemenu.vendorProfile', labelName: 'Profile'};
+        var logoutMenu = {stateName: 'sidemenu.login', labelName: 'Logout'};
 
 
         if (BookingService.isLoggedIn() && BookingService.isVendor()) {
-            $scope.subMenus = [vendorAssignedMenu, vendorProfileMenu, aboutMenu];
+            $scope.subMenus = [vendorAssignedMenu, vendorProfileMenu, aboutMenu, logoutMenu];
         } else if (BookingService.isLoggedIn()) {
-            $scope.subMenus = [userProfileMenu, bookingMenu, aboutMenu];
+            $scope.subMenus = [userProfileMenu, bookingMenu, aboutMenu, logoutMenu];
         } else {
             $scope.subMenus = [loginMenu, signUpMenu, aboutMenu];
         }

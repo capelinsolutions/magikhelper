@@ -14,8 +14,7 @@ angular.module('starter.services', ['starter.config'])
                     method: 'POST',
                     url: configuration.BASE_URL + '/security/login',
                     headers: {
-                        //'DEVICE_ID': $cordovaDevice.getUUID()
-                        'DEVICE_ID': '2222'
+                        'DEVICE_ID': $cordovaDevice.getUUID()
                     },
                     data: user
                 }
