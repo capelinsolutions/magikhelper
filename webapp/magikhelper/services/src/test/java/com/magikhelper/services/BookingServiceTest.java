@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.magikhelper.utils.MagikHelperConstants;
+import com.magikhelper.vo.BookingFeedbackVO;
 import com.magikhelper.vo.BookingListVO;
 import com.magikhelper.vo.BookingVO;
 import com.magikhelper.vo.ContactVO;
@@ -66,7 +67,13 @@ public class BookingServiceTest extends BaseServiceTest {
     	vo.setFinishDateTime("06/07/2015 17:30:00");
     	vo.setStatusId(MagikHelperConstants.BOOKING_STATUS_IN_PROGRESS);
     	vo.setStatusDesc("booking Accepted by vendor");
-    	bookingService.updateBooking(vo);
+//    	bookingService.updateBooking(vo);
+    }
+    
+    @Test
+    public void addFeedback(){
+    	BookingFeedbackVO vo = new BookingFeedbackVO(new Integer(2), "Comments-----1");
+    	bookingService.addFeedback(vo);
     }
     
     @Test

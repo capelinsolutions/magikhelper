@@ -20,16 +20,19 @@ import com.magikhelper.dao.ApplicationPropertiesDao;
 import com.magikhelper.dao.BookingAssignmentDao;
 import com.magikhelper.dao.BookingDao;
 import com.magikhelper.dao.BookingEventDao;
+import com.magikhelper.dao.BookingFeedbackDao;
 import com.magikhelper.dao.UsersDao;
 import com.magikhelper.entities.ApplicationProperty;
 import com.magikhelper.entities.Booking;
 import com.magikhelper.entities.BookingAssignment;
 import com.magikhelper.entities.BookingEvent;
+import com.magikhelper.entities.BookingFeedback;
 import com.magikhelper.entities.Contact;
 import com.magikhelper.entities.User;
 import com.magikhelper.services.BookingService;
 import com.magikhelper.utils.DateUtils;
 import com.magikhelper.utils.MagikHelperConstants;
+import com.magikhelper.vo.BookingFeedbackVO;
 import com.magikhelper.vo.BookingListVO;
 import com.magikhelper.vo.BookingVO;
 import com.magikhelper.vo.ClientBookingsVO;
@@ -56,6 +59,9 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     BookingAssignmentDao bookingAssignmentDao;
 	
+    @Autowired
+    BookingFeedbackDao bookingFeedbackDao;
+    
     @Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public void createBooking(BookingVO vo) {
@@ -101,6 +107,17 @@ public class BookingServiceImpl implements BookingService {
 		vo.setBookingId(booking.getRowId());
 	}
 
+	@Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
+	public void addFeedback(BookingFeedbackVO vo) {
+		Booking booking = bookingDao.getReference(vo.getBookingId());
+		BookingFeedback feedback = new BookingFeedback();
+		feedback.setComments(vo.getComments());
+		feedback.setBooking(booking);
+		feedback.populatedAuditFieldsOnCreate("SYSTEM");
+		bookingFeedbackDao.add(feedback);
+	}
+	
 	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public void assignToVendor(BookingVO vo) {

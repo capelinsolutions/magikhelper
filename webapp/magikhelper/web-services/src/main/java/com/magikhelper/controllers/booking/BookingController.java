@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.HandlerMapping;
 
 import com.magikhelper.services.BookingService;
+import com.magikhelper.vo.BookingFeedbackVO;
 import com.magikhelper.vo.BookingListVO;
 import com.magikhelper.vo.BookingVO;
 
@@ -56,6 +57,13 @@ public class BookingController {
     public void updateBooking(@RequestBody BookingVO booking, HttpServletRequest request, HttpServletResponse response) {
 		bookingService.updateBooking(booking);
     }
+
+    @RequestMapping(value="/feedback", method=RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void assignBooking(@RequestBody BookingFeedbackVO vo, HttpServletRequest request, HttpServletResponse response) {
+		bookingService.addFeedback(vo);
+    }
+
     
     @RequestMapping(value="/{bookingId}", method = RequestMethod.GET,headers="Accept=application/json")
     public List<BookingListVO> getBooking(@PathVariable("bookingId") Integer bookingId) {

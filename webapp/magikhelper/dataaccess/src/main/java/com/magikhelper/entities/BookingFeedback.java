@@ -22,7 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="booking_feedback")
-@NamedQuery(name="BookingFeedback.findAll", query="SELECT b FROM BookingFeedback b")
+@NamedQuery(name="BookingFeedbackVO.findAll", query="SELECT b FROM BookingFeedback b")
 public class BookingFeedback extends com.magikhelper.entities.BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int rowId;

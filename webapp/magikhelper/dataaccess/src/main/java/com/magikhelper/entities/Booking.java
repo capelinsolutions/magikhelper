@@ -195,7 +195,7 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 		this.bookingEvents = bookingEvents;
 	}
 
-	//bi-directional many-to-one association to BookingFeedback
+	//bi-directional many-to-one association to BookingFeedbackVO
 	@OneToMany(mappedBy="booking", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	public List<BookingFeedback> getBookingFeedbacks() {
 		return this.bookingFeedbacks;
