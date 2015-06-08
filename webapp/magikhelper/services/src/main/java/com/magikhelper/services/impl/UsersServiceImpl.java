@@ -110,11 +110,11 @@ public class UsersServiceImpl implements UsersService {
 		UserRole userRole = new UserRole();
 		
 		userRole.setSystemRole(role);
-		userRole.populatedAuditFields("SYSTEM");
+		userRole.populatedAuditFieldsOnCreate("SYSTEM");
 		
 		user.setEmail(userVo.getEmail());
 		user.setPassword(userVo.getPassword());
-		user.populatedAuditFields("SYSTEM");
+		user.populatedAuditFieldsOnCreate("SYSTEM");
 		user.addUserRole(userRole);
 
 		
@@ -127,7 +127,7 @@ public class UsersServiceImpl implements UsersService {
 		contact.setZip(userVo.getContact().getZip());
 		contact.setCountry(userVo.getContact().getCountry());
 		contact.setMobilePhone(userVo.getContact().getMobilePhone());
-		contact.populatedAuditFields("SYSTEM");
+		contact.populatedAuditFieldsOnCreate("SYSTEM");
 		
 		user.setContact(contact);
 		

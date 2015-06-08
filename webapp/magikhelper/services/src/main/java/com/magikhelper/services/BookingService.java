@@ -11,7 +11,10 @@ import com.magikhelper.vo.UserVO;
 public interface BookingService {
 	public void createBooking(BookingVO booking);
 	
+	public void assignToVendor(BookingVO booking);
+	
     public List<UserVO> getClientBookings(List<String> columnNames, List<String> values, String dateOperator);
 
 	public List<BookingListVO> getBookings(List<String> columnNames, List<String> values, String dateOperator);
+	
 }

@@ -44,7 +44,13 @@ public class BookingController {
 		bookingService.createBooking(booking);	
     	response.setHeader("Location", request.getRequestURL().append("/").append(booking.getBookingId()).toString());
     }
-    
+
+    @RequestMapping(value="/assign", method=RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void assignBooking(@RequestBody BookingVO booking, HttpServletRequest request, HttpServletResponse response) {
+		bookingService.assignToVendor(booking);
+    }
+
     @RequestMapping(value="/{bookingId}", method = RequestMethod.GET,headers="Accept=application/json")
     public List<BookingListVO> getBooking(@PathVariable("bookingId") Integer bookingId) {
     	List<String> columnNames = new ArrayList<String>();

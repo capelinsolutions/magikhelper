@@ -39,7 +39,7 @@ public class VendorBookingRouteServiceImpl implements VendorBookingRouteService 
         	route.setRouteKey(routeKey);
         	route.setLatitude(vo.getLatitude());
         	route.setLongitude(vo.getLongitude());
-        	route.populatedAuditFields("SYSTEM");
+        	route.populatedAuditFieldsOnCreate("SYSTEM");
     		vendorBookingRouteDao.add(route);    		
     	}
     	else {

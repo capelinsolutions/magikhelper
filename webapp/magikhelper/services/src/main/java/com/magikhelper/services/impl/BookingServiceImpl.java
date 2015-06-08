@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,10 +16,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.magikhelper.dao.ApplicationPropertiesDao;
+import com.magikhelper.dao.BookingAssignmentDao;
 import com.magikhelper.dao.BookingDao;
+import com.magikhelper.dao.BookingEventDao;
 import com.magikhelper.dao.UsersDao;
 import com.magikhelper.entities.ApplicationProperty;
 import com.magikhelper.entities.Booking;
+import com.magikhelper.entities.BookingAssignment;
+import com.magikhelper.entities.BookingEvent;
 import com.magikhelper.entities.Contact;
 import com.magikhelper.entities.User;
 import com.magikhelper.services.BookingService;
@@ -25,11 +31,9 @@ import com.magikhelper.utils.DateUtils;
 import com.magikhelper.utils.MagikHelperConstants;
 import com.magikhelper.vo.BookingListVO;
 import com.magikhelper.vo.BookingVO;
+import com.magikhelper.vo.ClientBookingsVO;
 import com.magikhelper.vo.ContactVO;
 import com.magikhelper.vo.UserVO;
-import com.magikhelper.vo.ClientBookingsVO;
-import com.magikhelper.vo.MagikHelperService;
-import com.magikhelper.vo.VendorVO;
 
 @Service(value = "bookingService")
 public class BookingServiceImpl implements BookingService {
@@ -45,11 +49,18 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     ApplicationPropertiesDao applicationPropertiesDao;
     
-	@Override
+    @Autowired
+    BookingEventDao bookingEventDao;
+    
+    @Autowired
+    BookingAssignmentDao bookingAssignmentDao;
+	
+    @Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public void createBooking(BookingVO vo) {
 		Booking booking = new Booking();
 		Contact contact = new Contact();
+		BookingEvent event = new BookingEvent();
 		
 		Date date = DateUtils.convertToDate(vo.getBookedDate()+" "+vo.getBookedTime(), "MM/dd/yyyy HH:mm");
 		booking.setBookedDatetime(date);
@@ -57,10 +68,10 @@ public class BookingServiceImpl implements BookingService {
 		booking.setComments(vo.getComments());
 		booking.setStatusDesc("Booking created with created status.");
 		booking.setRate(vo.getRate());
-		booking.populatedAuditFields("SYSTEM");
+		booking.populatedAuditFieldsOnCreate("SYSTEM");
 		
 		User client = usersDao.getReference(vo.getClientId());
-		ApplicationProperty statusId = applicationPropertiesDao.getReference(MagikHelperConstants.BOOKING_STATUS_ACTIVE);
+		ApplicationProperty statusId = applicationPropertiesDao.getReference(MagikHelperConstants.BOOKING_STATUS_CREATED);
 		ApplicationProperty serviceId = applicationPropertiesDao.getReference(vo.getServiceId());
 		
 		booking.setUser(client);
@@ -76,14 +87,52 @@ public class BookingServiceImpl implements BookingService {
 		contact.setZip(vo.getBookingContact().getZip());
 		contact.setCountry(vo.getBookingContact().getCountry());
 		contact.setMobilePhone(vo.getBookingContact().getMobilePhone());
-		contact.populatedAuditFields("SYSTEM");
+		contact.populatedAuditFieldsOnCreate("SYSTEM");
+		
+		event.setStatus(statusId);
+		event.setComments("Booking created with created status.");
+		event.populatedAuditFieldsOnCreate("SYSTEM");
 
 		booking.setContact(contact);
+		booking.addBookingEvent(event);
 		bookingDao.add(booking);
 		
 		vo.setBookingId(booking.getRowId());
 	}
 
+	@Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
+	public void assignToVendor(BookingVO vo) {
+
+		BookingAssignment bookingAssignment = new BookingAssignment();
+		BookingEvent event = new BookingEvent();
+		
+		Booking booking = bookingDao.get(vo.getBookingId());
+		User vendor = usersDao.getReference(vo.getVendorId());
+		ApplicationProperty statusId = applicationPropertiesDao.getReference(MagikHelperConstants.BOOKING_STATUS_ASSIGNED);
+		BookingEvent lastBookingEvent = bookingEventDao.getLastEventByBookingId(vo.getBookingId());
+
+		event.setStatus(statusId);
+		event.setComments("Booking assigned to vendor");
+		event.populatedAuditFieldsOnCreate("SYSTEM");
+		event.setBooking(booking);
+		
+		bookingAssignment.setUser(vendor);
+		bookingAssignment.setBooking(booking);
+		bookingAssignment.populatedAuditFieldsOnCreate("SYSTEM");
+		
+		lastBookingEvent.populatedAuditFieldsOnUpdate("SYSTEM");
+		
+		booking.setStatus(statusId);
+		booking.populatedAuditFieldsOnUpdate("SYSTEM");
+		
+		bookingEventDao.add(event);		
+		bookingEventDao.update(lastBookingEvent);
+		bookingAssignmentDao.add(bookingAssignment);
+		
+		bookingDao.update(booking);
+	}
+	
 	@Override
 	public List<UserVO> getClientBookings(List<String> columnNames,	List<String> values, String dateOperator) {
 		List<Object[]> bookingsObjs = bookingDao.getClientBookings(columnNames, values, dateOperator);

@@ -2,6 +2,7 @@ package com.magikhelper.entities;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -27,7 +29,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="booking")
-@NamedQuery(name="Booking.findAll", query="SELECT b FROM Booking b")
+@NamedQueries({
+	@NamedQuery(name="Booking.findAll", query="SELECT b FROM Booking b")
+})
 public class Booking extends com.magikhelper.entities.BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int rowId;
@@ -201,6 +205,22 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 		this.bookingFeedbacks = bookingFeedbacks;
 	}
 	
+	public void addBookingEvent(BookingEvent event) {
+        if (this.bookingEvents == null) {
+            this.bookingEvents = new ArrayList<BookingEvent>();
+        }
+        this.bookingEvents.add(event);
+        event.setBooking(this);
+    }
+
+	public void addBookingAssignment(BookingAssignment entity) {
+        if (this.bookingAssignments == null) {
+            this.bookingAssignments = new ArrayList<BookingAssignment>();
+        }
+        this.bookingAssignments.add(entity);
+        entity.setBooking(this);
+    }
+
 	@Override
 	public String toString() {
 		return "\nBooking [rowId=" + rowId + ", bookedDatetime=" + bookedDatetime

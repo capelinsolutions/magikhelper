@@ -59,11 +59,11 @@ public class BaseEntity {
 		this.updateBy = updateBy;
 	}
 
-	public void populatedAuditFields(String user) {
+	public void populatedAuditFieldsOnCreate(String user) {
         setCreateBy(user);
-        setUpdateBy(user);
+//        setUpdateBy(user);
         setCreateTime(DateUtils.currentTimeStamp());
-        setUpdateTime(DateUtils.currentTimeStamp());
+//        setUpdateTime(DateUtils.currentTimeStamp());
         setActive(true);
     }
 

@@ -58,7 +58,7 @@ public class LoginController {
         	SecurityToken securityToken = new SecurityToken();
         	securityToken.setToken(token);
         	securityToken.setDeviceId(deviceId);
-        	securityToken.populatedAuditFields(client.getEmail());
+        	securityToken.populatedAuditFieldsOnCreate(client.getEmail());
         	securityTokenService.saveToken(securityToken);
         	
         	LOGGER.debug("token: "+token);

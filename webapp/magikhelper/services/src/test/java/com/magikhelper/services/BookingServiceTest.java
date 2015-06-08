@@ -49,6 +49,15 @@ public class BookingServiceTest extends BaseServiceTest {
     }
     
     @Test
+    public void assignToVendor(){
+    	BookingVO vo = new BookingVO();
+    	vo.setBookingId(new Integer(2));
+    	vo.setVendorId(new Integer(4));
+    	
+    	bookingService.assignToVendor(vo);
+    }
+    
+    @Test
     public void getClientBookings(){
     	List<UserVO> bookings = bookingService.getClientBookings(null, null, null);
     	System.out.println(bookings);
