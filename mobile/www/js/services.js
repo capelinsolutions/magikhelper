@@ -223,53 +223,131 @@ angular.module('starter.services', ['starter.config'])
             return deferred.promise;
         }
 
+        service.getAllOpenBookings = function () {
+            var deferred = $q.defer();
+
+            var req = {
+                method: 'get',
+                url: configuration.BASE_URL + '/bookings?status=created'
+            }
+
+            $http(req).success(function (response) {
+                listOfBookings = response;
+                deferred.resolve(response);
+            })
+                .error(function (data, status, headers, config) {
+                    response.success = false;
+                    deferred.reject(data);
+                });
+            return deferred.promise;
+        }
+
+        service.findById = function (jobId) {
+            var deferred = $q.defer();
+            var job;
+            angular.forEach(listOfBookings, function (item) {
+                if (item.bookingId == parseInt(jobId)) {
+                    job = item;
+                }
+            });
+            deferred.resolve(job);
+            return deferred.promise;
+        };
+
         return service;
+
     }])
 
-    .factory('VendorServices', ['$http', '$q', function ($http, $q) {
+    .factory('VendorServices', ['$http', '$q','codeTypes',  function ($http, $q, codeTypes) {
         var service = {};
         var joblist = [
             {
-                "id": 2,
-                "jobType": "Cleaning",
-                "requestedBy": "John Doe",
-                "dateOfService": "05/15/2015",
-                "requestedTimeOfService": "12PM - 2PM",
-                "noOfHrsToComplete": "3",
-                "serviceAddress": "1 main st. Dallas TX 75200",
-                "status": "COMPLETED",
-                "commentByRequester": "Job Done on Time"
+                "bookingId": 1,
+                "serviceId": 1,
+                "bookedDate": "06/06/2015",
+                "bookedTime": "16:00:00",
+                "duration": 2,
+                "startDateTime": null,
+                "finishDateTime": null,
+                "status": "Assigned To Vendor",
+                "statusDesc": "Booking created with created status.",
+                "serviceName": "Furniture Assembly",
+                "rate": null,
+                "bookingComments": "coments sdljflaksdf asdflkasd fsad",
+                "clientId": 3,
+                "clientEmail": "client1@hotmail.com",
+                "bookingContact": {
+                    "firstName": "Test",
+                    "lastName": "UserVO",
+                    "mobilePhone": "Mobile",
+                    "street": "Street",
+                    "additional": "Additional",
+                    "city": "City",
+                    "zip": "Zip",
+                    "state": "State",
+                    "country": "Country"
+                }
             },
             {
-                "id": 3,
-                "jobType": "Moving",
-                "requestedBy": "John Doe",
-                "dateOfService": "05/18/2015",
-                "requestedTimeOfService": "12PM - 2PM",
-                "noOfHrsToComplete": "2",
-                "serviceAddress": "13155 Noel Rd Dallas TX 75240",
-                "status": "ASSIGNED_TO_VENDOR",
-                "vendorId": 1,
-                "commentByRequester": "Do a good job!!"
+                "bookingId": 2,
+                "serviceId": 1,
+                "bookedDate": "06/06/2015",
+                "bookedTime": "16:00:00",
+                "duration": 2,
+                "startDateTime": null,
+                "finishDateTime": null,
+                "status": "Completed",
+                "statusDesc": "Booking created with created status.",
+                "serviceName": "Furniture Assembly",
+                "rate": null,
+                "bookingComments": "coments sdljflaksdf asdflkasd fsad",
+                "clientId": 3,
+                "clientEmail": "client1@hotmail.com",
+                "bookingContact": {
+                    "firstName": "Test",
+                    "lastName": "UserVO",
+                    "mobilePhone": "Mobile",
+                    "street": "Street",
+                    "additional": "Additional",
+                    "city": "City",
+                    "zip": "Zip",
+                    "state": "State",
+                    "country": "Country"
+                }
             },
             {
-                "id": 5,
-                "jobType": "General Labor",
-                "requestedBy": "Jane Doe",
-                "dateOfService": "06/08/2015",
-                "requestedTimeOfService": "12PM - 2PM",
-                "noOfHrsToComplete": "2",
-                "serviceAddress": "14155 Preston Rd Dallas TX 75254",
-                "status": "ASSIGNED_TO_VENDOR",
-                "vendorId": 1,
-                "commentByRequester": "Do a good job"
+                "bookingId": 10,
+                "serviceId": 4,
+                "bookedDate": "06/06/2015",
+                "bookedTime": "16:00:00",
+                "duration": 2,
+                "startDateTime": null,
+                "finishDateTime": null,
+                "status": "Assigned To Vendor",
+                "statusDesc": "Booking created with created status.",
+                "serviceName": "Gardening",
+                "rate": null,
+                "bookingComments": "coments sdljflaksdf asdflkasd fsad",
+                "clientId": 3,
+                "clientEmail": "client1@hotmail.com",
+                "bookingContact": {
+                    "firstName": "Test",
+                    "lastName": "UserVO",
+                    "mobilePhone": "Mobile",
+                    "street": "Street",
+                    "additional": "Additional",
+                    "city": "City",
+                    "zip": "Zip",
+                    "state": "State",
+                    "country": "Country"
+                }
             }
         ];
 
         service.getAllCompletedService = function () {
             var data = [];
             angular.forEach(joblist, function (item) {
-                if (item.status == 'COMPLETED') {
+                if (item.status == codeTypes.COMPLETED) {
                     data.push(item);
                 }
             });
@@ -278,7 +356,7 @@ angular.module('starter.services', ['starter.config'])
         service.getAllAssignedService = function () {
             var data = [];
             angular.forEach(joblist, function (item) {
-                if (item.status == 'ASSIGNED_TO_VENDOR') {
+                if (item.status == codeTypes.ASSIGNED_TO_VENDOR) {
                     data.push(item);
                 }
             });
@@ -288,7 +366,7 @@ angular.module('starter.services', ['starter.config'])
             var deferred = $q.defer();
             var job;
             angular.forEach(joblist, function (item) {
-                if (item.id == parseInt(jobId)) {
+                if (item.bookingId == parseInt(jobId)) {
                     job = item;
                 }
             });
@@ -299,19 +377,19 @@ angular.module('starter.services', ['starter.config'])
         return service;
     }])
 
-    .factory('LocationServices', ['$http','$q' , 'configuration', '$cordovaDevice', function ($http, $q, configuration, $cordovaDevice) {
+    .factory('LocationServices', ['$http', '$q', 'configuration', '$cordovaDevice', function ($http, $q, configuration, $cordovaDevice) {
         var service = {};
         var vendorCurrentLocation = {};
 
-        service.setVendorCurrentLocation = function (vendorLocationObj){
-            vendorCurrentLocation= vendorLocationObj;
+        service.setVendorCurrentLocation = function (vendorLocationObj) {
+            vendorCurrentLocation = vendorLocationObj;
         }
 
         service.getVendorCurrentLocation = function () {
             return vendorCurrentLocation;
         }
 
-        service.getVendorLocation = function(bookingId) {
+        service.getVendorLocation = function (bookingId) {
             var deferred = $q.defer();
 
             var req = {
@@ -334,7 +412,7 @@ angular.module('starter.services', ['starter.config'])
                 url: configuration.BASE_URL + '/route',
                 headers: {
                     //'DEVICE_ID': $cordovaDevice.getUUID()
-                   'DEVICE_ID': '33333'
+                    'DEVICE_ID': '33333'
                 },
                 data: locationObj
             }

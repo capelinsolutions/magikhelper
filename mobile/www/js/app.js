@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'starter.services', 'starter.config', 'starter.messages','starter.demo', 'ngMap', 'ui.router', 'ngCordova'])
+angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'starter.services', 'starter.config', 'starter.codeTypes', 'starter.messages','starter.demo', 'ngMap', 'ui.router', 'ngCordova'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -162,7 +162,7 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
 
 
             .state('sidemenu.vendorJobDetail', {
-                url: '/job/:jobId',
+                url: '/job?jobId&status',
                 views: {
                     'mainContent': {
                         templateUrl: 'templates/ven_jobDetail.html',

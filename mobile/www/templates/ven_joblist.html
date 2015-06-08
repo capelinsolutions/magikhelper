@@ -11,14 +11,14 @@
                 <content has-header="true" has-subheader="true">
                     <div class="list  ">
                         <ion-list class="ven-job-list" ng-repeat="job in listAllAssignedServices">
-                            <ion-item class="item-avatar item-icon-right" ng-click="getJobDetails(job.id)">
+                            <ion-item class="item-avatar item-icon-right" ng-click="getJobDetails(job.bookingId, 'ASSIGNED_TO_VENDOR')">
                                 <div class="avatar">
-                                    <img id="{{job.id}}"/>
+                                    <img id="{{job.serviceId}}"/>
                                 </div>
-                                <span class="userName">{{job.jobType}}</span>
-                                <span class="variable">{{job.requestedBy}}</span>
-                                <span class="variable">{{job.dateOfService}}</span>
-                                <span class="variable">{{job.requestedTimeOfService}}</span>
+                                <span class="userName">{{job.serviceName}}</span>
+                                <span class="variable">{{job.bookingContact.firstName}} {{job.bookingContact.lastName}} </span>
+                                <span class="variable">{{job.bookedDate}}</span>
+                                <span class="variable">{{job.bookedTime}}</span>
                                 <i class="icon ion-chevron-right icon-accessory"></i>
                             </ion-item>
                         </ion-list>
@@ -32,14 +32,14 @@
                 <content has-header="true" has-subheader="true">
                     <div class="list ">
                         <ion-list class="ven-job-list" ng-repeat="job in listAllCompletedServices">
-                            <ion-item class="item-avatar item-icon-right" ng-click="getJobDetails(job.id)">
+                            <ion-item class="item-avatar item-icon-right" ng-click="getJobDetails(job.bookingId, 'COMPLETED')">
                                 <div class="avatar">
-                                    <img id="{{job.id}}"/>
+                                    <img id="{{job.serviceId}}"/>
                                 </div>
-                                <span class="userName">{{job.jobType}}</span>
-                                <span class="variable">{{job.requestedBy}}</span>
-                                <span class="variable">{{job.dateOfService}}</span>
-                                <span class="variable">{{job.requestedTimeOfService}}</span>
+                                <span class="userName">{{job.serviceName}}</span>
+                                <span class="variable">{{job.bookingContact.firstName}} {{job.bookingContact.lastName}} </span>
+                                <span class="variable">{{job.bookedDate}}</span>
+                                <span class="variable">{{job.bookedTime}}</span>
                                 <i class="icon ion-chevron-right icon-accessory"></i>
                             </ion-item>
                         </ion-list>
@@ -48,6 +48,27 @@
             </ion-tab>
 
 
+            <ion-tab title="Open" icon-on="ion-android-folder-open" icon-off="ion-android-folder-open">
+
+                <content has-header="true" has-subheader="true">
+                    <div class="list ">
+
+                        <ion-list class="ven-job-list" ng-repeat="job in listAllOpenServices">
+                            <ion-item class="item-avatar item-icon-right" ng-click="getJobDetails(job.bookingId, 'Created')">
+                                <div class="avatar">
+                                    <img id="{{job.serviceId}}"/>
+                                </div>
+                                <span class="userName">{{job.serviceName}}</span>
+                                <span class="variable">{{job.bookingContact.firstName}} {{job.bookingContact.lastName}} </span>
+                                <span class="variable">{{job.bookedDate}}</span>
+                                <span class="variable">{{job.bookedTime}}</span>
+                                <i class="icon ion-chevron-right icon-accessory"></i>
+                            </ion-item>
+                        </ion-list>
+
+                    </div>
+                </content>
+            </ion-tab>
         </ion-tabs>
     </ion-content>
 </ion-view>

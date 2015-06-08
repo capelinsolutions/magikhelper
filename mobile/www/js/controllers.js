@@ -223,7 +223,7 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.initialize();
 
     }])
-    .controller('JobListCtrl', ['$scope', '$rootScope', '$q', '$location', 'BookingService', 'LocationServices', function ($scope, $rootScope, $q, $location, BookingService, LocationServices) {
+    .controller('JobListCtrl', ['$scope', '$rootScope', '$q', '$location', 'BookingService', 'LocationServices', 'demoVendorInfo', function ($scope, $rootScope, $q, $location, BookingService, LocationServices,  demoVendorInfo) {
         $scope.listAllUserPastJobs = [];
 
         $scope.getListAllUserPastJobs = function () {
@@ -254,7 +254,7 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.locateVendor = function (bookingId) {
             //$rootScope.globals.currentUser.userId
             //TODO: remove hardcoding vendor Id
-            var locationPromise = LocationServices.getVendorLocation('5');
+            var locationPromise = LocationServices.getVendorLocation(demoVendorInfo.BOOKING_ID);
 
             locationPromise.then(function (data) {
                 LocationServices.setVendorCurrentLocation(data);
@@ -266,31 +266,55 @@ angular.module('starter.controllers', ['starter.messages'])
         }
     }])
 
-    .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices','LocationServices', function ($scope, $rootScope, $location, VendorServices, LocationServices) {
+    .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices','LocationServices','BookingService', function ($scope, $rootScope, $location, VendorServices, LocationServices, BookingService) {
         $scope.listAllAssignedServices = VendorServices.getAllAssignedService();
         $scope.listAllCompletedServices = VendorServices.getAllCompletedService();
 
-        $scope.getJobDetails = function (jobId) {
-            $location.path('/sidemenu/job/' + jobId);
+
+        var allOpenBookingsPromise = BookingService.getAllOpenBookings();
+
+        allOpenBookingsPromise.then(function (data) {
+            $scope.listAllOpenServices = data;
+        }, function (error) {
+            alert('No data found');
+        });
+
+        $scope.getJobDetails = function (jobId, status) {
+           // alert('/sidemenu/job?jobId=' + jobId+ '&status=' + status);
+            $location.url('/sidemenu/job?jobId=' + jobId+ '&status=' + status);
         }
 
     }])
 
-    .controller('VendorJobDetailCtrl', function ($scope,$filter, $stateParams, VendorServices,$cordovaGeolocation, LocationServices) {
+    .controller('VendorJobDetailCtrl', function ($scope,$filter,  $stateParams, VendorServices,$cordovaGeolocation, LocationServices , codeTypes, BookingService) {
         var locObj = {};
 
-        VendorServices.findById($stateParams.jobId)
-            .then(function (job) {
-                $scope.job = job;
-                //getCurrentPosition();
-            }
-        );
+        if ($stateParams.status == codeTypes.CREATED) {
+            BookingService.findById($stateParams.jobId)
+                .then(function (job) {
+                    $scope.job = job;
+                }
+            );
+        } else {
+            VendorServices.findById($stateParams.jobId)
+                .then(function (job) {
+                    $scope.job = job;
+                    //getCurrentPosition();
+                }
+            );
+
+        }
+
+        $scope.isInProgress = codeTypes.IN_PROGRESS;
+        $scope.isAssignedToVendor = codeTypes.ASSIGNED_TO_VENDOR;
+        $scope.isCreated = codeTypes.CREATED;
+
 
         $scope.showInRoute = function () {
             var currentDate = new Date();
             var currentDateStr = $filter('date')(currentDate,"MM/dd/yyyy");
             var newCurrentDate = new Date(currentDateStr);
-            return (new Date($scope.job.dateOfService).getTime() == newCurrentDate.getTime()
+            return (new Date($scope.job.bookedDate).getTime() == newCurrentDate.getTime()
                         && $scope.job.status == 'ASSIGNED_TO_VENDOR');
         }
 
@@ -454,7 +478,7 @@ angular.module('starter.controllers', ['starter.messages'])
 
         $scope.refresh = function () {
             //TODO: remove hardcoding vendor Id
-            var locationPromise = LocationServices.getVendorLocation('5');
+            var locationPromise = LocationServices.getVendorLocation(demoVendorInfo.BOOKING_ID);
 
             locationPromise.then(function (data) {
                 //$scope.latitude = data.latitude;
@@ -467,7 +491,7 @@ angular.module('starter.controllers', ['starter.messages'])
             //$scope.latitude = 32.941858;
             //$scope.longitude = -96.818282;
             //TODO: remove hardcoding vendor Id
-            $location.path('/sidemenu/location/5' );
+            $location.path('/sidemenu/location/'+demoVendorInfo.BOOKING_ID );
 
         };
     })
