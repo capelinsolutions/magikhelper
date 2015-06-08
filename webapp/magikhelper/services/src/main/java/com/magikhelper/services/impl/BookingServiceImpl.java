@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,6 +130,53 @@ public class BookingServiceImpl implements BookingService {
 		bookingEventDao.add(event);		
 		bookingEventDao.update(lastBookingEvent);
 		bookingAssignmentDao.add(bookingAssignment);
+		
+		bookingDao.update(booking);
+	}
+	
+	@Override
+	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
+	public void updateBooking(BookingVO vo) {
+
+		Booking booking = bookingDao.get(vo.getBookingId());
+
+		Date startDateTime=null;
+		Date finishDateTime=null;
+		
+		if(StringUtils.isNotEmpty(vo.getStartDateTime())){
+			startDateTime = DateUtils.convertToDate(vo.getStartDateTime(), "MM/dd/yyyy HH:mm:ss");
+			booking.setStartDatetime(startDateTime);
+		}
+		
+		if(StringUtils.isNotEmpty(vo.getFinishDateTime())){
+			finishDateTime = DateUtils.convertToDate(vo.getFinishDateTime(), "MM/dd/yyyy HH:mm:ss");
+			booking.setFinishDatetime(finishDateTime);
+		}
+		
+		if(StringUtils.isNotEmpty(vo.getStatusDesc())){
+			booking.setStatusDesc(vo.getStatusDesc());
+		}
+		
+		if(vo.getStatusId() != null){
+			ApplicationProperty statusId = applicationPropertiesDao.getReference(vo.getStatusId());
+			BookingEvent lastBookingEvent = bookingEventDao.getLastEventByBookingId(vo.getBookingId());
+
+			BookingEvent event = new BookingEvent();
+
+			event.setStatus(statusId);
+			event.setComments(vo.getStatusDesc());
+			event.populatedAuditFieldsOnCreate("SYSTEM");
+			event.setBooking(booking);
+
+			lastBookingEvent.populatedAuditFieldsOnUpdate("SYSTEM");
+
+			bookingEventDao.update(lastBookingEvent);
+			bookingEventDao.add(event);		
+
+			booking.setStatus(statusId);
+		}
+
+		booking.populatedAuditFieldsOnUpdate("SYSTEM");
 		
 		bookingDao.update(booking);
 	}

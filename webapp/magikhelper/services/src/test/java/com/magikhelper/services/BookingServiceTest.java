@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.magikhelper.utils.MagikHelperConstants;
 import com.magikhelper.vo.BookingListVO;
 import com.magikhelper.vo.BookingVO;
 import com.magikhelper.vo.ContactVO;
@@ -54,7 +55,18 @@ public class BookingServiceTest extends BaseServiceTest {
     	vo.setBookingId(new Integer(2));
     	vo.setVendorId(new Integer(4));
     	
-    	bookingService.assignToVendor(vo);
+//    	bookingService.assignToVendor(vo);
+    }
+    
+    @Test
+    public void updateBooking(){
+    	BookingVO vo = new BookingVO();
+    	vo.setBookingId(new Integer(2));
+    	vo.setStartDateTime("06/07/2015 17:15:00");
+    	vo.setFinishDateTime("06/07/2015 17:30:00");
+    	vo.setStatusId(MagikHelperConstants.BOOKING_STATUS_IN_PROGRESS);
+    	vo.setStatusDesc("booking Accepted by vendor");
+    	bookingService.updateBooking(vo);
     }
     
     @Test

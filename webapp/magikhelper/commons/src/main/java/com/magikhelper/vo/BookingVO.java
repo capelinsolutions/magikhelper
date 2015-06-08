@@ -7,12 +7,16 @@ public class BookingVO {
 	private Integer bookingId;
 	private String bookedDate;
 	private String bookedTime;
+	private String startDateTime;
+	private String finishDateTime;
 	private int duration;
 	private BigDecimal rate;
 	private String comments;
 	private Integer clientId;
 	private Integer vendorId;
 	private Integer serviceId;
+	private Integer statusId;
+	private String statusDesc;
 	private ContactVO bookingContact = new ContactVO();
 	
 	public BookingVO() {
@@ -83,6 +87,29 @@ public class BookingVO {
 	public void setBookingContact(ContactVO bookingContact) {
 		this.bookingContact = bookingContact;
 	}
-	
+	public String getStartDateTime() {
+		return startDateTime;
+	}
+	public void setStartDateTime(String startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+	public String getFinishDateTime() {
+		return finishDateTime;
+	}
+	public void setFinishDateTime(String finishDateTime) {
+		this.finishDateTime = finishDateTime;
+	}
+	public Integer getStatusId() {
+		return statusId;
+	}
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
+	}
+	public String getStatusDesc() {
+		return statusDesc;
+	}
+	public void setStatusDesc(String statusDesc) {
+		this.statusDesc = statusDesc;
+	}
 	
 }
