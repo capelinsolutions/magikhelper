@@ -231,6 +231,19 @@ angular.module('starter.controllers', ['starter.messages'])
             return $scope.listAllUserPastJobs;
         }
 
+        $scope.doRefresh = function () {
+
+            var bookingPromise = BookingService.getAllBookings();
+
+            bookingPromise.then(function (data) {
+                $scope.listAllUserPastJobs = data;
+            }, function (error) {
+                alert('No data found');
+            });
+
+            $scope.$broadcast('scroll.refreshComplete');
+        }
+
         var bookingPromise = BookingService.getAllBookings();
 
         bookingPromise.then(function (data) {
