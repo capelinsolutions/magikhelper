@@ -15,6 +15,7 @@ angular.module('starter.services', ['starter.config'])
                     url:  configuration.BASE_URL +'/security/login',
                     headers: {
                         'DEVICE_ID': $cordovaDevice.getUUID()
+
                     },
                     data: user
                 }
