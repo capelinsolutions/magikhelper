@@ -1,7 +1,7 @@
 angular.module('starter.services', ['starter.config'])
     .factory('AuthenticationService',
-    ['$http', '$rootScope', '$timeout', 'configuration','$cordovaDevice',
-        function ($http, $rootScope, $timeout , configuration, $cordovaDevice) {
+    ['$http', '$rootScope', '$timeout', 'configuration', '$cordovaDevice',
+        function ($http, $rootScope, $timeout, configuration, $cordovaDevice) {
             var service = {};
 
             service.Login = function (user, callback) {
@@ -12,9 +12,10 @@ angular.module('starter.services', ['starter.config'])
 
                 var req = {
                     method: 'POST',
-                    url:  configuration.BASE_URL +'/security/login',
+                    url: configuration.BASE_URL + '/security/login',
                     headers: {
-                        'DEVICE_ID': $cordovaDevice.getUUID()
+                        //'DEVICE_ID': $cordovaDevice.getUUID()
+                        'DEVICE_ID': '2222'
                     },
                     data: user
                 }
@@ -29,7 +30,7 @@ angular.module('starter.services', ['starter.config'])
                         callback(response);
                     }
 
-                    })
+                })
                     .error(function (data, status, headers, config) {
                         response.success = false;
                         //alert(status);
@@ -82,7 +83,7 @@ angular.module('starter.services', ['starter.config'])
             return service;
         }])
 
-    .factory('AvailableServices', ['$http','configuration', function ($http, configuration) {
+    .factory('AvailableServices', ['$http', 'configuration', function ($http, configuration) {
         var service = {};
         var availableServices = null;
 
@@ -91,7 +92,7 @@ angular.module('starter.services', ['starter.config'])
 
             var req = {
                 method: 'get',
-                url: configuration.BASE_URL +  '/helperServices/zipcode/' + object
+                url: configuration.BASE_URL + '/helperServices/zipcode/' + object
             }
 
             $http(req).success(function (response) {
@@ -116,7 +117,7 @@ angular.module('starter.services', ['starter.config'])
 
     .factory('BookingService', ['$http', 'configuration', '$q', '$rootScope', function ($http, configuration, $q, $rootScope) {
         var service = {};
-        var bookingObj= {};
+        var bookingObj = {};
         var listOfBookings = {};
 
         service.setSelectedService = function (service) {
@@ -138,21 +139,21 @@ angular.module('starter.services', ['starter.config'])
             return true;
         };
 
-        service.setBookingDetails = function(object) {
+        service.setBookingDetails = function (object) {
             bookingObj.bookingDate = object.bookingDate;
             bookingObj.bookedTime = object.selectedTimeSlot;
             bookingObj.duration = object.hours;
             bookingObj.instructions = object.instructions;
         }
 
-        service.setContactPerson = function(object) {
+        service.setContactPerson = function (object) {
             bookingObj.firstName = object.firstName;
             bookingObj.lastName = object.lastName;
             bookingObj.phone = object.mobilePhone;
             bookingObj.email = object.email;
         }
 
-        service.getBookingObject = function() {
+        service.getBookingObject = function () {
             return bookingObj;
         }
 
@@ -201,7 +202,7 @@ angular.module('starter.services', ['starter.config'])
 
         }
 
-        service.getAllBookings =  function () {
+        service.getAllBookings = function () {
             var deferred = $q.defer();
 
             var req = {
@@ -226,37 +227,72 @@ angular.module('starter.services', ['starter.config'])
         return service;
     }])
 
-    .factory('VendorServices', ['$http', '$q' , function ($http, $q) {
+    .factory('VendorServices', ['$http', '$q', function ($http, $q) {
         var service = {};
         var joblist = [
-            {"id": 2, "jobType": "Cleaning", "requestedBy": "John Doe", "dateOfService": "05/15/2015", "requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "3", "serviceAddress": "1 main st. Dallas TX 75200", "status": "COMPLETED", "commentByRequester": "Job Done on Time"},
-            {"id": 3, "jobType": "Moving", "requestedBy": "John Doe", "dateOfService": "05/18/2015","requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "2","serviceAddress": "13155 Noel Rd Dallas TX 75240", "status": "ASSIGNED", "commentByRequester": "Do a good job!!"},
-            {"id": 5, "jobType": "General Labor", "requestedBy": "Jane Doe", "dateOfService": "05/17/2015","requestedTimeOfService": "12PM - 2PM", "noOfHrsToComplete": "2", "serviceAddress": "14155 Preston Rd Dallas TX 75254", "status": "ASSIGNED", "commentByRequester": "Do a good job"}
+            {
+                "id": 2,
+                "jobType": "Cleaning",
+                "requestedBy": "John Doe",
+                "dateOfService": "05/15/2015",
+                "requestedTimeOfService": "12PM - 2PM",
+                "noOfHrsToComplete": "3",
+                "serviceAddress": "1 main st. Dallas TX 75200",
+                "status": "COMPLETED",
+                "commentByRequester": "Job Done on Time"
+            },
+            {
+                "id": 3,
+                "jobType": "Moving",
+                "requestedBy": "John Doe",
+                "dateOfService": "05/18/2015",
+                "requestedTimeOfService": "12PM - 2PM",
+                "noOfHrsToComplete": "2",
+                "serviceAddress": "13155 Noel Rd Dallas TX 75240",
+                "status": "ASSIGNED_TO_VENDOR",
+                "vendorId": 1,
+                "commentByRequester": "Do a good job!!"
+            },
+            {
+                "id": 5,
+                "jobType": "General Labor",
+                "requestedBy": "Jane Doe",
+                "dateOfService": "06/08/2015",
+                "requestedTimeOfService": "12PM - 2PM",
+                "noOfHrsToComplete": "2",
+                "serviceAddress": "14155 Preston Rd Dallas TX 75254",
+                "status": "ASSIGNED_TO_VENDOR",
+                "vendorId": 1,
+                "commentByRequester": "Do a good job"
+            }
         ];
 
         service.getAllCompletedService = function () {
-            var data=[];
-            	  angular.forEach(joblist, function(item){
-                   if(item.status == 'COMPLETED'){
-                       data.push(item);
-                   }});
-             return data;
-        };
-        service.getAllAssignedService = function () {
-            var data=[];
-            angular.forEach(joblist, function(item){
-                if(item.status == 'ASSIGNED'){
+            var data = [];
+            angular.forEach(joblist, function (item) {
+                if (item.status == 'COMPLETED') {
                     data.push(item);
-                }});
+                }
+            });
             return data;
         };
-        service.findById = function(jobId) {
+        service.getAllAssignedService = function () {
+            var data = [];
+            angular.forEach(joblist, function (item) {
+                if (item.status == 'ASSIGNED_TO_VENDOR') {
+                    data.push(item);
+                }
+            });
+            return data;
+        };
+        service.findById = function (jobId) {
             var deferred = $q.defer();
-            var job ;
-            angular.forEach(joblist, function(item){
-                if(item.id == parseInt(jobId)){
+            var job;
+            angular.forEach(joblist, function (item) {
+                if (item.id == parseInt(jobId)) {
                     job = item;
-                }});
+                }
+            });
             deferred.resolve(job);
             return deferred.promise;
         };
@@ -264,7 +300,60 @@ angular.module('starter.services', ['starter.config'])
         return service;
     }])
 
+    .factory('LocationServices', ['$http','$q' , 'configuration', '$cordovaDevice', function ($http, $q, configuration, $cordovaDevice) {
+        var service = {};
+        var vendorCurrentLocation = {};
 
+        service.setVendorCurrentLocation = function (vendorLocationObj){
+            vendorCurrentLocation= vendorLocationObj;
+        }
+
+        service.getVendorCurrentLocation = function () {
+            return vendorCurrentLocation;
+        }
+
+        service.getVendorLocation = function(bookingId) {
+            var deferred = $q.defer();
+
+            var req = {
+                method: 'get',
+                url: configuration.BASE_URL + '/route/' + bookingId
+            }
+
+            $http(req).success(function (response) {
+                deferred.resolve(response);
+            })
+                .error(function (data, status, headers, config) {
+                    deferred.reject(data);
+                });
+            return deferred.promise;
+        }
+
+        service.setCordinates = function (locationObj) {
+            var req = {
+                method: 'POST',
+                url: configuration.BASE_URL + '/route',
+                headers: {
+                    //'DEVICE_ID': $cordovaDevice.getUUID()
+                   'DEVICE_ID': '33333'
+                },
+                data: locationObj
+            }
+
+            $http(req)
+                .success(function (response) {
+                    // alert('Customer has been notified that you are in route');
+                })
+                .error(function (data, status, headers, config) {
+                    alert('Some error occurred in determining the location. Please try again later.');
+                    response.success = false;
+                    //alert(status);
+                    // called asynchronously if an error occurs
+                    // or server returns response with an error status.
+                });
+        }
+        return service;
+    }])
 
     .factory('UtilityServices', ['$http', function ($http) {
         var service = {};
@@ -323,7 +412,7 @@ angular.module('starter.services', ['starter.config'])
         service.Save = function (object, callback) {
             var status = {};
 
-            $http.post(configuration.BASE_URL +  '/clients', object)
+            $http.post(configuration.BASE_URL + '/clients', object)
                 .success(function (response) {
                     alert("User Created Successfully");
                     status = true;

@@ -224,7 +224,7 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.initialize();
 
     }])
-    .controller('JobListCtrl', ['$scope', '$rootScope', '$q', '$location', 'BookingService', function ($scope, $rootScope, $q, $location, BookingService) {
+    .controller('JobListCtrl', ['$scope', '$rootScope', '$q', '$location', 'BookingService', 'LocationServices', function ($scope, $rootScope, $q, $location, BookingService, LocationServices) {
         $scope.listAllUserPastJobs = [];
 
         $scope.getListAllUserPastJobs = function () {
@@ -239,9 +239,22 @@ angular.module('starter.controllers', ['starter.messages'])
             alert('No data found');
         });
 
+        $scope.locateVendor = function (bookingId) {
+            //$rootScope.globals.currentUser.userId
+
+            var locationPromise = LocationServices.getVendorLocation('5');
+
+            locationPromise.then(function (data) {
+                LocationServices.setVendorCurrentLocation(data);
+                $location.path('/sidemenu/location/' + bookingId);
+            }, function (error) {
+                alert('No data found');
+            });
+
+        }
     }])
 
-    .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices', function ($scope, $rootScope, $location, VendorServices) {
+    .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices','LocationServices', function ($scope, $rootScope, $location, VendorServices, LocationServices) {
         $scope.listAllAssignedServices = VendorServices.getAllAssignedService();
         $scope.listAllCompletedServices = VendorServices.getAllCompletedService();
 
@@ -250,30 +263,51 @@ angular.module('starter.controllers', ['starter.messages'])
         }
 
     }])
-    .controller('VendorJobDetailCtrl', function ($scope, $stateParams, VendorServices,$cordovaGeolocation) {
+
+    .controller('VendorJobDetailCtrl', function ($scope,$filter, $stateParams, VendorServices,$cordovaGeolocation, LocationServices) {
+        var locObj = {};
+
         VendorServices.findById($stateParams.jobId)
             .then(function (job) {
                 $scope.job = job;
-                getCurrentPosition();
+                //getCurrentPosition();
             }
         );
 
-        function getCurrentPosition() {
+        $scope.showInRoute = function () {
+            var currentDate = new Date();
+            var currentDateStr = $filter('date')(currentDate,"MM/dd/yyyy");
+            var newCurrentDate = new Date(currentDateStr);
+            return (new Date($scope.job.dateOfService).getTime() == newCurrentDate.getTime()
+                        && $scope.job.status == 'ASSIGNED_TO_VENDOR');
+        }
+
+        function getCurrentPosition(jobId, vendorId) {
             var posOptions = {timeout: 10000, enableHighAccuracy: false};
             $cordovaGeolocation
                 .getCurrentPosition(posOptions)
                 .then(function (position) {
+                    var coordinates = {};
                     var lat = position.coords.latitude;
                     var long = position.coords.longitude;
-                    //alert('current ' + lat);
-                    //alert('current ' +long);
-                    setWatch();
+
+                    //Send request to service
+                    locObj.vendorId = vendorId;
+                    locObj.bookingId = jobId;
+                    locObj.latitude = lat;
+                    locObj.longitude = long;
+
+                    LocationServices.setCordinates(locObj);
+
+                    setWatch(jobId, vendorId);
+
+                    return coordinates;
                 }, function (err) {
                     alert('Make sure your location service is turned on.');
                 });
         }
 
-        function setWatch() {
+        function setWatch(jobId, vendorId) {
             var watchOptions = {
                 frequency: 1000,
                 timeout: 3000,
@@ -289,19 +323,30 @@ angular.module('starter.controllers', ['starter.messages'])
                 function (position) {
                     var lat = position.coords.latitude;
                     var long = position.coords.longitude;
-                    //alert('watch ' + lat);
-                    //alert('watch ' +long);
 
+                    //Send request to service
+                    locObj.vendorId = vendorId;
+                    locObj.bookingId = jobId;
+                    locObj.latitude = lat;
+                    locObj.longitude = long;
+
+                    LocationServices.setCordinates(locObj);
                 });
         }
+
 
         function clearWatch() {
             $cordovaGeolocation.clearWatch(watch)
                 .then(function (result) {
+                    locObj = {};
                     // success
                 }, function (error) {
                     // error
                 });
+        }
+
+        $scope.startRouting = function(jobId, vendorId) {
+            getCurrentPosition();
         }
 
     })
@@ -387,20 +432,28 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.chat = Chats.get($stateParams.chatId);
     })
 
-    .controller('MapCtrl', function ($scope) {
-        $scope.location = 32.942700;
-        $scope.latitude = 32.942700;
-        $scope.longitude = -96.81539;
+    .controller('MapCtrl',  function ($scope,$stateParams, $location, LocationServices) {
+
+        var locObj = LocationServices.getVendorCurrentLocation();
+        $scope.latitude = locObj.latitude;
+        $scope.longitude = locObj.longitude;
         $scope.zoom = 15;
 
-
         $scope.refresh = function () {
+            var locationPromise = LocationServices.getVendorLocation('5');
 
+            locationPromise.then(function (data) {
+                //$scope.latitude = data.latitude;
+                //$scope.longitude = data.longitude;
+                LocationServices.setVendorCurrentLocation(data);
+            }, function (error) {
+                alert('No data found');
+            });
 
-            $scope.latitude = 32.941858;
-            $scope.longitude = -96.818282;
+            //$scope.latitude = 32.941858;
+            //$scope.longitude = -96.818282;
 
-            $location.path('/sidemenu/location');
+            $location.path('/sidemenu/location/5' );
 
         };
     })
