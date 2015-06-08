@@ -129,7 +129,6 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.contact.email = client.email;
 
         $scope.setContactDetails = function () {
-
             BookingService.setContactPerson($scope.contact);
             $location.path('/sidemenu/confirmation');
         }
