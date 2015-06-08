@@ -1,8 +1,8 @@
 angular.module('starter.config', [])
     .constant('configuration', {
         APP_NAME: 'MagikHelp',
-        //BASE_URL: 'http://magikheper-ws.elasticbeanstalk.com/services',
-        BASE_URL: 'http://localhost:8080/magikhelper-ws/services',
+        BASE_URL: 'http://magikheper-ws.elasticbeanstalk.com/services',
+        //BASE_URL: 'http://localhost:8080/magikhelper-ws/services',
         APP_VERSION : '0.1'
     });
 
