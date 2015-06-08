@@ -5,11 +5,12 @@
             <form ng-submit="createUser()" ng-controller="SignUpCtrl">
                 <div class="item item-input-inset loginForminput border_bottom_input">
                     <label>
-                        <input type="text" placeholder="First Name" name="firstName" ng-model="client.firstName">
+                        <input type="text" placeholder="First Name" name="firstName"
+                               ng-model="client.contact.firstName">
                     </label>
 
                     <label>
-                        <input type="text" placeholder="Last Name" name="lastName" ng-model="client.lastName">
+                        <input type="text" placeholder="Last Name" name="lastName" ng-model="client.contact.lastName">
                     </label>
                 </div>
 

@@ -16,7 +16,8 @@
 
                         <label class="item item-input loginForminput border_bottom_input item-icon-right">
                             <span class="input-label">Select the time window</span>
-                            <select class="selectStyle" ng-model="bookingDetails.selectedTimeSlot" ng-options="timeSlot.name for timeSlot in timeSlots">
+                            <select class="selectStyle" ng-model="bookingDetails.selectedTimeSlot"
+                                    ng-options="timeSlot.code as timeSlot.name for timeSlot in timeSlots">
                             </select>
                             <i class="icon ion-chevron-down" style="color:#4571DA;"></i>
                         </label>

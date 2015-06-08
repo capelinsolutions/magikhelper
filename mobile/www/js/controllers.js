@@ -19,7 +19,22 @@ angular.module('starter.controllers', ['starter.messages'])
 
                     AuthenticationService.Login(user, function (response) {
                         if (response.login) {
-                            BookingService.setClient(response)
+                            var client = {}
+
+                            client.userId = response.userId;
+                            client.email = response.email;
+                            client.firstName = response.contact.firstName;
+                            client.lastName = response.contact.lastName;
+                            client.mobilePhone = response.contact.mobilePhone;
+                            client.street = response.contact.street;
+                            client.additional = response.contact.additional;
+                            client.city = response.contact.city;
+                            client.zip = response.contact.zip;
+                            client.state = response.contact.state;
+                            client.country = response.contact.country;
+
+                            $rootScope.user = client;
+                            BookingService.setClient(client)
                             AuthenticationService.SetCredentials(response);
                             $location.path('/sidemenu/user_joblist');
                         } else {
@@ -37,11 +52,16 @@ angular.module('starter.controllers', ['starter.messages'])
 
             if (SignUpService.isPasswordSame($scope.client.password, $scope.client.confirmPassword)) {
 
-                var address = UtilityServices.validateAddress($scope.client.address);
-                address.formatted_address = $scope.client.address.formatted_address;
-                $scope.client.address = address;
+                $scope.client.address = UtilityServices.validateAddress($scope.client.address);
 
                 if ($scope.client.address.valid) {
+
+                    $scope.client.contact.street = $scope.client.address.street;
+                    $scope.client.contact.city = $scope.client.address.city;
+                    $scope.client.contact.zip = $scope.client.address.zip;
+                    $scope.client.contact.state = $scope.client.address.state;
+                    $scope.client.contact.country = $scope.client.address.country;
+
 
                     SignUpService.Save($scope.client, function (response) {
                         if (response) {
@@ -65,6 +85,7 @@ angular.module('starter.controllers', ['starter.messages'])
         function ($scope, $rootScope, $location, AvailableServices, BookingService, UtilityServices) {
 
         $scope.availabilityData = {};
+
 
         $scope.checkAvailability = function () {
 
@@ -131,7 +152,8 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.done = function () {
             $scope.booking = {};
             $scope.bookingPojo = {};
-            BookingService.getAllBookings();
+            $scope.listAllUserPastJobs = BookingService.getAllBookingForCurrentUser();
+
             $location.path('/sidemenu/user_joblist');
         }
 
@@ -141,11 +163,21 @@ angular.module('starter.controllers', ['starter.messages'])
 
             $scope.bookingPojo.clientId = $scope.booking.client.userId;
             $scope.bookingPojo.serviceId = $scope.booking.service.serviceId;
-            $scope.bookingPojo.address = $scope.booking.address.street;
             $scope.bookingPojo.bookedDate = $filter('date')($scope.booking.bookingDate, 'MM/dd/yyyy');
-            $scope.bookingPojo.bookedTime = "16:00";//TODO: add actual time
-            $scope.bookingPojo.duration = +$scope.booking.duration;
+            $scope.bookingPojo.bookedTime = $scope.booking.bookedTime;
+            $scope.bookingPojo.duration = $scope.booking.duration;
 
+            var bookingContact = {};
+            bookingContact.firstName = $scope.booking.firstName;
+            bookingContact.lastName = $scope.booking.lastName;
+            bookingContact.mobilePhone = $scope.booking.phone;
+            bookingContact.street = $scope.booking.address.street;
+            bookingContact.city = $scope.booking.address.city;
+            bookingContact.zip = $scope.booking.address.zip;
+            bookingContact.state = $scope.booking.address.state;
+            bookingContact.country = $scope.booking.address.country;
+
+            $scope.bookingPojo.bookingContact = bookingContact;
 
             BookingService.makeBooking($scope.bookingPojo, function (response) {
                 $scope.booking.confirmation = 1234;
@@ -163,13 +195,19 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.availableServices = AvailableServices.getFetchedServices();
         $scope.bookingDetails = {};
 
-        $scope.timeSlots = [
-            {code:"1", name:"8:00 AM - 10:00 AM"},
-            {code:"2", name:"10:00 AM - 12:00 PM"},
-            {code:"3", name:"12:00 PM - 02:00 PM"},
-            {code:"4", name:"02:00 PM - 04:00 PM"},
-            {code:"5", name:"04:00 PM - 06:00 PM"}
-        ];
+        $scope.initialize = function () {
+            $scope.bookingDetails.hours = "4";
+
+            $scope.timeSlots = [
+                {code: "08:00", name: "8:00 AM - 10:00 AM"},
+                {code: "10:00", name: "10:00 AM - 12:00 PM"},
+                {code: "12:00", name: "12:00 PM - 02:00 PM"},
+                {code: "14:00", name: "02:00 PM - 04:00 PM"},
+                {code: "16:00", name: "04:00 PM - 06:00 PM"}
+            ];
+
+
+        }
 
 
         $scope.setBookingDetails = function () {
@@ -182,6 +220,8 @@ angular.module('starter.controllers', ['starter.messages'])
 
             $location.path('/sidemenu/confirmation');
         }
+
+        $scope.initialize();
 
     }])
     .controller('JobListCtrl', ['$scope', '$rootScope', '$q', '$location', 'BookingService', function ($scope, $rootScope, $q, $location, BookingService) {
@@ -348,6 +388,7 @@ angular.module('starter.controllers', ['starter.messages'])
     })
 
     .controller('MapCtrl', function ($scope) {
+        $scope.location = 32.942700;
         $scope.latitude = 32.942700;
         $scope.longitude = -96.81539;
         $scope.zoom = 15;
