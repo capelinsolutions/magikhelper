@@ -30,10 +30,10 @@ public class User extends com.magikhelper.entities.BaseEntity implements Seriali
 	private int rowId;
 	private String email;
 	private String password;
-	private List<BookingAssignment> bookingAssignments;
 	private Contact contact;
 	private List<VendorSkill> vendorSkills;
-	private List<Booking> bookings;
+	private List<Booking> clientBookings;
+	private List<Booking> vendorBookings;
 	private List<UserRole> userRoles;
 
 	public User() {
@@ -92,23 +92,23 @@ public class User extends com.magikhelper.entities.BaseEntity implements Seriali
 	}
 
 	//bi-directional many-to-one association to Booking
-	@OneToMany(mappedBy="user", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-	public List<Booking> getBookings() {
-		return this.bookings;
+	@OneToMany(mappedBy="client", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+	public List<Booking> getClientBookings() {
+		return this.clientBookings;
 	}
 
-	public void setBookings(List<Booking> bookings) {
-		this.bookings = bookings;
+	public void setClientBookings(List<Booking> clientBookings) {
+		this.clientBookings = clientBookings;
 	}
 
-	//bi-directional many-to-one association to BookingAssignment
-	@OneToMany(mappedBy="user", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-	public List<BookingAssignment> getBookingAssignments() {
-		return this.bookingAssignments;
+	//bi-directional many-to-one association to Booking
+	@OneToMany(mappedBy="vendor", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+	public List<Booking> getVendorBookings() {
+		return this.vendorBookings;
 	}
 
-	public void setBookingAssignments(List<BookingAssignment> bookingAssignments) {
-		this.bookingAssignments = bookingAssignments;
+	public void setVendorBookings(List<Booking> vendorBookings) {
+		this.vendorBookings = vendorBookings;
 	}
 
 	//bi-directional many-to-one association to UserRole

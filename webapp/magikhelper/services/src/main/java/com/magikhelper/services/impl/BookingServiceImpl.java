@@ -4,9 +4,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
@@ -17,14 +15,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.magikhelper.dao.ApplicationPropertiesDao;
-import com.magikhelper.dao.BookingAssignmentDao;
 import com.magikhelper.dao.BookingDao;
 import com.magikhelper.dao.BookingEventDao;
 import com.magikhelper.dao.BookingFeedbackDao;
 import com.magikhelper.dao.UsersDao;
 import com.magikhelper.entities.ApplicationProperty;
 import com.magikhelper.entities.Booking;
-import com.magikhelper.entities.BookingAssignment;
 import com.magikhelper.entities.BookingEvent;
 import com.magikhelper.entities.BookingFeedback;
 import com.magikhelper.entities.Contact;
@@ -57,9 +53,6 @@ public class BookingServiceImpl implements BookingService {
     BookingEventDao bookingEventDao;
     
     @Autowired
-    BookingAssignmentDao bookingAssignmentDao;
-	
-    @Autowired
     BookingFeedbackDao bookingFeedbackDao;
     
     @Override
@@ -81,7 +74,7 @@ public class BookingServiceImpl implements BookingService {
 		ApplicationProperty statusId = applicationPropertiesDao.getReference(MagikHelperConstants.BOOKING_STATUS_CREATED);
 		ApplicationProperty serviceId = applicationPropertiesDao.getReference(vo.getServiceId());
 		
-		booking.setUser(client);
+		booking.setClient(client);
 		booking.setStatus(statusId);
 		booking.setService(serviceId);
 		
@@ -122,7 +115,6 @@ public class BookingServiceImpl implements BookingService {
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public void assignToVendor(BookingVO vo) {
 
-		BookingAssignment bookingAssignment = new BookingAssignment();
 		BookingEvent event = new BookingEvent();
 		
 		Booking booking = bookingDao.get(vo.getBookingId());
@@ -135,18 +127,14 @@ public class BookingServiceImpl implements BookingService {
 		event.populatedAuditFieldsOnCreate("SYSTEM");
 		event.setBooking(booking);
 		
-		bookingAssignment.setUser(vendor);
-		bookingAssignment.setBooking(booking);
-		bookingAssignment.populatedAuditFieldsOnCreate("SYSTEM");
-		
 		lastBookingEvent.populatedAuditFieldsOnUpdate("SYSTEM");
 		
 		booking.setStatus(statusId);
+		booking.setVendor(vendor);
 		booking.populatedAuditFieldsOnUpdate("SYSTEM");
 		
 		bookingEventDao.add(event);		
 		bookingEventDao.update(lastBookingEvent);
-		bookingAssignmentDao.add(bookingAssignment);
 		
 		bookingDao.update(booking);
 	}
@@ -300,7 +288,9 @@ public class BookingServiceImpl implements BookingService {
 		List<BookingListVO> bookingsVo = new ArrayList<BookingListVO>();
 		for (Booking b : bookings) {
 			BookingListVO vo = new BookingListVO();
-			ContactVO contact = new ContactVO();
+			ContactVO bc = new ContactVO();
+			ContactVO cc = new ContactVO();
+			ContactVO vc = new ContactVO();
 			
 			vo.setBookingId(b.getRowId());
 			vo.setServiceId(b.getService().getPropertyId());
@@ -315,23 +305,34 @@ public class BookingServiceImpl implements BookingService {
 			vo.setRate(b.getRate());
 			vo.setBookingComments(b.getComments());
 			
-			vo.setClientId(b.getUser().getRowId());
-			vo.setClientEmail(b.getUser().getEmail());
-			
-			contact.setFirstName(b.getContact().getFirstName());
-			contact.setLastName(b.getContact().getLastName());
-			contact.setMobilePhone(b.getContact().getMobilePhone());
-			contact.setStreet(b.getContact().getStreet());
-			contact.setAdditional(b.getContact().getAdditional());
-			contact.setCity(b.getContact().getCity());
-			contact.setZip(b.getContact().getZip());
-			contact.setState(b.getContact().getState());	
-			contact.setCountry(b.getContact().getCountry());
-			
-			vo.setBookingContact(contact);
+			vo.setClientId(b.getClient().getRowId());
+			if (b.getVendor() != null){
+				vo.setVendorId(b.getVendor().getRowId());
+			}
+			setContact(bc, b.getContact());
+			setContact(cc, b.getClient().getContact());
+			if (b.getVendor() != null){
+				setContact(vc, b.getVendor().getContact());
+			}
+			vo.setBookingContact(bc);
+			vo.setClientContact(cc);
+			vo.setVendorContact(vc);
 			
 			bookingsVo.add(vo);
 		}
 		return bookingsVo;
+	}
+	
+	
+	private void setContact(ContactVO vo, Contact entity){
+		vo.setFirstName(entity.getFirstName());
+		vo.setLastName(entity.getLastName());
+		vo.setMobilePhone(entity.getMobilePhone());
+		vo.setStreet(entity.getStreet());
+		vo.setAdditional(entity.getAdditional());
+		vo.setCity(entity.getCity());
+		vo.setZip(entity.getZip());
+		vo.setState(entity.getState());	
+		vo.setCountry(entity.getCountry());
 	}
 }

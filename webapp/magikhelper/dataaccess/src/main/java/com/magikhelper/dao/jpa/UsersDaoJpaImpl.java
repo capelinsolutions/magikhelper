@@ -77,7 +77,10 @@ public class UsersDaoJpaImpl extends GenericDaoJpaImpl<User, Integer> implements
 
 	@Override
 	public User loginUser(String email, String password) {
-		String qryStr = "Select user from User user where user.email=:email and password=:password";
+		String qryStr = "Select user from User user "
+				+ "inner join fetch user.userRoles userRoles "
+				+ "inner join fetch userRoles.systemRole systemRoles "
+				+ "where user.email=:email and password=:password ";
 		Query query = entityManager.createQuery(qryStr);
 		query.setParameter("email", email);
 		query.setParameter("password", password);

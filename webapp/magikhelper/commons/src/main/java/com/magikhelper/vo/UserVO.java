@@ -1,14 +1,16 @@
 package com.magikhelper.vo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserVO {
 	private int userId;
 	private String email;
 	private String password;
+	
 	private ContactVO contact = new ContactVO();
-
-	private List<ClientBookingsVO> bookings;
+	private List<ClientBookingsVO> bookings = new ArrayList<ClientBookingsVO>();
+	private List<UserRoleVO> roles = new ArrayList<UserRoleVO>();
 	
 	public int getUserId() {
 		return userId;
@@ -50,10 +52,20 @@ public class UserVO {
 		this.bookings = bookings;
 	}
 
+	public List<UserRoleVO> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<UserRoleVO> roles) {
+		this.roles = roles;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVO [userId=" + userId + ", email=" + email + ", password="
 				+ password + ", contact=" + contact + ", bookings=" + bookings
-				+ "]\n";
+				+ ", roles=" + roles + "]";
 	}
+
+	
 }

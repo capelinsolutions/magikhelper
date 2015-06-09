@@ -42,11 +42,11 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 	private String statusDesc;
 	private BigDecimal rate;
 	private String comments;
-	private User user;
+	private User client;
+	private User vendor;
 	private Contact contact;
 	private ApplicationProperty status;
 	private ApplicationProperty service;
-	private List<BookingAssignment> bookingAssignments;
 	private List<BookingEvent> bookingEvents;
 	private List<BookingFeedback> bookingFeedbacks;
 
@@ -134,12 +134,23 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 	//bi-directional many-to-one association to User
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	@JoinColumn(name="client_id")
-	public User getUser() {
-		return this.user;
+	public User getClient() {
+		return this.client;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setClient(User client) {
+		this.client = client;
+	}
+
+	//bi-directional many-to-one association to User
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	@JoinColumn(name="vendor_id")
+	public User getVendor() {
+		return this.vendor;
+	}
+
+	public void setVendor(User vendor) {
+		this.vendor = vendor;
 	}
 
 	//bi-directional many-to-one association to Contact
@@ -175,16 +186,6 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
 		this.service = service;
 	}
 
-	//bi-directional many-to-one association to BookingAssignment
-	@OneToMany(mappedBy="booking", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-	public List<BookingAssignment> getBookingAssignments() {
-		return this.bookingAssignments;
-	}
-
-	public void setBookingAssignments(List<BookingAssignment> bookingAssignments) {
-		this.bookingAssignments = bookingAssignments;
-	}
-
 	//bi-directional many-to-one association to BookingEvent
 	@OneToMany(mappedBy="booking", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
 	public List<BookingEvent> getBookingEvents() {
@@ -213,20 +214,12 @@ public class Booking extends com.magikhelper.entities.BaseEntity implements Seri
         event.setBooking(this);
     }
 
-	public void addBookingAssignment(BookingAssignment entity) {
-        if (this.bookingAssignments == null) {
-            this.bookingAssignments = new ArrayList<BookingAssignment>();
-        }
-        this.bookingAssignments.add(entity);
-        entity.setBooking(this);
-    }
-
 	@Override
 	public String toString() {
 		return "\nBooking [rowId=" + rowId + ", bookedDatetime=" + bookedDatetime
 				+ ", duration=" + duration + ", finishDatetime="
 				+ finishDatetime + ", startDatetime=" + startDatetime
-				+ ", statusDesc=" + statusDesc + ", user=" + user + ", status="
+				+ ", statusDesc=" + statusDesc + ", status="
 				+ status + ", service=" + service + "]";
 	}
 

@@ -36,6 +36,7 @@ public class BookingServiceTest extends BaseServiceTest {
     	vo.setServiceId(1);
     	vo.setRate(new BigDecimal("20.5"));
     	vo.setBookingContact(contact);
+    	vo.setComments("comments");
     	
     	contact.setFirstName("Test");
     	contact.setLastName("UserVO");
@@ -53,7 +54,7 @@ public class BookingServiceTest extends BaseServiceTest {
     @Test
     public void assignToVendor(){
     	BookingVO vo = new BookingVO();
-    	vo.setBookingId(new Integer(2));
+    	vo.setBookingId(new Integer(1));
     	vo.setVendorId(new Integer(4));
     	
 //    	bookingService.assignToVendor(vo);
@@ -62,7 +63,7 @@ public class BookingServiceTest extends BaseServiceTest {
     @Test
     public void updateBooking(){
     	BookingVO vo = new BookingVO();
-    	vo.setBookingId(new Integer(2));
+    	vo.setBookingId(new Integer(1));
     	vo.setStartDateTime("06/07/2015 17:15:00");
     	vo.setFinishDateTime("06/07/2015 17:30:00");
     	vo.setStatusId(MagikHelperConstants.BOOKING_STATUS_IN_PROGRESS);
@@ -72,8 +73,8 @@ public class BookingServiceTest extends BaseServiceTest {
     
     @Test
     public void addFeedback(){
-    	BookingFeedbackVO vo = new BookingFeedbackVO(new Integer(2), "Comments-----1");
-    	bookingService.addFeedback(vo);
+    	BookingFeedbackVO vo = new BookingFeedbackVO(new Integer(1), "Comments-----1");
+//    	bookingService.addFeedback(vo);
     }
     
     @Test

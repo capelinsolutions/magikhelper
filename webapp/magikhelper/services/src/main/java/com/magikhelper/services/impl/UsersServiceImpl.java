@@ -22,6 +22,7 @@ import com.magikhelper.exceptions.UserNotRegisteredException;
 import com.magikhelper.services.UsersService;
 import com.magikhelper.utils.MagikHelperConstants;
 import com.magikhelper.vo.ContactVO;
+import com.magikhelper.vo.UserRoleVO;
 import com.magikhelper.vo.UserVO;
 import com.magikhelper.vo.MagikHelperService;
 import com.magikhelper.vo.VendorVO;
@@ -194,6 +195,17 @@ public class UsersServiceImpl implements UsersService {
 			contact.setState(user.getContact().getState());
 			contact.setCountry(user.getContact().getCountry());
 			
+			List<UserRoleVO> roles = new ArrayList<UserRoleVO>();
+
+			for (UserRole ur : user.getUserRoles()) {
+				UserRoleVO vo = new UserRoleVO();
+				vo.setRoleId(ur.getSystemRole().getRoleId());
+				vo.setTitle(ur.getSystemRole().getTitle());
+				vo.setDescription(ur.getSystemRole().getDescription());
+				roles.add(vo);
+			}
+			
+			userVo.setRoles(roles);
 			return userVo;
 		}
 		return null;

@@ -16,8 +16,10 @@ public class BookingListVO {
 	private BigDecimal rate;
 	private String bookingComments;
 	private int clientId;
-	private String clientEmail;
+	private Integer vendorId;
 	private ContactVO bookingContact = new ContactVO();
+	private ContactVO vendorContact = new ContactVO();
+	private ContactVO clientContact = new ContactVO();
 	
 	public Integer getBookingId() {
 		return bookingId;
@@ -91,12 +93,6 @@ public class BookingListVO {
 	public void setClientId(int clientId) {
 		this.clientId = clientId;
 	}
-	public String getClientEmail() {
-		return clientEmail;
-	}
-	public void setClientEmail(String clientEmail) {
-		this.clientEmail = clientEmail;
-	}
 	public String getBookingComments() {
 		return bookingComments;
 	}
@@ -109,13 +105,36 @@ public class BookingListVO {
 	public void setBookingContact(ContactVO bookingContact) {
 		this.bookingContact = bookingContact;
 	}
+	public Integer getVendorId() {
+		return vendorId;
+	}
+	public void setVendorId(Integer vendorId) {
+		this.vendorId = vendorId;
+	}
+	public ContactVO getVendorContact() {
+		return vendorContact;
+	}
+	public void setVendorContact(ContactVO vendorContact) {
+		this.vendorContact = vendorContact;
+	}
+	public ContactVO getClientContact() {
+		return clientContact;
+	}
+	public void setClientContact(ContactVO clientContact) {
+		this.clientContact = clientContact;
+	}
 	@Override
 	public String toString() {
-		return "BookingListVO [bookingId=" + bookingId + ", serviceId="
+		return "\nBookingListVO [bookingId=" + bookingId + ", serviceId="
 				+ serviceId + ", bookedDate=" + bookedDate + ", bookedTime="
-				+ bookedTime + ", duration=" + duration + ", rate=" + rate
-				+ ", clientId=" + clientId + ", clientEmail=" + clientEmail
-				+ "]\n";
+				+ bookedTime + ", duration=" + duration + ", startDateTime="
+				+ startDateTime + ", finishDateTime=" + finishDateTime
+				+ ", status=" + status + ", statusDesc=" + statusDesc
+				+ ", serviceName=" + serviceName + ", rate=" + rate
+				+ ", bookingComments=" + bookingComments + ", clientId="
+				+ clientId + ", vendorId=" + vendorId + ", \n\t bookingContact="
+				+ bookingContact + ",\n\t vendorContact=" + vendorContact
+				+ ",\n\t clientContact=" + clientContact + "]";
 	}
 	
 }

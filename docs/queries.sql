@@ -1,6 +1,5 @@
 select * from booking;
 select * from booking_event;
-select * from booking_assignment;
 select * from booking_feedback;
 select * from user;
 select * from system_role;

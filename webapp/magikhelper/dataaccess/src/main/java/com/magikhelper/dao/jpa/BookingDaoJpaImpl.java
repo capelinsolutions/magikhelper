@@ -29,10 +29,14 @@ public class BookingDaoJpaImpl extends GenericDaoJpaImpl<Booking, Integer> imple
     	
 		StringBuilder qryStr = new StringBuilder();
 		qryStr.append("select bookings from Booking bookings ");
-		qryStr.append("inner join fetch bookings.contact contact ");
+//		qryStr.append("inner join fetch bookings.contact contact ");
+//		qryStr.append("inner join fetch bookings.client client ");
+//		qryStr.append("inner join fetch bookings.client vendor ");
+//		qryStr.append("inner join fetch client.contact client_contact ");
+//		qryStr.append("inner join fetch vendor.contact vendor_contact ");
 		qryStr.append("inner join fetch bookings.service service ");
 		qryStr.append("inner join fetch bookings.status status ");
-		qryStr.append("where bookings.user.active ='1' ");
+		qryStr.append("where bookings.client.active ='1' ");
 		
 		if (columnNames != null && columnNames.size()>0 && values != null && values.size()>0){
 			for (int i=0; i<columnNames.size(); i++){
@@ -43,10 +47,10 @@ public class BookingDaoJpaImpl extends GenericDaoJpaImpl<Booking, Integer> imple
 					qryStr.append("        AND lower(status.name) = :status ");
 				}
 				if (columnNames.get(i).equalsIgnoreCase("userId")){
-					qryStr.append("        AND bookings.user.rowId = :userId ");
+					qryStr.append("        AND bookings.client.rowId = :userId ");
 				}
 				if (columnNames.get(i).equalsIgnoreCase("email")){
-					qryStr.append("        AND bookings.user.email = :email ");
+					qryStr.append("        AND bookings.client.email = :email ");
 				}
 				if (columnNames.get(i).equalsIgnoreCase("date")){
 					qryStr.append("        AND DATE_FORMAT(bookings.bookedDatetime,'%m/%d/%Y') "+dateOperator+" :dateTime ");
