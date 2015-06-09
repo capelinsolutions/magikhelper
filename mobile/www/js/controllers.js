@@ -286,7 +286,7 @@ angular.module('starter.controllers', ['starter.messages'])
 
     }])
 
-    .controller('VendorJobDetailCtrl', function ($scope,$filter,  $stateParams, VendorServices,$cordovaGeolocation, LocationServices , codeTypes, BookingService) {
+    .controller('VendorJobDetailCtrl', function ($scope,$filter, $rootScope, $location, $stateParams, VendorServices,$cordovaGeolocation, LocationServices , codeTypes, BookingService) {
         var locObj = {};
 
         if ($stateParams.status == codeTypes.CREATED) {
@@ -383,6 +383,28 @@ angular.module('starter.controllers', ['starter.messages'])
 
         $scope.startRouting = function(jobId, vendorId) {
             getCurrentPosition();
+        }
+
+        $scope.acceptJob = function (jobId, vendorId) {
+            var obj = {};
+
+            obj.bookingId = jobId;
+            if (vendorId) {
+                obj.vendorId = vendorId;
+            } else {
+                //TODO: remove hardcoding
+                //obj.vendorId = $rootScope.user.userId;
+                obj.vendorId = '4';
+            }
+
+            var assignPromise = BookingService.assignBooking(obj);
+
+            assignPromise.then(function (data) {
+                alert('You are assigned the job');
+                $location.path('/sidemenu//ven_joblist/');
+            }, function (error) {
+                alert('Job cannot be assigned');
+            });
         }
 
     })

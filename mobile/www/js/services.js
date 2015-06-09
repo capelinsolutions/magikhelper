@@ -157,7 +157,6 @@ angular.module('starter.services', ['starter.config'])
         }
 
         service.makeBooking = function (object, callback) {
-
             var req = {
                 method: 'POST',
                 url: configuration.BASE_URL + '/bookings',
@@ -177,6 +176,29 @@ angular.module('starter.services', ['starter.config'])
                     callback(response);
                 });
         }
+
+        service.assignBooking = function (object) {
+            var deferred = $q.defer();
+alert(JSON.stringify(object));
+            var req = {
+                method: 'POST',
+                url: configuration.BASE_URL + '/bookings/assign',
+                headers: {
+                    'DEVICE_ID': "1234"
+                },
+                data: object
+            }
+
+            $http(req).success(function (response) {
+                response.success = true;
+                deferred.resolve(response);
+           })
+                .error(function (data, status, headers, config) {
+                    deferred.reject(data);
+                });
+            return deferred.promise;
+        }
+
 
         service.getAllBookingForCurrentUser = function () {
             var booking = {}
