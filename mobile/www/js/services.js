@@ -131,11 +131,11 @@ angular.module('starter.services', ['starter.config'])
             bookingObj.address = address;
         };
         service.isLoggedIn = function () {
-            return ($rootScope.user != null);
+            return ($rootScope.user);
         };
 
         service.isVendor = function () {
-            return $rootScope.user.isVendor();
+            return $rootScope.user.isVendor;
         };
 
         service.setBookingDetails = function (object) {

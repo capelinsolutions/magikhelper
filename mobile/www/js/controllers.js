@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['starter.messages'])
 
-    .controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'AuthenticationService', 'BookingService',
-        function ($scope, $rootScope, $location, AuthenticationService, BookingService) {
+    .controller('LoginCtrl', ['$scope', '$rootScope','codeTypes', '$location', 'AuthenticationService', 'BookingService',
+        function ($scope, $rootScope, codeTypes, $location, AuthenticationService, BookingService) {
             // reset login status
             AuthenticationService.ClearCredentials();
 
@@ -35,10 +35,13 @@ angular.module('starter.controllers', ['starter.messages'])
 
                             for (var i = 0; i < response.roles.length; i++) {
                                 var role = response.roles[i];
-                                if (role.roleId == 1) {
+
+                                if (role.roleId == codeTypes.VENDOR_ROLE_ID) {
                                     client.isVendor = true;
-                                } else if (role.roleId == 2) {
+                                    client.isClient = false;
+                                } else if (role.roleId == codeTypes.USER_ROLE_ID) {
                                     client.isClient = true;
+                                    client.isVendor = false;
                                 }
                             }
 
@@ -429,7 +432,7 @@ angular.module('starter.controllers', ['starter.messages'])
         };
     })
 
-    .controller('RightMenuCtrl', function ($scope, $state, BookingService) {
+    .controller('RightMenuCtrl', function ($scope,$rootScope, $state, BookingService) {
         //var isLoggedIn  = BookingService.isLoggedIn;
         var loginMenu = {stateName: 'sidemenu.login', labelName: 'Login'};
         var signUpMenu = {stateName: 'sidemenu.signup', labelName: 'Sign Up'};
@@ -440,6 +443,15 @@ angular.module('starter.controllers', ['starter.messages'])
         var vendorProfileMenu = {stateName: 'sidemenu.vendorProfile', labelName: 'Profile'};
         var logoutMenu = {stateName: 'sidemenu.login', labelName: 'Logout'};
 
+        $rootScope.$watch('user', function() {
+            if (BookingService.isLoggedIn() && BookingService.isVendor()) {
+                $scope.subMenus = [vendorAssignedMenu, vendorProfileMenu, aboutMenu, logoutMenu];
+            } else if (BookingService.isLoggedIn()) {
+                $scope.subMenus = [userProfileMenu, bookingMenu, aboutMenu, logoutMenu];
+            } else {
+                $scope.subMenus = [loginMenu, signUpMenu, aboutMenu];
+            }
+        });
 
         if (BookingService.isLoggedIn() && BookingService.isVendor()) {
             $scope.subMenus = [vendorAssignedMenu, vendorProfileMenu, aboutMenu, logoutMenu];
