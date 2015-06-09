@@ -22,7 +22,7 @@
 .menuProfileHead    { top: 175px !important; }
 .menu_top           { background: url("../img/nav_background.png") no-repeat; background-size: cover; padding: 15px 10px; color: white; }
 .menu_top img       { width: 85px; border-radius: 50px; margin-top: 15px; }
-.username           { font-size: 16px; margin: 0px; }
+.username           { font-size: 18px; margin: 0px; }
 .useremail          { font-size: 14px; margin: 0px; }
 .selectStyle        { width: 99% ; border: #fff;padding: 7px 0px;  color: #AAA !important; background: #fff !important;}
 .previous_div       { padding: 0px 6px 0px 0px; }
@@ -90,11 +90,9 @@ input:focus:-ms-input-placeholder {
 }
 .ven-job-list  .variable {
     display: block;
-
     font-weight: normal;
-
     margin: 0;
-    font-size: 11px;
+    font-size: 14px;
 }
 
 .avatar {
