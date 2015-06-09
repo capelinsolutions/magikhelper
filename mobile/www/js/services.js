@@ -114,7 +114,7 @@ angular.module('starter.services', ['starter.config'])
         return service;
     }])
 
-    .factory('BookingService', ['$http', 'configuration', '$q', '$rootScope', function ($http, configuration, $q, $rootScope) {
+    .factory('BookingService', ['$http', '$rootScope', 'configuration', '$q', '$rootScope', function ($http, $rootScope, configuration, $q, $rootScope) {
         var service = {};
         var bookingObj = {};
         var listOfBookings = {};
@@ -131,11 +131,11 @@ angular.module('starter.services', ['starter.config'])
             bookingObj.address = address;
         };
         service.isLoggedIn = function () {
-            return true;
+            return ($rootScope.user != null);
         };
 
         service.isVendor = function () {
-            return true;
+            return $rootScope.user.isVendor();
         };
 
         service.setBookingDetails = function (object) {
