@@ -33,6 +33,15 @@ angular.module('starter.controllers', ['starter.messages'])
                             client.state = response.contact.state;
                             client.country = response.contact.country;
 
+                            for (var i = 0; i < response.roles.length; i++) {
+                                var role = response.roles[i];
+                                if (role.roleId == 1) {
+                                    client.isVendor = true;
+                                } else if (role.roleId == 2) {
+                                    client.isClient = true;
+                                }
+                            }
+
                             $rootScope.user = client;
                             BookingService.setClient(client)
                             AuthenticationService.SetCredentials(response);
