@@ -11,3 +11,20 @@ angular.module('starter.messages', [])
         AVAILABILITY_SERVICE_NOT_FOUND: 'No Available Service found for that Zip Code!'
     });
 
+angular.module('starter.codeTypes', [])
+    .constant('codeTypes', {
+        CREATED : 'Created',
+        ASSIGNED_TO_VENDOR : 'Assigned To Vendor',
+        IN_PROGRESS: 'In Progress',
+        COMPLETED: 'Completed',
+        CANCELLED: 'Cancelled'
+    });
+
+
+angular.module('starter.demo', [])
+    .constant('demoVendorInfo', {
+        VENDOR_ID : '4',
+        BOOKING_ID : '4',
+        VENDOR_EMAIL : 'vendor1@hotmail.com'
+    });
+

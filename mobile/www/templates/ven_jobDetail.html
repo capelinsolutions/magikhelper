@@ -8,48 +8,82 @@
             <div class="sectionHeading"> 
                 <div > 
                     <div class="avatarLg" style=" display: inline-block;vertical-align: middle">
-                        <img id="{{job.id}}" />
+                        <img id="{{job.serviceId}}" />
                     </div>
-                    <div style=" display: inline-block;vertical-align: middle">{{job.jobType}}</div>
-
+                    <div style=" display: inline-block;vertical-align: middle">{{job.serviceName}}</div>
                 </div>
             </div>
                <a href="#" class="item item-icon-left">
                 <i class="icon ion-person" style="color:#4571DA;"></i>
-                {{ job.requestedBy }}
+                {{ job.bookingContact.firstName }} {{ job.bookingContact.lastName }}
             </a>
 
             <a href="#" class="item item-icon-left ">
                 <i class="icon ion-home" style="color:#4571DA;"></i>
-                {{ job.serviceAddress }}
+                {{ job.bookingContact.street }} {{ job.bookingContact.city }} {{ job.bookingContact.state }}, {{ job.bookingContact.zip }}
             </a>
 
             <a href="#" class="item item-icon-left">
                 <i class="icon ion-ios-telephone" style="color:#4571DA;"></i>
-                650-892-4943
+                {{ job.bookingContact.mobilePhone }}
             </a>
             <a href="#" class="item item-icon-left">
                 <i class="icon ion-ios-clock-outline" style="color:#4571DA;"></i>
-                {{ job.dateOfService}}
-                <p>{{ job.requestedTimeOfService}}</p>
+                {{ job.bookedDate}}
+                <p>{{ job.bookedTime}}</p>
             </a>
 
 
             <a href="#" class="item item-icon-left">
                 <i class="icon ion-email" style="color:#4571DA;"></i>
-                kmehdi@gmail.com
+                {{ job.clientEmail}}
             </a>
 
             <a href="#" class="item item-icon-left">
                 <i class="icon ion-android-document" style="color:#4571DA;"></i>
-                <p>{{ job.commentByRequester }} </p>
+                <p>{{ job.bookingComments }} </p>
             </a>
 
         </div>
     </ion-content>
 
-    <div class="bar bar-footer bar-balanced form_submit" ng-show="job.status != 'COMPLETED'">
-        <button class=" form_submit button-clear button-positive" ng-click="refresh()">Start Job</button>
+    <!--
+    CREATED
+    ASSIGNED_TO_VENDOR
+    IN_PROGRESS
+    COMPLETED
+    CANCELLED
+    -->
+    <div class="bar bar-footer form_submit" ng-show="showInRoute()">
+        <div class="row">
+            <div class="col">
+                <button class=" form_submit button-clear  title" style="color:#ffffff;" ng-click="startRouting(job.id, job.vendorId)">In-Route</button>
+            </div>
+        </div>
+    </div>
+    <div class="bar bar-footer form_submit" ng-show="(!showInRoute() && job.status == isAssignedToVendor)">
+        <div class="row">
+            <div class="col">
+                <button class=" form_submit button-clear  title" style="color:#ffffff;" ng-click="startRouting(job.bookingId, job.vendorId)">Un-Assign</button>
+            </div>
+        </div>
+    </div>
+    <div class="bar bar-footer form_submit" ng-show="(job.status == isCreated)">
+        <div class="row">
+            <div class="col">
+                <button class=" form_submit button-clear  title" style="color:#ffffff;" ng-click="acceptJob(job.bookingId, job.vendorId)">Accept Job</button>
+            </div>
+        </div>
+    </div>
+    <div class="bar bar-footer"  style="border-color: transparent; background: none;padding-bottom: 10px" ng-show="job.status == isInProgress">
+        <div class="row">
+            <div class="col">
+                    <button class="button button-clear " style="width: 100%;height: 44px; background-color:#DB5A6E;color: #ffffff; " ng-click="refresh()">Start Job</button>
+            </div>
+            <div class="col">
+                <button class="button button-clear " style="width: 100%;height: 44px;background-color:#E18B5C;color: #ffffff; padding-bottom: 10px" ng-click="refresh()">Cancel Job</button>
+            </div>
+        </div>
     </div>
 
 </ion-view>

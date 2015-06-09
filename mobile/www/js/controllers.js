@@ -129,7 +129,6 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.contact.email = client.email;
 
         $scope.setContactDetails = function () {
-
             BookingService.setContactPerson($scope.contact);
             $location.path('/sidemenu/confirmation');
         }
@@ -224,11 +223,24 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.initialize();
 
     }])
-    .controller('JobListCtrl', ['$scope', '$rootScope', '$q', '$location', 'BookingService', function ($scope, $rootScope, $q, $location, BookingService) {
+    .controller('JobListCtrl', ['$scope', '$rootScope', '$q', '$location', 'BookingService', 'LocationServices', 'demoVendorInfo', function ($scope, $rootScope, $q, $location, BookingService, LocationServices,  demoVendorInfo) {
         $scope.listAllUserPastJobs = [];
 
         $scope.getListAllUserPastJobs = function () {
             return $scope.listAllUserPastJobs;
+        }
+
+        $scope.doRefresh = function () {
+
+            var bookingPromise = BookingService.getAllBookings();
+
+            bookingPromise.then(function (data) {
+                $scope.listAllUserPastJobs = data;
+            }, function (error) {
+                alert('No data found');
+            });
+
+            $scope.$broadcast('scroll.refreshComplete');
         }
 
         var bookingPromise = BookingService.getAllBookings();
@@ -239,41 +251,99 @@ angular.module('starter.controllers', ['starter.messages'])
             alert('No data found');
         });
 
+        $scope.locateVendor = function (bookingId) {
+            //$rootScope.globals.currentUser.userId
+            //TODO: remove hardcoding vendor Id
+            var locationPromise = LocationServices.getVendorLocation(demoVendorInfo.BOOKING_ID);
+
+            locationPromise.then(function (data) {
+                LocationServices.setVendorCurrentLocation(data);
+                $location.path('/sidemenu/location/' + bookingId);
+            }, function (error) {
+                alert('No data found');
+            });
+
+        }
     }])
 
-    .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices', function ($scope, $rootScope, $location, VendorServices) {
+    .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices','LocationServices','BookingService', function ($scope, $rootScope, $location, VendorServices, LocationServices, BookingService) {
         $scope.listAllAssignedServices = VendorServices.getAllAssignedService();
         $scope.listAllCompletedServices = VendorServices.getAllCompletedService();
 
-        $scope.getJobDetails = function (jobId) {
-            $location.path('/sidemenu/job/' + jobId);
+
+        var allOpenBookingsPromise = BookingService.getAllOpenBookings();
+
+        allOpenBookingsPromise.then(function (data) {
+            $scope.listAllOpenServices = data;
+        }, function (error) {
+            alert('No data found');
+        });
+
+        $scope.getJobDetails = function (jobId, status) {
+           // alert('/sidemenu/job?jobId=' + jobId+ '&status=' + status);
+            $location.url('/sidemenu/job?jobId=' + jobId+ '&status=' + status);
         }
 
     }])
-    .controller('VendorJobDetailCtrl', function ($scope, $stateParams, VendorServices,$cordovaGeolocation) {
-        VendorServices.findById($stateParams.jobId)
-            .then(function (job) {
-                $scope.job = job;
-                getCurrentPosition();
-            }
-        );
 
-        function getCurrentPosition() {
+    .controller('VendorJobDetailCtrl', function ($scope,$filter, $rootScope, $location, $stateParams, VendorServices,$cordovaGeolocation, LocationServices , codeTypes, BookingService) {
+        var locObj = {};
+
+        if ($stateParams.status == codeTypes.CREATED) {
+            BookingService.findById($stateParams.jobId)
+                .then(function (job) {
+                    $scope.job = job;
+                }
+            );
+        } else {
+            VendorServices.findById($stateParams.jobId)
+                .then(function (job) {
+                    $scope.job = job;
+                    //getCurrentPosition();
+                }
+            );
+
+        }
+
+        $scope.isInProgress = codeTypes.IN_PROGRESS;
+        $scope.isAssignedToVendor = codeTypes.ASSIGNED_TO_VENDOR;
+        $scope.isCreated = codeTypes.CREATED;
+
+
+        $scope.showInRoute = function () {
+            var currentDate = new Date();
+            var currentDateStr = $filter('date')(currentDate,"MM/dd/yyyy");
+            var newCurrentDate = new Date(currentDateStr);
+            return (new Date($scope.job.bookedDate).getTime() == newCurrentDate.getTime()
+                        && $scope.job.status == 'ASSIGNED_TO_VENDOR');
+        }
+
+        function getCurrentPosition(jobId, vendorId) {
             var posOptions = {timeout: 10000, enableHighAccuracy: false};
             $cordovaGeolocation
                 .getCurrentPosition(posOptions)
                 .then(function (position) {
+                    var coordinates = {};
                     var lat = position.coords.latitude;
                     var long = position.coords.longitude;
-                    //alert('current ' + lat);
-                    //alert('current ' +long);
-                    setWatch();
+
+                    //Send request to service
+                    locObj.vendorId = vendorId;
+                    locObj.bookingId = jobId;
+                    locObj.latitude = lat;
+                    locObj.longitude = long;
+
+                    LocationServices.setCordinates(locObj);
+
+                    setWatch(jobId, vendorId);
+
+                    return coordinates;
                 }, function (err) {
                     alert('Make sure your location service is turned on.');
                 });
         }
 
-        function setWatch() {
+        function setWatch(jobId, vendorId) {
             var watchOptions = {
                 frequency: 1000,
                 timeout: 3000,
@@ -289,19 +359,52 @@ angular.module('starter.controllers', ['starter.messages'])
                 function (position) {
                     var lat = position.coords.latitude;
                     var long = position.coords.longitude;
-                    //alert('watch ' + lat);
-                    //alert('watch ' +long);
 
+                    //Send request to service
+                    locObj.vendorId = vendorId;
+                    locObj.bookingId = jobId;
+                    locObj.latitude = lat;
+                    locObj.longitude = long;
+
+                    LocationServices.setCordinates(locObj);
                 });
         }
+
 
         function clearWatch() {
             $cordovaGeolocation.clearWatch(watch)
                 .then(function (result) {
+                    locObj = {};
                     // success
                 }, function (error) {
                     // error
                 });
+        }
+
+        $scope.startRouting = function(jobId, vendorId) {
+            getCurrentPosition();
+        }
+
+        $scope.acceptJob = function (jobId, vendorId) {
+            var obj = {};
+
+            obj.bookingId = jobId;
+            if (vendorId) {
+                obj.vendorId = vendorId;
+            } else {
+                //TODO: remove hardcoding
+                //obj.vendorId = $rootScope.user.userId;
+                obj.vendorId = '4';
+            }
+
+            var assignPromise = BookingService.assignBooking(obj);
+
+            assignPromise.then(function (data) {
+                alert('You are assigned the job');
+                $location.path('/sidemenu//ven_joblist/');
+            }, function (error) {
+                alert('Job cannot be assigned');
+            });
         }
 
     })
@@ -326,12 +429,13 @@ angular.module('starter.controllers', ['starter.messages'])
         var aboutMenu = {stateName: 'sidemenu.about', labelName: 'About'};
         var vendorAssignedMenu = {stateName: 'sidemenu.vendorJoblist', labelName: 'Job List'};
         var vendorProfileMenu = {stateName: 'sidemenu.vendorProfile', labelName: 'Profile'};
+        var logoutMenu = {stateName: 'sidemenu.login', labelName: 'Logout'};
 
 
         if (BookingService.isLoggedIn() && BookingService.isVendor()) {
-            $scope.subMenus = [vendorAssignedMenu, vendorProfileMenu, aboutMenu];
+            $scope.subMenus = [vendorAssignedMenu, vendorProfileMenu, aboutMenu, logoutMenu];
         } else if (BookingService.isLoggedIn()) {
-            $scope.subMenus = [userProfileMenu, bookingMenu, aboutMenu];
+            $scope.subMenus = [userProfileMenu, bookingMenu, aboutMenu, logoutMenu];
         } else {
             $scope.subMenus = [loginMenu, signUpMenu, aboutMenu];
         }
@@ -387,20 +491,29 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.chat = Chats.get($stateParams.chatId);
     })
 
-    .controller('MapCtrl', function ($scope) {
-        $scope.location = 32.942700;
-        $scope.latitude = 32.942700;
-        $scope.longitude = -96.81539;
+    .controller('MapCtrl',  function ($scope,$stateParams, $location, LocationServices, demoVendorInfo) {
+
+        var locObj = LocationServices.getVendorCurrentLocation();
+        $scope.latitude = locObj.latitude;
+        $scope.longitude = locObj.longitude;
         $scope.zoom = 15;
 
-
         $scope.refresh = function () {
+            //TODO: remove hardcoding vendor Id
+            var locationPromise = LocationServices.getVendorLocation(demoVendorInfo.BOOKING_ID);
 
+            locationPromise.then(function (data) {
+                //$scope.latitude = data.latitude;
+                //$scope.longitude = data.longitude;
+                LocationServices.setVendorCurrentLocation(data);
+            }, function (error) {
+                alert('No data found');
+            });
 
-            $scope.latitude = 32.941858;
-            $scope.longitude = -96.818282;
-
-            $location.path('/sidemenu/location');
+            //$scope.latitude = 32.941858;
+            //$scope.longitude = -96.818282;
+            //TODO: remove hardcoding vendor Id
+            $location.path('/sidemenu/location/'+demoVendorInfo.BOOKING_ID );
 
         };
     })
