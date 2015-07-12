@@ -1,7 +1,7 @@
 angular.module('starter.controllers', ['starter.messages'])
 
-    .controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'AuthenticationService', 'BookingService',
-        function ($scope, $rootScope, $location, AuthenticationService, BookingService) {
+    .controller('LoginCtrl', ['$scope', '$rootScope', 'codeTypes', '$location', 'AuthenticationService', 'BookingService',
+        function ($scope, $rootScope, codeTypes, $location, AuthenticationService, BookingService) {
             // reset login status
             AuthenticationService.ClearCredentials();
 
@@ -9,50 +9,51 @@ angular.module('starter.controllers', ['starter.messages'])
 
                 $scope.dataLoading = true;
 
-                //testing vendor flow
-                //$location.path('/ven_joblist');
+                var user = {email: $scope.username, password: $scope.password};
 
-                if ($scope.username == 'vendor@test.com') {
-                    $location.path('/sidemenu/ven_joblist');
-                } else {
-                    var user = {email: $scope.username, password: $scope.password};
+                AuthenticationService.Login(user, function (response) {
+                    if (response.login) {
+                        var client = {}
 
-                    AuthenticationService.Login(user, function (response) {
-                        if (response.login) {
-                            var client = {}
+                        client.userId = response.userId;
+                        client.email = response.email;
+                        client.firstName = response.contact.firstName;
+                        client.lastName = response.contact.lastName;
+                        client.mobilePhone = response.contact.mobilePhone;
+                        client.street = response.contact.street;
+                        client.additional = response.contact.additional;
+                        client.city = response.contact.city;
+                        client.zip = response.contact.zip;
+                        client.state = response.contact.state;
+                        client.country = response.contact.country;
 
-                            client.userId = response.userId;
-                            client.email = response.email;
-                            client.firstName = response.contact.firstName;
-                            client.lastName = response.contact.lastName;
-                            client.mobilePhone = response.contact.mobilePhone;
-                            client.street = response.contact.street;
-                            client.additional = response.contact.additional;
-                            client.city = response.contact.city;
-                            client.zip = response.contact.zip;
-                            client.state = response.contact.state;
-                            client.country = response.contact.country;
+                        for (var i = 0; i < response.roles.length; i++) {
+                            var role = response.roles[i];
 
-                            for (var i = 0; i < response.roles.length; i++) {
-                                var role = response.roles[i];
-                                if (role.roleId == 1) {
-                                    client.isVendor = true;
-                                } else if (role.roleId == 2) {
-                                    client.isClient = true;
-                                }
+                            if (role.roleId == codeTypes.VENDOR_ROLE_ID) {
+                                client.isVendor = true;
+                                client.isClient = false;
+                            } else if (role.roleId == codeTypes.USER_ROLE_ID) {
+                                client.isClient = true;
+                                client.isVendor = false;
                             }
-
-                            $rootScope.user = client;
-                            BookingService.setClient(client)
-                            AuthenticationService.SetCredentials(response);
-                            $location.path('/sidemenu/user_joblist');
-                        } else {
-                            $scope.error = response.message;
-                            $scope.dataLoading = false;
-                            alert(response.message);
                         }
-                    });
-                }
+
+                        $rootScope.user = client;
+                        BookingService.setClient(client)
+                        AuthenticationService.SetCredentials(response);
+                        if (client.isVendor) {
+                            $location.path('/sidemenu/ven_joblist');
+                        } else if (client.isClient) {
+                            $location.path('/sidemenu/user_joblist');
+                        }
+
+                    } else {
+                        $scope.error = response.message;
+                        $scope.dataLoading = false;
+                        alert(response.message);
+                    }
+                });
 
             };
         }])
@@ -93,29 +94,29 @@ angular.module('starter.controllers', ['starter.messages'])
     .controller('AvailabilityCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', 'BookingService', 'UtilityServices',
         function ($scope, $rootScope, $location, AvailableServices, BookingService, UtilityServices) {
 
-        $scope.availabilityData = {};
+            $scope.availabilityData = {};
 
 
-        $scope.checkAvailability = function () {
+            $scope.checkAvailability = function () {
 
-            var address = UtilityServices.validateAddress($scope.availabilityData.details);
+                var address = UtilityServices.validateAddress($scope.availabilityData.details);
 
-            if (address.valid) {
+                if (address.valid) {
 
-                AvailableServices.getAllServices(address.zip, function (response) {
-                    if (response.length == 0) {
-                        alert("No Available Service found for that Zip Code!");
-                    } else {
-                        BookingService.setAddress(address);
-                        $location.path('/sidemenu/services');
-                    }
+                    AvailableServices.getAllServices(address.zip, function (response) {
+                        if (response.length == 0) {
+                            alert("No Available Service found for that Zip Code!");
+                        } else {
+                            BookingService.setAddress(address);
+                            $location.path('/sidemenu/services');
+                        }
 
-                });
-            } else {
-                alert("Address is not Complete!");
+                    });
+                } else {
+                    alert("Address is not Complete!");
+                }
             }
-        }
-    }])
+        }])
 
     .controller('AvailableServicesCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', 'BookingService', function ($scope, $rootScope, $location, AvailableServices, BookingService) {
         $scope.availableServices = AvailableServices.getFetchedServices();
@@ -195,11 +196,9 @@ angular.module('starter.controllers', ['starter.messages'])
         }
 
 
-
-
     }])
 
-    .controller('BookingCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices','BookingService', function ($scope, $rootScope, $location, AvailableServices, BookingService) {
+    .controller('BookingCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', 'BookingService', function ($scope, $rootScope, $location, AvailableServices, BookingService) {
         $scope.availableServices = AvailableServices.getFetchedServices();
         $scope.bookingDetails = {};
 
@@ -232,7 +231,7 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.initialize();
 
     }])
-    .controller('JobListCtrl', ['$scope', '$rootScope', '$q', '$location', 'BookingService', 'LocationServices', 'demoVendorInfo', function ($scope, $rootScope, $q, $location, BookingService, LocationServices,  demoVendorInfo) {
+    .controller('JobListCtrl', ['$scope', '$rootScope', '$q', '$location', 'BookingService', 'LocationServices', 'demoVendorInfo', function ($scope, $rootScope, $q, $location, BookingService, LocationServices, demoVendorInfo) {
         $scope.listAllUserPastJobs = [];
 
         $scope.getListAllUserPastJobs = function () {
@@ -275,9 +274,37 @@ angular.module('starter.controllers', ['starter.messages'])
         }
     }])
 
-    .controller('VendorJobListCtrl', ['$scope', '$rootScope', '$location', 'VendorServices','LocationServices','BookingService', function ($scope, $rootScope, $location, VendorServices, LocationServices, BookingService) {
-        $scope.listAllAssignedServices = VendorServices.getAllAssignedService();
-        $scope.listAllCompletedServices = VendorServices.getAllCompletedService();
+    .controller('VendorJobListCtrl', ['$scope', '$rootScope', 'codeTypes', '$location', 'VendorServices', 'LocationServices', 'BookingService', function ($scope, $rootScope, codeTypes, $location, VendorServices, LocationServices, BookingService) {
+        $scope.listAllAssignedServices = {};
+        $scope.listAllCompletedServices = {};
+
+        //TODO: It has to be refactored once we have service returning booking for a vendor
+        var bookingAssignedPromise = BookingService.getAllBookingsForCurrentVendor();
+        bookingAssignedPromise.then(function (bookings) {
+            var data = [];
+            angular.forEach(bookings, function (item) {
+                if (item.status == codeTypes.ASSIGNED_TO_VENDOR && item.vendorId == $rootScope.user.userId) {
+                    data.push(item);
+                }
+            });
+            $scope.listAllAssignedServices = data;
+        }, function (error) {
+        });
+
+        //TODO: It has to be refactored once we have service returning booking for a vendor
+        var bookingCompletePromise = BookingService.getAllBookingsForCurrentVendor();
+        bookingCompletePromise.then(function (bookings) {
+            var data = [];
+            angular.forEach(bookings, function (item) {
+                if (item.status == codeTypes.COMPLETED && item.vendorId == $rootScope.user.userId) {
+                    data.push(item);
+
+                }
+            });
+            $scope.listAllCompletedServices = data;
+        }, function (error) {
+        });
+
 
 
         var allOpenBookingsPromise = BookingService.getAllOpenBookings();
@@ -289,30 +316,29 @@ angular.module('starter.controllers', ['starter.messages'])
         });
 
         $scope.getJobDetails = function (jobId, status) {
-           // alert('/sidemenu/job?jobId=' + jobId+ '&status=' + status);
-            $location.url('/sidemenu/job?jobId=' + jobId+ '&status=' + status);
+            // alert('/sidemenu/job?jobId=' + jobId+ '&status=' + status);
+            $location.url('/sidemenu/job?jobId=' + jobId + '&status=' + status);
         }
 
     }])
 
-    .controller('VendorJobDetailCtrl', function ($scope,$filter, $rootScope, $location, $stateParams, VendorServices,$cordovaGeolocation, LocationServices , codeTypes, BookingService) {
+    .controller('VendorJobDetailCtrl', function ($scope, $filter, $rootScope, $location, $stateParams, VendorServices, $cordovaGeolocation, LocationServices, codeTypes, BookingService) {
         var locObj = {};
 
-        if ($stateParams.status == codeTypes.CREATED) {
+        // if ($stateParams.status == codeTypes.CREATED) {
             BookingService.findById($stateParams.jobId)
                 .then(function (job) {
                     $scope.job = job;
                 }
             );
-        } else {
-            VendorServices.findById($stateParams.jobId)
-                .then(function (job) {
-                    $scope.job = job;
-                    //getCurrentPosition();
-                }
-            );
+        //} else {
+        //    VendorServices.findById($stateParams.jobId)
+        //        .then(function (job) {
+        //            $scope.job = job;
+        //        }
+        //    );
 
-        }
+        //}
 
         $scope.isInProgress = codeTypes.IN_PROGRESS;
         $scope.isAssignedToVendor = codeTypes.ASSIGNED_TO_VENDOR;
@@ -321,10 +347,10 @@ angular.module('starter.controllers', ['starter.messages'])
 
         $scope.showInRoute = function () {
             var currentDate = new Date();
-            var currentDateStr = $filter('date')(currentDate,"MM/dd/yyyy");
+            var currentDateStr = $filter('date')(currentDate, "MM/dd/yyyy");
             var newCurrentDate = new Date(currentDateStr);
             return (new Date($scope.job.bookedDate).getTime() == newCurrentDate.getTime()
-                        && $scope.job.status == 'ASSIGNED_TO_VENDOR');
+            && $scope.job.status == codeTypes.ASSIGNED_TO_VENDOR);
         }
 
         function getCurrentPosition(jobId, vendorId) {
@@ -390,7 +416,7 @@ angular.module('starter.controllers', ['starter.messages'])
                 });
         }
 
-        $scope.startRouting = function(jobId, vendorId) {
+        $scope.startRouting = function (jobId, vendorId) {
             getCurrentPosition();
         }
 
@@ -415,8 +441,14 @@ angular.module('starter.controllers', ['starter.messages'])
                 alert('Job cannot be assigned');
             });
         }
-
     })
+
+    .controller('LogoutCtrl', function ($scope, $rootScope, $location, BookingService) {
+        $rootScope.user = {};
+        BookingService.clearBooking();
+        $location.path('/sidemenu/login');
+    })
+
     .controller('MenuCtrl', function ($scope, $stateParams, BookingService) {
         $scope.isLoggedIn = false;
     })
@@ -429,7 +461,7 @@ angular.module('starter.controllers', ['starter.messages'])
         };
     })
 
-    .controller('RightMenuCtrl', function ($scope, $state, BookingService) {
+    .controller('RightMenuCtrl', function ($scope, $rootScope, $state, BookingService) {
         //var isLoggedIn  = BookingService.isLoggedIn;
         var loginMenu = {stateName: 'sidemenu.login', labelName: 'Login'};
         var signUpMenu = {stateName: 'sidemenu.signup', labelName: 'Sign Up'};
@@ -438,8 +470,17 @@ angular.module('starter.controllers', ['starter.messages'])
         var aboutMenu = {stateName: 'sidemenu.about', labelName: 'About'};
         var vendorAssignedMenu = {stateName: 'sidemenu.vendorJoblist', labelName: 'Job List'};
         var vendorProfileMenu = {stateName: 'sidemenu.vendorProfile', labelName: 'Profile'};
-        var logoutMenu = {stateName: 'sidemenu.login', labelName: 'Logout'};
+        var logoutMenu = {stateName: 'sidemenu.logout', labelName: 'Logout'};
 
+        $rootScope.$watch('user', function () {
+            if (BookingService.isLoggedIn() && BookingService.isVendor()) {
+                $scope.subMenus = [vendorAssignedMenu, vendorProfileMenu, aboutMenu, logoutMenu];
+            } else if (BookingService.isLoggedIn()) {
+                $scope.subMenus = [userProfileMenu, bookingMenu, aboutMenu, logoutMenu];
+            } else {
+                $scope.subMenus = [loginMenu, signUpMenu, aboutMenu];
+            }
+        });
 
         if (BookingService.isLoggedIn() && BookingService.isVendor()) {
             $scope.subMenus = [vendorAssignedMenu, vendorProfileMenu, aboutMenu, logoutMenu];
@@ -500,7 +541,7 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.chat = Chats.get($stateParams.chatId);
     })
 
-    .controller('MapCtrl',  function ($scope,$stateParams, $location, LocationServices, demoVendorInfo) {
+    .controller('MapCtrl', function ($scope, $stateParams, $location, LocationServices, demoVendorInfo) {
 
         var locObj = LocationServices.getVendorCurrentLocation();
         $scope.latitude = locObj.latitude;
@@ -522,7 +563,7 @@ angular.module('starter.controllers', ['starter.messages'])
             //$scope.latitude = 32.941858;
             //$scope.longitude = -96.818282;
             //TODO: remove hardcoding vendor Id
-            $location.path('/sidemenu/location/'+demoVendorInfo.BOOKING_ID );
+            $location.path('/sidemenu/location/' + demoVendorInfo.BOOKING_ID);
 
         };
     })

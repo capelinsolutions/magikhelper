@@ -3,6 +3,7 @@ angular.module('starter.config', [])
         APP_NAME: 'MagikHelp',
         BASE_URL: 'http://magikheper-ws.elasticbeanstalk.com/services',
         //BASE_URL: 'http://localhost:8080/magikhelper-ws/services',
+        //BASE_URL: 'http://localhost:8080/magikhelper-ws/services',
         APP_VERSION : '0.1'
     });
 
@@ -17,7 +18,10 @@ angular.module('starter.codeTypes', [])
         ASSIGNED_TO_VENDOR : 'Assigned To Vendor',
         IN_PROGRESS: 'In Progress',
         COMPLETED: 'Completed',
-        CANCELLED: 'Cancelled'
+        CANCELLED: 'Cancelled',
+        VENDOR_ROLE_ID: '3',
+        USER_ROLE_ID: '2'
+
     });
 
 

@@ -3225,7 +3225,8 @@ a.subdued {
   font-size: 24px; }
 .platform-android .bar .title {
   font-size: 19px;
-  line-height: 43px; }
+    line-height: 45px;
+}
 
 .bar-light .button {
   border-color: #ddd;
@@ -4624,7 +4625,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
  */
 .item {
   border-color: #ddd;
-  background-color: #fff;
+    /*  background-color: rgba(255, 255, 255, 0.8); */
   color: #444;
   position: relative;
   z-index: 2;
@@ -5782,10 +5783,12 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
   padding-top: 2px;
   padding-left: 0;
   height: 34px;
-  color: #111;
+    color: #2E2AA1;
   vertical-align: middle;
   font-size: 14px;
-  line-height: 16px; }
+    line-height: 16px;
+    background-color: transparent;
+}
 
 .platform-ios input[type="datetime-local"], .platform-ios input[type="date"], .platform-ios input[type="month"], .platform-ios input[type="time"], .platform-ios input[type="week"], .platform-android input[type="datetime-local"], .platform-android input[type="date"], .platform-android input[type="month"], .platform-android input[type="time"], .platform-android input[type="week"] {
   padding-top: 8px; }
@@ -7425,15 +7428,18 @@ a.button {
  * Platform specific tweaks
  */
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
-  height: 64px; }
+    height: 45px;
+}
   .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
     margin-top: 19px !important; }
   .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
-    margin-top: 20px; }
+      margin-top: 0px;
+  }
 .platform-ios.platform-cordova:not(.fullscreen) .tabs-top > .tabs, .platform-ios.platform-cordova:not(.fullscreen) .tabs.tabs-top {
   top: 64px; }
 .platform-ios.platform-cordova:not(.fullscreen) .has-header, .platform-ios.platform-cordova:not(.fullscreen) .bar-subheader {
-  top: 64px; }
+    top: 44px;
+}
 .platform-ios.platform-cordova:not(.fullscreen) .has-subheader {
   top: 108px; }
 .platform-ios.platform-cordova:not(.fullscreen) .has-header.has-tabs-top {
@@ -7586,3 +7592,8 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+.platform-android .title-left {
+    text-align: center !important;
+    left: 0px !important;
+}

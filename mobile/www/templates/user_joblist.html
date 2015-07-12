@@ -1,17 +1,18 @@
-<ion-view view-title="Dashboard">
+<ion-view view-title="Dashboard" style="text-align:center !important; ">
     <ion-content class="padding">
         <ion-refresher
                 pulling-text="Pull to refresh..."
                 on-refresh="doRefresh()">
         </ion-refresher>
 
-        <div class="list card">
-            <div class="item item-divider">Jobs In Progress</div>
-            <div class="item item-body">
+        <div class="list card" style="background-color: transparent;">
+            <div class="item item-divider secHeading">Jobs In Progress</div>
+            <div class="item item-body bgWhite ">
                 <div class="list  ">
                     <ion-list class="ven-job-list" ng-repeat="item in getListAllUserPastJobs()">
-                        <ion-item class="item-avatar item-icon-right" ng-click="locateVendor(item.bookingId)" >
-                            <div class="avatar">
+                        <ion-item class="item-avatar item-icon-right" ng-click="locateVendor(item.bookingId)"
+                                  style="padding: 0px 0px 10px 80px; margin-bottom: 10px; border-bottom: 1px solid #2E2AA1 !important;  min-height: 90px;">
+                            <div class="avatar" style="top:0px; left:0px;">
                                 <!--
                                 <img id="{{item.bookingId}}"/>
                                 -->
@@ -29,9 +30,9 @@
                 </div>
             </div>
         </div>
-        <div class="list card">
-            <div class="item item-divider">Completed Jobs</div>
-            <div class="item item-body">
+        <div class="list card" style="background-color: transparent; margin-bottom: 90px;">
+            <div class="item item-divider secHeading">Completed Jobs</div>
+            <div class="item item-body bgWhite">
                 <div>
                     No Past Job(s)
                 </div>

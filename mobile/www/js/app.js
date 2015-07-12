@@ -48,6 +48,15 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
                     }
                 }
             })
+            .state('sidemenu.logout', {
+                url: '/logout',
+                views: {
+                    'mainContent': {
+                        controller: 'LogoutCtrl'
+                    }
+                }
+            })
+
             .state('sidemenu.userJobList', {
                 url: '/user_joblist',
                 views: {

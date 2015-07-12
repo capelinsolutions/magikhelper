@@ -1,9 +1,9 @@
 <ion-view title="Signup">
     <ion-content class="padding">
-        <div id="logo-wrapper" style="text-align: center;"><img src="img/logo.png" width="150px;"></div>
+        <div id="logo-wrapper" style="text-align: center;"><img src="img/logo.png" width="250px;"></div>
         <div class="list">
             <form ng-submit="createUser()" ng-controller="SignUpCtrl">
-                <div class="item item-input-inset loginForminput border_bottom_input">
+                <div class="item item-input loginForminput border_bottom_input bgWhite">
                     <label>
                         <input type="text" placeholder="First Name" name="firstName"
                                ng-model="client.contact.firstName">
@@ -14,18 +14,18 @@
                     </label>
                 </div>
 
-                <label class="item item-input loginForminput border_bottom_input">
+                <label class="item item-input loginForminput border_bottom_input bgWhite">
 
                     <input type="text" id="Address" class="form-control" ng-autocomplete
                            ng-model="client.address.formatted_address"
                            options="options" details="client.address"/>
                 </label>
 
-                <label class="item item-input loginForminput border_bottom_input">
+                <label class="item item-input loginForminput border_bottom_input bgWhite">
                     <input type="email" placeholder="Email" name="email" ng-model="client.email">
                 </label>
 
-                <div class="item item-input-inset loginForminput border_bottom_input">
+                <div class="item item-input loginForminput border_bottom_input bgWhite">
                     <label>
                         <input type="password" placeholder="Password" name="password" ng-model="client.password">
                     </label>
@@ -40,6 +40,6 @@
         </div>
     </ion-content>
     <div class="bar bar-footer btnAccount hide-on-keyboard-open">
-        <div class="title">Already Account? <a ui-sref="login">Login</a></div>
+        <div class="title">Already Account? <a ui-sref="sidemenu.login">Login</a></div>
     </div>
 </ion-view>

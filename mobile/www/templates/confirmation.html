@@ -6,15 +6,17 @@
     <ion-content class="padding" >
 
         <div>
-            <div ng-show="!booking.booked">Please review the information below before confirming</div>
-            <div ng-show="booking.booked">Thank you for choosing magikHelp, Booking Confirmation Code:
+            <div ng-show="!booking.booked" class="alertWarning">Please review the information below before confirming
+            </div>
+            <div ng-show="booking.booked" class="alertSucess">Thank you for choosing magikHelp, Booking Confirmation
+                Code:
                 {{booking.confirmation}}
             </div>
         </div>
 
-        <div class="list card">
+        <div class="list card bgWhite" style="border-radius: 5px;">
             <div class="sectionHeading"> 
-                <div > 
+                <div style="height: 70px; padding-left: 100px; padding-top: 15px;"> 
                     <div class="avatarLg" style=" display: inline-block;vertical-align: middle">
                         <img id="{{booking.service.serviceId}}"/>
                     </div>
@@ -23,22 +25,22 @@
                 </div>
             </div>
             <a href="#" class="item item-icon-left">
-                <i class="icon ion-person" style="color:#4571DA;"></i>
+                <i class="icon ion-person" style="color:#2E2AA1;"></i>
                 {{booking.firstName}} {{booking.lastName}}
             </a>
 
             <a href="#" class="item item-icon-left item-icon-right">
-                <i class="icon ion-home" style="color:#4571DA;"></i>
+                <i class="icon ion-home" style="color:#2E2AA1;"></i>
                 {{booking.address.street}} {{booking.address.city}} {{booking.address.state}} {{booking.address.zip}}
-                <i class="icon ion-edit" style="color:#4571DA;"></i>
+                <i class="icon ion-edit" style="color:#2E2AA1;"></i>
             </a>
 
             <a href="#" class="item item-icon-left">
-                <i class="icon ion-ios-telephone" style="color:#4571DA;"></i>
+                <i class="icon ion-ios-telephone" style="color:#2E2AA1;"></i>
                 {{booking.phone}}
             </a>
             <a href="#" class="item item-icon-left">
-                <i class="icon ion-ios-clock-outline" style="color:#4571DA;"></i>
+                <i class="icon ion-ios-clock" style="color:#2E2AA1;"></i>
                 {{booking.bookingDate | date:'MM/dd/yyyy'}}
                 <p>{{booking.bookedTime}}</p>
 
@@ -47,12 +49,12 @@
 
 
             <a href="#" class="item item-icon-left">
-                <i class="icon ion-email" style="color:#4571DA;"></i>
+                <i class="icon ion-email" style="color:#2E2AA1;"></i>
                 {{booking.email}}
             </a>
 
             <a href="#" class="item item-icon-left">
-                <i class="icon ion-hammer" style="color:#4571DA;"></i>
+                <i class="icon ion-hammer" style="color:#2E2AA1;"></i>
 
                 <p>{{booking.instructions}}</p>
             </a>
@@ -60,10 +62,13 @@
         </div>
     </ion-content>
     <div class="bar bar-footer form_submit ">
-        <button class=" form_submit button-clear  title" ng-click="makeBooking()" ng-show="!booking.booked">Confirm
+        <button class=" form_submit button-clear " style="color:#ffffff;" ng-click="makeBooking()"
+                ng-show="!booking.booked">Confirm
             Job
         </button>
-        <button class=" form_submit button-clear  title" ng-click="done()" ng-show="booking.booked">Done</button>
+        <button class=" form_submit button-clear " style="color:#ffffff;" ng-click="done()" ng-show="booking.booked">
+            Done
+        </button>
     </div>
 
 </ion-view>

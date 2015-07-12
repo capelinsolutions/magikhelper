@@ -107,7 +107,7 @@ input:focus {
     color: white;
     font-size: 44pt !important;
     text-align: center !important;
-    background: url(../img/transparent_bg.png);
+    background: rgba(0, 0, 0, 0.7);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -139,17 +139,22 @@ input:focus {
 
 .form_submit {
     width: 100%;
-    background: #DB5A6E;
+    background: #2E2AA1;
     color: white;
-    height: 44px;
+    height: 46px;
     font-size: 17px;
+    border: 1px solid #2E2AA1;
+    border-radius: 3px;
 }
 
 .form_submit:hover {
     width: 100%;
-    background: #DB5A6E;
+    background: #2E2AA1;
     color: white;
+    height: 46px;
     font-size: 17px;
+    border: 1px solid #2E2AA1;
+    border-radius: 3px;
 }
 
 /**********Check Availability *******************/
@@ -171,8 +176,8 @@ input:focus {
 }
 
 .scroll-content {
-    background: url('../img/login.png');
-
+    background: url('../img/login.png') no-repeat;
+    background-size: cover;
 }
 
 .zip {
@@ -513,4 +518,20 @@ input:focus {
         font-size: 11pt;
     }
 
+}
+
+input ::-webkit-input-placeholder {
+    color: #2e2aa1;
+}
+
+input ::-moz-placeholder {
+    color: #2e2aa1;
+}
+
+input :-ms-input-placeholder {
+    color: #2e2aa1;
+}
+
+input:-moz-placeholder {
+    color: #2e2aa1;
 }

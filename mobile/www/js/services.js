@@ -114,7 +114,7 @@ angular.module('starter.services', ['starter.config'])
         return service;
     }])
 
-    .factory('BookingService', ['$http', 'configuration', '$q', '$rootScope', function ($http, configuration, $q, $rootScope) {
+    .factory('BookingService', ['$http', '$rootScope', 'configuration', '$q', '$rootScope', function ($http, $rootScope, configuration, $q, $rootScope) {
         var service = {};
         var bookingObj = {};
         var listOfBookings = {};
@@ -131,11 +131,11 @@ angular.module('starter.services', ['starter.config'])
             bookingObj.address = address;
         };
         service.isLoggedIn = function () {
-            return true;
+            return ($rootScope.user);
         };
 
         service.isVendor = function () {
-            return true;
+            return $rootScope.user.isVendor;
         };
 
         service.setBookingDetails = function (object) {
@@ -155,6 +155,12 @@ angular.module('starter.services', ['starter.config'])
         service.getBookingObject = function () {
             return bookingObj;
         }
+
+        service.clearBooking = function () {
+            bookingObj = {};
+            listOfBookings = {};
+        }
+
 
         service.makeBooking = function (object, callback) {
             var req = {
@@ -179,7 +185,7 @@ angular.module('starter.services', ['starter.config'])
 
         service.assignBooking = function (object) {
             var deferred = $q.defer();
-alert(JSON.stringify(object));
+
             var req = {
                 method: 'POST',
                 url: configuration.BASE_URL + '/bookings/assign',
@@ -245,6 +251,28 @@ alert(JSON.stringify(object));
             return deferred.promise;
         }
 
+        service.getAllBookingsForCurrentVendor = function () {
+            var deferred = $q.defer();
+
+            var req = {
+                method: 'get',
+                //TODO: Need to change to the right service call, right now no service for vendor is available
+                url: configuration.BASE_URL + '/bookings/'
+            }
+
+            $http(req).success(function (response) {
+                listOfBookings = response;
+                deferred.resolve(listOfBookings);
+            })
+                .error(function (data, status, headers, config) {
+                    response.success = false;
+                    deferred.reject(data);
+                });
+            return deferred.promise;
+        }
+
+
+
         service.getAllOpenBookings = function () {
             var deferred = $q.defer();
 
@@ -280,110 +308,40 @@ alert(JSON.stringify(object));
 
     }])
 
-    .factory('VendorServices', ['$http', '$q','codeTypes',  function ($http, $q, codeTypes) {
+    .factory('VendorServices', ['$http', '$rootScope', '$q', function ($http, $rootScope, $q) {
         var service = {};
-        var joblist = [
-            {
-                "bookingId": 1,
-                "serviceId": 1,
-                "bookedDate": "06/06/2015",
-                "bookedTime": "16:00:00",
-                "duration": 2,
-                "startDateTime": null,
-                "finishDateTime": null,
-                "status": "Assigned To Vendor",
-                "statusDesc": "Booking created with created status.",
-                "serviceName": "Furniture Assembly",
-                "rate": null,
-                "bookingComments": "coments sdljflaksdf asdflkasd fsad",
-                "clientId": 3,
-                "clientEmail": "client1@hotmail.com",
-                "bookingContact": {
-                    "firstName": "Test",
-                    "lastName": "UserVO",
-                    "mobilePhone": "Mobile",
-                    "street": "Street",
-                    "additional": "Additional",
-                    "city": "City",
-                    "zip": "Zip",
-                    "state": "State",
-                    "country": "Country"
-                }
-            },
-            {
-                "bookingId": 2,
-                "serviceId": 1,
-                "bookedDate": "06/06/2015",
-                "bookedTime": "16:00:00",
-                "duration": 2,
-                "startDateTime": null,
-                "finishDateTime": null,
-                "status": "Completed",
-                "statusDesc": "Booking created with created status.",
-                "serviceName": "Furniture Assembly",
-                "rate": null,
-                "bookingComments": "coments sdljflaksdf asdflkasd fsad",
-                "clientId": 3,
-                "clientEmail": "client1@hotmail.com",
-                "bookingContact": {
-                    "firstName": "Test",
-                    "lastName": "UserVO",
-                    "mobilePhone": "Mobile",
-                    "street": "Street",
-                    "additional": "Additional",
-                    "city": "City",
-                    "zip": "Zip",
-                    "state": "State",
-                    "country": "Country"
-                }
-            },
-            {
-                "bookingId": 10,
-                "serviceId": 4,
-                "bookedDate": "06/06/2015",
-                "bookedTime": "16:00:00",
-                "duration": 2,
-                "startDateTime": null,
-                "finishDateTime": null,
-                "status": "Assigned To Vendor",
-                "statusDesc": "Booking created with created status.",
-                "serviceName": "Gardening",
-                "rate": null,
-                "bookingComments": "coments sdljflaksdf asdflkasd fsad",
-                "clientId": 3,
-                "clientEmail": "client1@hotmail.com",
-                "bookingContact": {
-                    "firstName": "Test",
-                    "lastName": "UserVO",
-                    "mobilePhone": "Mobile",
-                    "street": "Street",
-                    "additional": "Additional",
-                    "city": "City",
-                    "zip": "Zip",
-                    "state": "State",
-                    "country": "Country"
-                }
-            }
-        ];
-
+        /*
         service.getAllCompletedService = function () {
             var data = [];
-            angular.forEach(joblist, function (item) {
-                if (item.status == codeTypes.COMPLETED) {
-                    data.push(item);
-                }
+         var bookingPromise = BookingService.getAllBookingsForCurrentVendor();
+         bookingPromise.then(function (data) {
+         angular.forEach(data, function (item) {
+         if (item.status == codeTypes.COMPLETED && item.vendorId == $rootScope.user.userId) {
+         data.push(item);
+         }
+         });
+         }, function (error) {
+         alert('No data found');
             });
             return data;
         };
+
         service.getAllAssignedService = function () {
-            var data = [];
-            angular.forEach(joblist, function (item) {
-                if (item.status == codeTypes.ASSIGNED_TO_VENDOR) {
-                    data.push(item);
-                }
+
+         var data = [];
+         var bookingPromise = BookingService.getAllBookingsForCurrentVendor();
+         bookingPromise.then(function (data) {
+         angular.forEach(data, function (item) {
+         if (item.status == codeTypes.ASSIGNED_TO_VENDOR && item.vendorId == $rootScope.user.userId) {
+         data.push(item);
+         }
+         });
+         }, function (error) {
+         alert('No data found');
             });
             return data;
         };
+         */
         service.findById = function (jobId) {
             var deferred = $q.defer();
             var job;
