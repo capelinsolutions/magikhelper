@@ -274,7 +274,7 @@ angular.module('starter.controllers', ['starter.messages'])
         }
     }])
 
-    .controller('VendorJobListCtrl', ['$scope', '$rootScope', 'codeTypes', '$location', 'VendorServices', 'LocationServices', 'BookingService', function ($scope, $rootScope, codeTypes, $location, VendorServices, LocationServices, BookingService) {
+    .controller('VendorJobListCtrl', ['$scope', '$rootScope', 'codeTypes', '$location', 'VendorServices', 'LocationServices', 'BookingService', function ($scope, $rootScope,codeTypes, $location, VendorServices, LocationServices, BookingService) {
         $scope.listAllAssignedServices = {};
         $scope.listAllCompletedServices = {};
 
@@ -325,7 +325,7 @@ angular.module('starter.controllers', ['starter.messages'])
     .controller('VendorJobDetailCtrl', function ($scope, $filter, $rootScope, $location, $stateParams, VendorServices, $cordovaGeolocation, LocationServices, codeTypes, BookingService) {
         var locObj = {};
 
-        // if ($stateParams.status == codeTypes.CREATED) {
+       // if ($stateParams.status == codeTypes.CREATED) {
             BookingService.findById($stateParams.jobId)
                 .then(function (job) {
                     $scope.job = job;

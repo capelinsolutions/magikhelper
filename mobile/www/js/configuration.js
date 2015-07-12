@@ -19,8 +19,8 @@ angular.module('starter.codeTypes', [])
         IN_PROGRESS: 'In Progress',
         COMPLETED: 'Completed',
         CANCELLED: 'Cancelled',
-        VENDOR_ROLE_ID: '3',
-        USER_ROLE_ID: '2'
+        VENDOR_ROLE_ID : '3',
+        USER_ROLE_ID : '2'
 
     });
 

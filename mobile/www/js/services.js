@@ -308,40 +308,40 @@ angular.module('starter.services', ['starter.config'])
 
     }])
 
-    .factory('VendorServices', ['$http', '$rootScope', '$q', function ($http, $rootScope, $q) {
+    .factory('VendorServices', ['$http', '$rootScope', '$q', function ($http,$rootScope, $q) {
         var service = {};
-        /*
+/*
         service.getAllCompletedService = function () {
             var data = [];
-         var bookingPromise = BookingService.getAllBookingsForCurrentVendor();
-         bookingPromise.then(function (data) {
-         angular.forEach(data, function (item) {
-         if (item.status == codeTypes.COMPLETED && item.vendorId == $rootScope.user.userId) {
-         data.push(item);
-         }
-         });
-         }, function (error) {
-         alert('No data found');
+            var bookingPromise = BookingService.getAllBookingsForCurrentVendor();
+            bookingPromise.then(function (data) {
+                angular.forEach(data, function (item) {
+                    if (item.status == codeTypes.COMPLETED && item.vendorId == $rootScope.user.userId) {
+                        data.push(item);
+                    }
+                });
+            }, function (error) {
+                alert('No data found');
             });
             return data;
         };
 
         service.getAllAssignedService = function () {
 
-         var data = [];
-         var bookingPromise = BookingService.getAllBookingsForCurrentVendor();
-         bookingPromise.then(function (data) {
-         angular.forEach(data, function (item) {
-         if (item.status == codeTypes.ASSIGNED_TO_VENDOR && item.vendorId == $rootScope.user.userId) {
-         data.push(item);
-         }
-         });
-         }, function (error) {
-         alert('No data found');
+            var data = [];
+            var bookingPromise = BookingService.getAllBookingsForCurrentVendor();
+            bookingPromise.then(function (data) {
+                angular.forEach(data, function (item) {
+                    if (item.status == codeTypes.ASSIGNED_TO_VENDOR && item.vendorId == $rootScope.user.userId) {
+                        data.push(item);
+                    }
+                });
+            }, function (error) {
+                alert('No data found');
             });
             return data;
         };
-         */
+*/
         service.findById = function (jobId) {
             var deferred = $q.defer();
             var job;
