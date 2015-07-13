@@ -1,23 +1,46 @@
-
 <ion-view>
     <ion-content class="padding">
         <div id="logo-wrapper" style="text-align: center;"><img src="img/logo.png" width="250px;"></div>
         <div class="list">
 
-        <form ng-submit="login()" ng-controller="LoginCtrl" >
-            <label class="item item-input loginForminput border_bottom_input bgWhite">
-                    <input type="text" placeholder="Email" name="username" id="username" class="form-control form_field"
+            <form novalidate="novalidate" on-valid-submit="login()" ng-controller="LoginCtrl">
+                <!--
+                <label class="validated item item-input loginForminput border_bottom_input bgWhite">
+                    <input type="email" placeholder="Email" name="username" id="username"
+                           class="form-control form_field"
                            ng-model="username" required/>
+                    <i class="icon ion-alert-circled error"></i>
                 </label>
-            <label class="item item-input loginForminput border_bottom_input bgWhite">
-
+                <label class="validated item item-input loginForminput border_bottom_input bgWhite">
                     <input type="password" placeholder="Password" name="password" id="password"
                            class="form-control form_field"
                            ng-model="password"
                            required/>
+                    <i class="icon ion-alert-circled error"></i>
                 </label>
+                -->
 
-                <button type="submit" class="form_submit button-full button-positive keyboard-attach">Log in</button>
+
+                    <label class="item item-input validated loginForminput border_bottom_input bgWhite">
+                        <input type="email" placeholder="Email" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/"  name="username" id="username"
+                               class="form-control form_field"
+                               ng-model="username" required="required"/>
+                        <i class="icon ion-alert-circled error"></i>
+                    </label>
+                    <label class="item item-input validated loginForminput border_bottom_input bgWhite">
+                        <input type="password" placeholder="Password" name="password" id="password"
+                               class="form-control form_field" ng-minlength="8" ng-maxlength="16"
+                               ng-model="password"
+                               required="required"/>
+                        <i class="icon ion-alert-circled error"></i>
+
+                    </label>
+                <label style="color:#ffffff">
+                    (Password should be between 8 to 16 characters)
+                    </label>
+
+
+                <button type="submit" class="form_submit button-full button-positive keyboard-attach">Login</button>
             </form>
         </div>
     </ion-content>
