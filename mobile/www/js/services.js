@@ -412,10 +412,75 @@ angular.module('starter.services', ['starter.config'])
         return service;
     }])
 
-    .factory('UtilityServices', ['$http', function ($http) {
+    .factory('UtilityServices', ['$http', '$q', function ($http, $q) {
         var service = {};
 
+        service.validateAddress = function (data) {
 
+            var url = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + data.address +
+                '+' + data.zipcode +
+                '&key=AIzaSyBqZSX5uLhpIMlUYHpRg0Lb0A2M7KxzXe0';
+
+            var deferred = $q.defer();
+
+            return $http.get(url)
+                .then(function (response) {
+
+                    var parsedAddress = {};
+                    var validateAddress = 0;
+
+
+                    if (response.data.results != null && response.data.results[0] != null) {
+                        var address = response.data.results[0];
+
+                        if (address.partial_match == null) {
+
+                            for (index = 0; index < address.address_components.length; index++) {
+                                for (subIndex = 0; subIndex < address.address_components[index].types.length; subIndex++) {
+
+                                    var type = address.address_components[index].types[subIndex];
+
+                                    if (type == "street_number") {
+                                        parsedAddress.street = address.address_components[index].long_name;
+                                        validateAddress++;
+                                    } else if (type == "route") {
+                                        parsedAddress.street += " " + address.address_components[index].long_name;
+                                        validateAddress++;
+                                    } else if (type == "locality") {
+                                        parsedAddress.city = address.address_components[index].long_name;
+                                        validateAddress++;
+                                    } else if (type == "administrative_area_level_1") {
+                                        parsedAddress.state = address.address_components[index].long_name;
+                                        validateAddress++;
+                                    } else if (type == "country") {
+                                        parsedAddress.country = address.address_components[index].long_name;
+                                        validateAddress++;
+                                    } else if (type == "postal_code") {
+                                        parsedAddress.zip = address.address_components[index].long_name;
+                                        validateAddress++;
+                                    }
+                                }
+                            }
+                            if (validateAddress == 6) {
+                                parsedAddress.valid = true;
+                            } else {
+                                parsedAddress.valid = false;
+                            }
+
+                        } else {
+                            parsedAddress.valid = false;
+                        }
+                    }
+
+                    return parsedAddress;
+
+                }, function (response) {
+                    return deferred.reject(response);
+                });
+
+        };
+
+        /*
         service.validateAddress = function (address) {
 
             var parsedAddress = {}
@@ -455,7 +520,7 @@ angular.module('starter.services', ['starter.config'])
 
             return parsedAddress;
         };
-
+         */
         return service;
     }])
 

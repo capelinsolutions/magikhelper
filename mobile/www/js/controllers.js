@@ -99,22 +99,30 @@ angular.module('starter.controllers', ['starter.messages'])
 
             $scope.checkAvailability = function () {
 
-                var address = UtilityServices.validateAddress($scope.availabilityData.details);
+                UtilityServices.validateAddress($scope.availabilityData)
+                    .then(function (data) {
 
-                if (address.valid) {
+                        var address = data;
+                        if (address.valid) {
 
-                    AvailableServices.getAllServices(address.zip, function (response) {
-                        if (response.length == 0) {
-                            alert("No Available Service found for that Zip Code!");
+                            AvailableServices.getAllServices(address.zip, function (response) {
+                                if (response.length == 0) {
+                                    alert("No Available Service found for that Zip Code!");
+                                } else {
+                                    BookingService.setAddress(address);
+                                    $location.path('/sidemenu/services');
+                                }
+
+                            });
                         } else {
-                            BookingService.setAddress(address);
-                            $location.path('/sidemenu/services');
+                            alert("Address is not Valid!");
                         }
 
+                    }, function (error) {
+                        alert("Error");
                     });
-                } else {
-                    alert("Address is not Complete!");
-                }
+
+
             }
         }])
 
