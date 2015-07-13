@@ -6,34 +6,42 @@
     <ion-content class="padding">
         <div class="list  formLayout">
             <div class="sectionHeading">Contact Person</div>
-            <form>
-            <div class="list ">
+            <form name="custForm.frmContact" id="custForm.frmContact"  novalidate="novalidate">
+                <div class="list ">
 
-                <div class="item item-input-inset loginForminput border_bottom_input">
-                    <label>
-                        <input type="text" placeholder="First Name" name="firstName" ng-model="contact.firstName">
+                    <div class="item item-input-inset validated loginForminput border_bottom_input">
+                        <label>
+                            <input type="text" placeholder="First Name" required="required" name="firstName"
+                                   ng-model="contact.firstName">
+                            <i class="icon ion-alert-circled error"></i>
+                        </label>
+
+                        <label>
+                            <input type="text" placeholder="Last Name" required="required" name="lastName"
+                                   ng-model="contact.lastName">
+                            <i class="icon ion-alert-circled error"></i>
+                        </label>
+                    </div>
+
+                    <label class="item item-input validated loginForminput border_bottom_input">
+                        <input type="tel" placeholder="Phone Number" required="required" name="phone"
+                               ng-model="contact.mobilePhone">
+                        <i class="icon ion-alert-circled error"></i>
                     </label>
 
-                    <label>
-                        <input type="text" placeholder="Last Name" name="lastName" ng-model="contact.lastName">
+                    <label class="item item-input validated loginForminput border_bottom_input">
+                        <input type="email" required="required" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" placeholder="Email" name="email"
+                               ng-model="contact.email">
+                        <i class="icon ion-alert-circled error"></i>
                     </label>
                 </div>
-
-                <label class="item item-input loginForminput border_bottom_input">
-                    <input type="tel" placeholder="Phone Number" name="phone" ng-model="contact.mobilePhone">
-                    </label>
-
-                    <label class="item item-input loginForminput border_bottom_input">
-                        <input type="text" placeholder="Email" name="email" ng-model="contact.email">
-                    </label>
-            </div>
-
-
             </form>
         </div>
     </ion-content>
     <div class="bar bar-footer form_submit">
-        <button class=" form_submit button-clear button-positive" style="color:#ffffff;" ng-click="setContactDetails()">Next</button>
+        <button type="submit"  form="custForm.frmContact"  class=" form_submit button-clear button-positive" style="color:#ffffff;"
+                ng-click="setContactDetails()">Next
+        </button>
     </div>
 
 </ion-view>

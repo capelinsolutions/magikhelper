@@ -70,7 +70,7 @@ angular.module('starter.controllers', ['starter.messages'])
               //      $scope.client.contact.city = $scope.client.address.city;
               //      $scope.client.contact.zip = $scope.client.address.zip;
               //      $scope.client.contact.state = $scope.client.address.state;
-               //     $scope.client.contact.country = $scope.client.address.country;
+              //     $scope.client.contact.country = $scope.client.address.country;
 
 
                     SignUpService.Save($scope.client, function (response) {
@@ -129,6 +129,8 @@ angular.module('starter.controllers', ['starter.messages'])
 
     .controller('ContactPersonCtrl', ['$scope', '$rootScope', '$location', 'BookingService', function ($scope, $rootScope, $location, BookingService) {
 
+        $scope.custForm = {};
+
         var client = BookingService.getBookingObject().client;
 
         $scope.contact = {};
@@ -139,8 +141,15 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.contact.email = client.email;
 
         $scope.setContactDetails = function () {
-            BookingService.setContactPerson($scope.contact);
-            $location.path('/sidemenu/confirmation');
+            if (!$scope.custForm.frmContact.$submitted) {
+                //$scope.custForm.frmContact.submit();
+                //$scope.custForm.frmContact.$submitted = true;
+            }
+
+            if ($scope.custForm.frmContact.$valid) {
+                BookingService.setContactPerson($scope.contact);
+                $location.path('/sidemenu/confirmation');
+            }
         }
 
 

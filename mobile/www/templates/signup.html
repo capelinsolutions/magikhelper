@@ -27,7 +27,7 @@
                 </label>
 -->
                 <label class="item item-input loginForminput border_bottom_input bgWhite validated">
-                    <input type="email" placeholder="Email" required="required"  name="email" ng-model="client.email">
+                    <input type="email" placeholder="Email" required="required" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/" name="email" ng-model="client.email">
                     <i class="icon ion-alert-circled error"></i>
                 </label>
 
