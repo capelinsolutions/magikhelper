@@ -62,15 +62,15 @@ angular.module('starter.controllers', ['starter.messages'])
 
             if (SignUpService.isPasswordSame($scope.client.password, $scope.client.confirmPassword)) {
 
-                $scope.client.address = UtilityServices.validateAddress($scope.client.address);
+              //  $scope.client.address = UtilityServices.validateAddress($scope.client.address);
 
-                if ($scope.client.address.valid) {
+              //  if ($scope.client.address.valid) {
 
-                    $scope.client.contact.street = $scope.client.address.street;
-                    $scope.client.contact.city = $scope.client.address.city;
-                    $scope.client.contact.zip = $scope.client.address.zip;
-                    $scope.client.contact.state = $scope.client.address.state;
-                    $scope.client.contact.country = $scope.client.address.country;
+              //      $scope.client.contact.street = $scope.client.address.street;
+              //      $scope.client.contact.city = $scope.client.address.city;
+              //      $scope.client.contact.zip = $scope.client.address.zip;
+              //      $scope.client.contact.state = $scope.client.address.state;
+               //     $scope.client.contact.country = $scope.client.address.country;
 
 
                     SignUpService.Save($scope.client, function (response) {
@@ -80,9 +80,9 @@ angular.module('starter.controllers', ['starter.messages'])
                             alert(response.message);
                         }
                     });
-                } else {
-                    alert("Address is not Valid !");
-                }
+               // } else {
+               //     alert("Address is not Valid !");
+               // }
 
             } else {
                 alert("Passwords don't match");
