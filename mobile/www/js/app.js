@@ -14,9 +14,6 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
             if (window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
             }
-            if (!ionic.Platform.isIOS()) {
-                $ionicConfigProvider.scrolling.jsScrolling(false);
-            }
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
                 StatusBar.styleDefault();
@@ -85,6 +82,11 @@ angular.module('starter', ['ionic', 'ngAutocomplete','starter.controllers', 'sta
         }
     }])
     .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+        if (!ionic.Platform.isIOS()) {
+            $ionicConfigProvider.scrolling.jsScrolling(false);
+        }
+
+
         $stateProvider
 
             .state('sidemenu', {
