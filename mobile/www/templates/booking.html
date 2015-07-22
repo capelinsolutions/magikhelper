@@ -10,7 +10,7 @@
 
                 <div class="list ">
                         <label class="item item-input loginForminput border_bottom_input item-icon-right">
-                            <input type="date"  placeholder="Date of Service" ng-model="bookingDetails.bookingDate">
+                            <input type="date"  placeholder="Date of Service" min="{{minimumDate}}" max="{{maximumDate}}" ng-model="bookingDetails.bookingDate">
                             <i class="icon ion-calendar" style="color:#4571DA;"></i>
                         </label>
 
@@ -37,8 +37,8 @@
             <div class="list ">
                 <label class="item item-input text nopadding">
                     <textarea class="item item-input loginForminput border_bottom_input textareaAddtional"
-                              placeholder="Tell us more about your job ..." rows="4"
-                              ng-model="bookingDetails.instructions" ng-Required="true"
+                              placeholder="Tell us more about your job ..." rows="3"
+                              ng-model="bookingDetails.instructions"
                               name="additionalInstructions"></textarea>
                 </label>
             </div>

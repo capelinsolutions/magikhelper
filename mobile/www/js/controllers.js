@@ -149,11 +149,6 @@ angular.module('starter.controllers', ['starter.messages'])
         $scope.contact.email = client.email;
 
         $scope.setContactDetails = function () {
-            if (!$scope.custForm.frmContact.$submitted) {
-                //$scope.custForm.frmContact.submit();
-                //$scope.custForm.frmContact.$submitted = true;
-            }
-
             if ($scope.custForm.frmContact.$valid) {
                 BookingService.setContactPerson($scope.contact);
                 $location.path('/sidemenu/confirmation');
@@ -218,6 +213,13 @@ angular.module('starter.controllers', ['starter.messages'])
     .controller('BookingCtrl', ['$scope', '$rootScope', '$location', 'AvailableServices', 'BookingService', function ($scope, $rootScope, $location, AvailableServices, BookingService) {
         $scope.availableServices = AvailableServices.getFetchedServices();
         $scope.bookingDetails = {};
+
+        var minDate=new Date().getDate() + 1;
+        $scope.minimumDate = minDate.toISOString();
+
+        var maxDate=minDate.getDate() + 30;
+        $scope.maximumDate = maxDate.toISOString();
+
 
         $scope.initialize = function () {
             $scope.bookingDetails.hours = "4";
